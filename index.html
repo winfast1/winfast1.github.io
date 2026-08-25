@@ -325,7 +325,7 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
     <button class="wf-tab" data-tab="comparar" onclick="showTab('comparar')">Comparar</button>
     <button class="wf-tab" data-tab="jogador" onclick="showTab('jogador')">Jogador</button>
     <button class="wf-tab" data-tab="quinteto" onclick="showTab('quinteto')">Quinteto</button>
-    <button class="wf-tab" data-tab="pickroll" onclick="showTab('pickroll')">Pick and Roll</button>
+
   </nav>
 </div>
 
@@ -3995,7 +3995,7 @@ function pnrSaveSession(){
   pnrTotals();
 }
 
-TABS.pickroll=renderPnr;
+// aba pickroll removida
 Object.assign(window,{renderPnr:renderPnr,pnrEdit:pnrEdit,pnrAddRow:pnrAddRow,pnrRemove:pnrRemove,pnrSaveSession:pnrSaveSession});
 
 </script>
