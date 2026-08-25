@@ -2192,7 +2192,7 @@ function backToSelector(){
 function initDashboard(){
   if(!GM.length){console.warn('initDashboard: GM vazio');return;}
   var appEl=document.getElementById('app-container');
-  if(appEl)appEl.style.display='';
+  if(appEl)appEl.style.display='block';
   var gsEl=document.getElementById('game-selector');
   if(gsEl)gsEl.style.display='none';
   initWFDashboard();
