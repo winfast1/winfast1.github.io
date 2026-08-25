@@ -239,6 +239,25 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
   .wf-aside{width:100% !important;border-right:none !important;}
   .wf-kpi-grid{grid-template-columns:repeat(2,1fr) !important;}
 }
+
+/* ── SELETOR DE JOGOS — TEMA CLARO ── */
+#game-selector{
+  --bg:#EBE9E2; --sf:#FDFCFA; --sf2:#F4F2EB; --bd:#E3E0D6;
+  --usp:#C9551E; --tx:#1B2A4C; --mu:#7D7B70; --mu2:#A5A29A;
+  --gr:#1E7A34; --rd:#B23A2E; --bl:#2563EB;
+}
+#game-selector .gs-topbar{
+  background:#14213A; border-bottom-color:#E0703A;
+  --tx:#C7D0DE; --mu:#8A99B0; --mu2:#6B7D9A; --bd:rgba(255,255,255,.2); --usp:#E0703A;
+}
+#game-selector .gs-filterbar{border-bottom-color:#E3E0D6;}
+#game-selector .gs-topbar .gs-action-btn{border-color:rgba(255,255,255,.25);color:#C7D0DE;}
+#game-selector .gs-topbar .gs-action-btn:hover{border-color:#E0703A;color:#E0703A;}
+#game-selector #gs-count{color:#C7D0DE;}
+#gs-gen-btn{color:#fff !important;}
+#game-selector .gs-card{box-shadow:0 1px 3px rgba(20,33,58,.06);}
+#game-selector .gs-section-title{color:#1B2A4C;}
+#game-selector .gs-search-input::placeholder{color:#A5A29A;}
 </style>
 </head>
 <body>
@@ -488,7 +507,7 @@ var _gsCompColorMap={};
 var GS_MONTHS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 var GS_MONTHS_FULL=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 var GS_DOW=['D','S','T','Q','Q','S','S'];
-var GS_PALETTE=['#f5c518','#3b82f6','#a855f7','#f97316','#14b8a6','#ec4899','#84cc16','#fb923c'];
+var GS_PALETTE=['#C9551E','#2563EB','#7C3AED','#0D9488','#DB2777','#65A30D','#C2410C','#9333EA'];
 
 function gsCompColor(name){
   if(!_gsCompColorMap[name]){var idx=Object.keys(_gsCompColorMap).length%GS_PALETTE.length;_gsCompColorMap[name]=GS_PALETTE[idx];}
