@@ -757,7 +757,7 @@ function init(){
   initComparison();
   initPlayer();
 }
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(init);});});}else{requestAnimationFrame(function(){requestAnimationFrame(init);});}
+/* init() antigo desativado — novo layout usa initWFDashboard() */
 window.addEventListener('resize',function(){drawTL();renderTC();renderPL();});
 
 var plrG=0,plrT='all',plrR='all';
@@ -3336,7 +3336,7 @@ function showTab(id){
   if(aside) aside.style.display = (id==='jogos')?'block':'none';
   TABS[id]();
 }
-window.addEventListener('DOMContentLoaded', function(){ renderAside(); showTab('jogos'); });
+// DOMContentLoaded removido — initWFDashboard() cuida da inicialização
 
 Object.assign(window,{showTab:showTab, paintCmp:paintCmp, setSCG:setSCG,setSCQ:setSCQ,setSCT:setSCT,setSCR:setSCR,
   renderTemporada:renderTemporada, renderLongitudinal:renderLongitudinal, renderShotchart:renderShotchart,
