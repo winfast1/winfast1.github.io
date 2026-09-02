@@ -852,17 +852,17 @@ function renderOffDef(name,t,gids){
     ctx.beginPath();qAvgs.forEach(function(v,i){i===0?ctx.moveTo(xpos[i],yFor(v)):ctx.lineTo(xpos[i],yFor(v));});ctx.stroke();
     ctx.setLineDash([]);
     qAvgs.forEach(function(v,i){
-      ctx.fillStyle='#93c5fd';ctx.beginPath();ctx.arc(xpos[i],yFor(v),4,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='#93c5fd';ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='center';
+      ctx.fillStyle='#1d4ed8';ctx.beginPath();ctx.arc(xpos[i],yFor(v),4,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#1d4ed8';ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='center';
       var yLbl=yFor(v)+14;if(yLbl>cv.height-pd.b-4)yLbl=yFor(v)-7;
       ctx.fillText(v.toFixed(1),xpos[i],yLbl);
     });
     ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='left';
     ctx.fillStyle='#f5c518';ctx.beginPath();ctx.arc(pd.l+6,pd.t-18,4,0,Math.PI*2);ctx.fill();
     ctx.fillStyle=cvar('--tx');ctx.fillText('Total ('+numGames+' jogo'+(numGames>1?'s':')'),pd.l+14,pd.t-14);
-    ctx.strokeStyle='#93c5fd';ctx.lineWidth=2;ctx.setLineDash([4,3]);
+    ctx.strokeStyle='#1d4ed8';ctx.lineWidth=2;ctx.setLineDash([4,3]);
     ctx.beginPath();ctx.moveTo(pd.l+120,pd.t-18);ctx.lineTo(pd.l+133,pd.t-18);ctx.stroke();
-    ctx.setLineDash([]);ctx.fillStyle='#93c5fd';ctx.beginPath();ctx.arc(pd.l+126,pd.t-18,3,0,Math.PI*2);ctx.fill();
+    ctx.setLineDash([]);ctx.fillStyle='#1d4ed8';ctx.beginPath();ctx.arc(pd.l+126,pd.t-18,3,0,Math.PI*2);ctx.fill();
     ctx.fillStyle=cvar('--tx');ctx.fillText('Média/jogo',pd.l+137,pd.t-14);
     cv._xpos=xpos;cv._qPts=qTotals;cv._qAvg=qAvgs;cv._ng=numGames;
     cv.onmousemove=function(e){
@@ -873,7 +873,7 @@ function renderOffDef(name,t,gids){
       if(near>=0){
         tt.innerHTML=['1Q','2Q','3Q','4Q'][near]
           +'<br>Total: <strong style="color:#f5c518">'+cv._qPts[near]+'pts</strong>'
-          +'<br>Média/jogo: <strong style="color:#93c5fd">'+cv._qAvg[near].toFixed(1)+'pts</strong>';
+          +'<br>Média/jogo: <strong style="color:#1d4ed8">'+cv._qAvg[near].toFixed(1)+'pts</strong>';
         tt.style.opacity='1';tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY-36)+'px';
       } else{tt.style.opacity='0';}
     };
@@ -1851,7 +1851,7 @@ function drawQtrChart() {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f5c518';
     if (hU > 10) ctx.fillText(uspQtr[qi], xU + barW / 2, PAD.top + cH - hU - 4);
-    ctx.fillStyle = '#93c5fd';
+    ctx.fillStyle = '#1d4ed8';
     if (hA > 10) ctx.fillText(advQtr[qi], xA + barW / 2, PAD.top + cH - hA - 4);
 
     // Label do quarto
