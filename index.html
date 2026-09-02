@@ -2824,7 +2824,7 @@ function renderJogos(){
   // KPI grid
   html+='<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;" class="wf-kpi-grid">'
     +kpi('Pontos', g.pts, fmt(g.ortg/100,2)+' pts/posse', C.navy)
-    +kpi('Adversário', g.advPts, g.adv, '#A9713F')
+    +kpi('Adversário', g.advPts, g.adv, '#D9A310')
     +kpi('FG', g.fgm+'/'+g.fga, fmt(g.fgpct)+'%')
     +kpi('Assistências', g.us.AST)
     +kpi('Roubadas', g.us.STL)
@@ -2843,7 +2843,7 @@ function renderJogos(){
     var qplotW=QW-qpadL-qpadR, qplotH=QH-qpadT-qpadB;
     var rawMax=Math.max.apply(null,qs.map(function(q){return Math.max(q.usp,q.adv);}));
     var niceMax=Math.max(5,Math.ceil(rawMax/5)*5);
-    var advBlue='#A9713F';
+    var advBlue='#D9A310';
     function roundTopRect(x,y,w,h,r,color,tip,delay){
       if(h<=0) return '';
       r=Math.min(r,w/2,h);
@@ -2891,7 +2891,7 @@ function renderJogos(){
   // score evolution timeline (within the game) — toggleable + interactive hover
   if(tl){
     var TW=760,TH=280,tp=44;
-    var uspCol='#2E5B41', advCol='#A9713F', cmpCol='#8A6BA8';
+    var uspCol='#2E5B41', advCol='#D9A310', cmpCol='#8A6BA8';
     if(SEL.evoTeam!=='usp'&&SEL.evoTeam!=='adv') SEL.evoTeam='usp';
     var evoTeam=SEL.evoTeam;
     var cmpG=(SEL.evoCmpG&&SEL.evoCmpG!==g.id)?gById(SEL.evoCmpG):null;
@@ -3094,7 +3094,7 @@ function renderJogos(){
 
 /* ---------- Corridas de pontuação — painel de KPIs + lista ---------- */
 function renderRunsPanel(g, allRuns, onlyTeam, onlyLbl){
-  var uspCol='#2E5B41', advCol='#A9713F';
+  var uspCol='#2E5B41', advCol='#D9A310';
   var uspRuns=allRuns.filter(function(r){return r.team==='usp';});
   var advRuns=allRuns.filter(function(r){return r.team==='adv';});
   var maxUsp=uspRuns.length?Math.max.apply(null,uspRuns.map(function(r){return r.pts;})):0;
@@ -3295,7 +3295,7 @@ function renderLongitudinal(){
   if(!SEL.lgMetric)SEL.lgMetric='pts';
   var m=LG_METRICS[SEL.lgMetric];
   var gs=GAMES.slice().sort(function(a,b){return a.id-b.id;});
-  var MU=C.navy, ADV='#A9713F';
+  var MU=C.navy, ADV='#D9A310';
   var W=760,H=330,padL=52,padR=30,padT=34,padB=58;
   var plotW=W-padL-padR, plotH=H-padT-padB;
   var valsA=gs.map(function(g){return m.f(g);});
