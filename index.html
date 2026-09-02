@@ -368,7 +368,7 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 
 // Dados vazios — populados por processGames() após login
 var SHOTS=[];var TL={};var LD={};var TLG=[];var PLS=[];
-var GS={};var GM=[];var PLRQPT={};var QUINT_DATA={};
+var GS={};var GM=[];var PLRQPT={};var QUINT_DATA={};var MY_TEAM='';
 var curG=null,tlMX=null,tcMX=null,scG=0,scQ='all',scT='all',scP='all',scR='all';
 var MY_TEAM='';
 var tmMetric='pts';
@@ -2075,7 +2075,7 @@ function processGames(rawRows){
   if(!rawGames.length){initDashboard();return;}
 
   // Detectar time do usuário (o que aparece em TODOS os jogos)
-  var myTeam=detectMyTeam(rawGames);
+  var myTeam=detectMyTeam(rawGames); MY_TEAM=myTeam;
 
   var qIdx={'1Q':0,'2Q':1,'3Q':2,'4Q':3};
   var gid=1;
@@ -2136,7 +2136,7 @@ function processGames(rawRows){
       var pname=stripPfx(p.name);plsSet[pname]=true;
       (p.shots||[]).forEach(function(sh){
         var zone=sh.zone||(sh.three?'3pts':'2pts');
-        SHOTS.push({jogo_id:gidN,adv:advName,Atleta:pname,Time:uspTeamName,
+        SHOTS.push({jogo_id:gidN,adv:advName,Atleta:pname,Time:uspTeamName.trim(),
           Quarto:sh.q,Tempo:sh.time||'',
           X_pct:Math.round((sh.x||0)*100)/100,Y_pct:Math.round((sh.y||0)*100)/100,
           Convertido:sh.made?'Sim':'Não',Tipo:zone,Subtipo:zone,
@@ -3005,9 +3005,9 @@ function renderJogos(){
     +'<div style="display:flex;gap:12px;"><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.good+';"></span>Converteu</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.bad+';"></span>Errou</span></div></div>'
     +courtSVG('jg-hm','jg-dots');
   // zone legend
-  var shots=SHOTS.filter(function(s){return s.Time==='Med Usp'&&s.jogo_id===g.id;});
+  var shots=SHOTS.filter(function(s){return s.Time===MY_TEAM&&s.jogo_id===g.id;});
   var z=zoneStats(shots);
-  html+=zoneLegend(shots,3)
+  html+=shots.length?zoneLegend(shots,3):'<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:'+C.mut+';">Arremessos não registrados para este jogo</div>'
     +'</div></div>';
 
   // shot type bars
@@ -3574,7 +3574,7 @@ function paintPlayer(){
     +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Mapa de arremessos</div>'+courtSVG('plr-hm','plr-dots')+'</div>'
     +'</div>';
   document.getElementById('plr-detail').innerHTML=html;
-  var shots=SHOTS.filter(function(s){return s.Time==='Med Usp'&&s.Atleta===p.n;});
+  var shots=SHOTS.filter(function(s){return s.Time===MY_TEAM&&s.Atleta===p.n;});
   renderHeatmap(shots,'plr-hm'); paintDots(shots,'plr-dots');
 
   // advanced metrics + per-game +/-
@@ -3733,7 +3733,7 @@ window.paintPlayer=function(){
   var fga=p.FG2A+p.FG3A, fgm=p.FG2M+p.FG3M;
   var card=function(lbl,val,sub,col){return '<div class="wf-card" style="padding:14px 16px;"><div class="wf-stat-label">'+lbl+'</div><div class="wf-stat-value"'+(col?' style="color:'+col+';"':'')+'>'+val+'</div>'+(sub?'<div style="font-size:11px;color:'+C.mut+';margin-top:2px;">'+sub+'</div>':'')+'</div>';};
   var shots=SHOTS.filter(function(s){
-    if(s.Time!=='Med Usp'||s.Atleta!==p.n)return false;
+    if(s.Time!==MY_TEAM||s.Atleta!==p.n)return false;
     if(SEL.plrG!==0&&s.jogo_id!==SEL.plrG)return false;
     if(SEL.plrR!=='all'&&s.Convertido!==SEL.plrR)return false;
     return true;
