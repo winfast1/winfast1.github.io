@@ -3048,8 +3048,8 @@ function renderJogos(){
 
   // full box score (both teams)
   function boxTable(title, rows){
-    return '<div class="wf-card" style="margin-top:16px;overflow-x:auto;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">'+title+'</div>'
-    +'<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:640px;">'
+    return '<div style="font-size:14px;font-weight:600;margin-bottom:12px;">'+title+'</div>'
+    +'<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:600px;">'
     +'<thead><tr style="color:'+C.mut+';text-transform:uppercase;font-size:10px;letter-spacing:.04em;">'
     +['Atleta','MIN','PTS','REB','AST','TO','STL','FG','3P','LL','+/-','PIR'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DDE3D6;">'+h+'</th>';}).join('')
     +'</tr></thead><tbody>'
@@ -3074,8 +3074,8 @@ function renderJogos(){
     +'<button class="wf-chip" id="box-usp-btn" onclick="toggleSection(\'box-usp-wrap\',\'box-usp-btn\',\'Ver box score — Med Usp\',\'Ocultar box score — Med Usp\')">Ver box score — Med Usp</button>'
     +(advRows.length?'<button class="wf-chip" id="box-adv-btn" onclick="toggleSection(\'box-adv-wrap\',\'box-adv-btn\',\'Ver box score — '+g.adv+'\',\'Ocultar box score — '+g.adv+'\')">Ver box score — '+g.adv+'</button>':'')
     +'</div>'
-    +'<div id="box-usp-wrap" style="display:none;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
-    +(advRows.length?'<div id="box-adv-wrap" style="display:none;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'');
+    +'<div class="wf-card" id="box-usp-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
+    +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'');
 
   // footer CTA
   html+='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;margin-top:16px;padding:14px 18px;background:#ffffff;border:1px solid #DDE3D6;border-radius:10px;">'
