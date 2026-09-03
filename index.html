@@ -2245,10 +2245,7 @@ async function loadUserGames(session){
 
 async function checkSession(){
   var sb=getSB();
-  var {data}=await sb.auth.getSession();
-  if(data&&data.session){
-    await loadUserGames(data.session);
-  }
+  await sb.auth.signOut();
 }
 
 document.addEventListener('DOMContentLoaded',function(){
