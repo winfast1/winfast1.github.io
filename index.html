@@ -3280,13 +3280,13 @@ function renderTemporada(){
 /* ============================ ABA: LONGITUDINAL ============================ */
 var LG_METRICS={
   pts:{label:'Pontos', dual:true, f:function(g){return g.pts;}, g2:function(g){return g.advPts;}},
-  fgpct:{label:'FG%', f:function(g){return g.fgpct;}, suf:'%'},
-  fg3pct:{label:'3P%', f:function(g){return g.fg3pct;}, suf:'%'},
-  ftpct:{label:'LL%', f:function(g){return g.ftpct;}, suf:'%'},
-  reb:{label:'Rebotes', f:function(g){return g.us.REB;}},
-  ast:{label:'Assist.', f:function(g){return g.us.AST;}},
-  to:{label:'Turnovers', f:function(g){return g.us.TO;}, lowerGood:true},
-  stl:{label:'Roubadas', f:function(g){return g.us.STL;}},
+  fgpct:{label:'FG%', dual:true, f:function(g){return g.fgpct;}, g2:function(g){var a=g.ad.FG2A+g.ad.FG3A;return a>0?(g.ad.FG2M+g.ad.FG3M)/a*100:0;}, suf:'%'},
+  fg3pct:{label:'3P%', dual:true, f:function(g){return g.fg3pct;}, g2:function(g){return g.ad.FG3A>0?g.ad.FG3M/g.ad.FG3A*100:0;}, suf:'%'},
+  ftpct:{label:'LL%', dual:true, f:function(g){return g.ftpct;}, g2:function(g){return g.ad.FTA>0?g.ad.FTM/g.ad.FTA*100:0;}, suf:'%'},
+  reb:{label:'Rebotes', dual:true, f:function(g){return g.us.REB;}, g2:function(g){return g.ad.REB;}},
+  ast:{label:'Assist.', dual:true, f:function(g){return g.us.AST;}, g2:function(g){return g.ad.AST;}},
+  to:{label:'Turnovers', dual:true, f:function(g){return g.us.TO;}, g2:function(g){return g.ad.TO;}, lowerGood:true},
+  stl:{label:'Roubadas', dual:true, f:function(g){return g.us.STL;}, g2:function(g){return g.ad.STL;}},
   ortg:{label:'ORTG', f:function(g){return g.ortg;}},
   drtg:{label:'DRTG', f:function(g){return g.drtg;}, lowerGood:true},
   net:{label:'Net RTG', f:function(g){return g.net;}}
