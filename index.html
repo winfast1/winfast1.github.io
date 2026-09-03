@@ -3010,8 +3010,8 @@ function renderJogos(){
   // zone legend
   var shots=SHOTS.filter(function(s){return s.Time===MY_TEAM&&s.jogo_id===g.id;});
   var z=zoneStats(shots);
-  html+=shots.length?zoneLegend(shots,3):'<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:'+C.mut+';">Arremessos não registrados para este jogo</div>'
-    +'</div></div>';
+  html+=(shots.length?zoneLegend(shots,3):'<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:'+C.mut+';">Arremessos não registrados para este jogo</div>')
+    +'</div>';
 
   // shot type bars
   html+='<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Aproveitamento por tipo de arremesso</div>'
@@ -3072,8 +3072,10 @@ function renderJogos(){
       +'</tr>';}).join('')
     +'</tbody></table></div>';
   }
-  html+='<div class="wf-card" id="box-usp-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
-    +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'');
+  html+='<div id="box-scores-grid" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">'
+    +'<div class="wf-card" id="box-usp-wrap" style="display:none;flex:1;min-width:280px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
+    +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;flex:1;min-width:280px;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'')
+    +'</div>';
 
   // footer CTA
   html+='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;margin-top:16px;padding:14px 18px;background:#ffffff;border:1px solid #DDE3D6;border-radius:10px;">'
