@@ -2834,9 +2834,12 @@ function renderJogos(){
   // quarter scoreline + score evolution toggle buttons (side by side)
   var qs=getQtrScores(g.id);
   var tl=TL[String(g.id)];
+  var advRows=boxRowsAdv(g.id);
   html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">'
     +'<button class="wf-chip" id="qtr-btn" onclick="toggleSection(\'qtr-wrap\',\'qtr-btn\',\'Ver placar por quarto\',\'Ocultar placar por quarto\')">Ver placar por quarto</button>'
     +'<button class="wf-chip" id="evo-btn" onclick="toggleSection(\'evo-wrap\',\'evo-btn\',\'Ver evolução do placar\',\'Ocultar evolução do placar\')">Ver evolução do placar</button>'
+    +'<button class="wf-chip" id="box-usp-btn" onclick="toggleSection(\'box-usp-wrap\',\'box-usp-btn\',\'Ver box score — Med Usp\',\'Ocultar box score — Med Usp\')">Ver box score — Med Usp</button>'
+    +(advRows.length?'<button class="wf-chip" id="box-adv-btn" onclick="toggleSection(\'box-adv-wrap\',\'box-adv-btn\',\'Ver box score — '+g.adv+'\',\'Ocultar box score — '+g.adv+'\')">Ver box score — '+g.adv+'</button>':'')
     +'</div>';
   if(qs){
     var QW=760,QH=280,qpadL=42,qpadR=14,qpadT=36,qpadB=54;
@@ -3069,12 +3072,7 @@ function renderJogos(){
       +'</tr>';}).join('')
     +'</tbody></table></div>';
   }
-  var advRows=boxRowsAdv(g.id);
-  html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">'
-    +'<button class="wf-chip" id="box-usp-btn" onclick="toggleSection(\'box-usp-wrap\',\'box-usp-btn\',\'Ver box score — Med Usp\',\'Ocultar box score — Med Usp\')">Ver box score — Med Usp</button>'
-    +(advRows.length?'<button class="wf-chip" id="box-adv-btn" onclick="toggleSection(\'box-adv-wrap\',\'box-adv-btn\',\'Ver box score — '+g.adv+'\',\'Ocultar box score — '+g.adv+'\')">Ver box score — '+g.adv+'</button>':'')
-    +'</div>'
-    +'<div class="wf-card" id="box-usp-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
+  html+='<div class="wf-card" id="box-usp-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
     +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;margin-top:12px;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'');
 
   // footer CTA
