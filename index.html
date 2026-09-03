@@ -291,6 +291,7 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
       <button class="gs-action-btn" onclick="selectAllGames()">Todos</button>
       <button class="gs-action-btn" onclick="clearAllGames()">Nenhum</button>
       <span id="gs-count">0 selecionados</span>
+      <button class="gs-action-btn" onclick="gsLogout()" style="border-color:rgba(239,68,68,.45);color:#ef4444;margin-left:6px;">Sair</button>
     </div>
   </div>
   <div class="gs-filterbar">
@@ -2246,6 +2247,12 @@ async function loadUserGames(session){
 async function checkSession(){
   var sb=getSB();
   await sb.auth.signOut();
+}
+
+async function gsLogout(){
+  var sb=getSB();
+  await sb.auth.signOut();
+  location.reload();
 }
 
 document.addEventListener('DOMContentLoaded',function(){
