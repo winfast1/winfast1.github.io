@@ -2799,7 +2799,7 @@ function paintZoneText(shots,ztId,zoneRef){
 function zoneRefFor(){
   if(SEL.scP!=='all'){
     var ts=SHOTS.filter(function(s){
-      if(s.Time!=='Med Usp')return false;
+      if(s.Time!==MY_TEAM)return false;
       if(SEL.scG!==0&&s.jogo_id!==SEL.scG)return false;
       if(SEL.scQ!=='all'&&s.Quarto!==SEL.scQ)return false;
       if(SEL.scT!=='all'&&s.Tipo!==SEL.scT)return false;
@@ -3587,7 +3587,7 @@ function renderLongitudinal(){
 /* ============================ ABA: SHOT CHART ============================ */
 function scShots(){
   return SHOTS.filter(function(s){
-    if(s.Time!=='Med Usp')return false;
+    if(s.Time!==MY_TEAM)return false;
     if(SEL.scG!==0&&s.jogo_id!==SEL.scG)return false;
     if(SEL.scQ!=='all'&&s.Quarto!==SEL.scQ)return false;
     if(SEL.scT!=='all'&&s.Tipo!==SEL.scT)return false;
