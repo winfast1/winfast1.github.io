@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -328,7 +328,7 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 <div class="wf-hdr">
   <div class="wf-hdr-top">
     <div class="wf-mark" onclick="backToSelector()" title="Voltar para seleção de jogos" style="cursor:pointer;">
-      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#D9A310"/><path d="M12 0.5v23M0.5 12h23M4.5 4.9c3 2.8 4.6 4.3 7.5 7.1 2.9 2.8 4.5 4.3 7.5 7.1M19.5 4.9c-3 2.8-4.6 4.3-7.5 7.1-2.9 2.8-4.5 4.3-7.5 7.1" fill="none" stroke="rgba(22,40,29,0.45)" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#DE2027"/><path d="M12 0.5v23M0.5 12h23M4.5 4.9c3 2.8 4.6 4.3 7.5 7.1 2.9 2.8 4.5 4.3 7.5 7.1M19.5 4.9c-3 2.8-4.6 4.3-7.5 7.1-2.9 2.8-4.5 4.3-7.5 7.1" fill="none" stroke="rgba(22,40,29,0.45)" stroke-width="1.3" stroke-linecap="round"/></svg>
       <div>
         <div class="wf-logo">WIN<em>FAST</em></div>
         <div class="wf-logo-sub" id="wf-team-sub">Painel de Jogo</div>
@@ -352,7 +352,7 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 </div>
 
 <div style="display:flex;" class="wf-body">
-  <aside id="wf-aside" style="width:190px;flex-shrink:0;border-right:1px solid #DDE3D6;background:#F9FBF7;padding:16px 12px;" class="wf-aside">
+  <aside id="wf-aside" style="width:190px;flex-shrink:0;border-right:1px solid #DADAD9;background:#FDFDFC;padding:16px 12px;" class="wf-aside">
     <div style="font-size:10.5px;color:#7D7B70;letter-spacing:.09em;text-transform:uppercase;font-weight:600;margin-bottom:10px;padding:0 4px;">Jogos</div>
     <div id="wf-aside-list"></div>
   </aside>
@@ -2368,9 +2368,9 @@ function initWFDashboard(){
 
 /* ============================ THEME COLORS ============================ */
 var C = {
-  navy:'#2E5B41', gold:'#D9A310', ink:'#2E5B41', mut:'#767E73', mut2:'#98A195',
-  good:'#2C7A48', warn:'#A87A12', bad:'#B04A34',
-  hmMade:'#3E9159', hmMiss:'#C4553B'
+  navy:'#121214', gold:'#DE2027', ink:'#121214', mut:'#6E6E70', mut2:'#9D9D9C',
+  good:'#166B39', warn:'#5C5C5E', bad:'#A5171C',
+  hmMade:'#166B39', hmMiss:'#A5171C'
 };
 
 /* ============================ HELPERS ============================ */
@@ -2405,7 +2405,7 @@ function wfChartBg(o){
   if(o.n>1){
     for(var i=1;i<o.n;i+=2){
       var xa=(o.X(i-1)+o.X(i))/2, xb=(i+1<o.n)?(o.X(i)+o.X(i+1))/2:o.x1;
-      out+='<rect x="'+xa+'" y="'+o.yTop+'" width="'+Math.max(0,xb-xa)+'" height="'+(o.yBot-o.yTop)+'" fill="#2E5B41" fill-opacity="0.022"/>';
+      out+='<rect x="'+xa+'" y="'+o.yTop+'" width="'+Math.max(0,xb-xa)+'" height="'+(o.yBot-o.yTop)+'" fill="#121214" fill-opacity="0.022"/>';
     }
   }
   if(o.sd>0&&o.n>=5&&o.showBand!==false){
@@ -2514,8 +2514,8 @@ function badge(kind,txt){ return '<span class="wf-badge wf-badge-'+kind+'">'+txt
 function fmt(v,d){ if(v==null||isNaN(v))return '—'; return (+v).toFixed(d==null?1:d).replace('.',','); }
 function pctBar(label, right, pct, color){
   return '<div style="margin-bottom:12px;">'
-    +'<div style="display:flex;justify-content:space-between;font-size:12px;color:'+C.mut+';margin-bottom:5px;"><span>'+label+'</span><span style="color:#3A423A;">'+right+'</span></div>'
-    +'<div style="height:7px;background:#E4E8DE;border-radius:3px;overflow:hidden;"><div class="wf-bar-fill" style="width:'+Math.max(0,Math.min(100,pct))+'%;height:100%;border-radius:3px;background:linear-gradient(90deg,'+(color||C.navy)+','+(color||C.navy)+'cc);"></div></div></div>';
+    +'<div style="display:flex;justify-content:space-between;font-size:12px;color:'+C.mut+';margin-bottom:5px;"><span>'+label+'</span><span style="color:#26262A;">'+right+'</span></div>'
+    +'<div style="height:7px;background:#E4E4E3;border-radius:3px;overflow:hidden;"><div class="wf-bar-fill" style="width:'+Math.max(0,Math.min(100,pct))+'%;height:100%;border-radius:3px;background:linear-gradient(90deg,'+(color||C.navy)+','+(color||C.navy)+'cc);"></div></div></div>';
 }
 
 /* ============================ SHOT CHART / HEATMAP ============================ */
@@ -2897,10 +2897,10 @@ function paintDivZones(shots,cardId,zoneRef){
       +' style="margin-bottom:7px;padding:4px 6px;margin-left:-6px;margin-right:-6px;border-radius:6px;'+(dim?'opacity:.4;':'')+'cursor:default;">'
       +'<div style="display:flex;align-items:center;font-size:11px;margin-bottom:3px;">'
       +'<span style="color:#6C7369;font-size:10px;flex:1;">'+zone+'</span>'
-      +'<span style="color:#3A423A;font-weight:600;min-width:34px;text-align:center;">'+pct+'%</span>'
+      +'<span style="color:#26262A;font-weight:600;min-width:34px;text-align:center;">'+pct+'%</span>'
       +'<span style="font-size:10px;font-weight:700;color:'+devCol+';min-width:32px;text-align:right;">'+(dev>0?'+':'')+dev+'%</span>'
       +'</div>'
-      +'<div style="position:relative;height:6px;background:#E4E8DE;border-radius:3px;overflow:hidden;">'
+      +'<div style="position:relative;height:6px;background:#E4E4E3;border-radius:3px;overflow:hidden;">'
       +'<div style="position:absolute;left:50%;top:0;width:1px;height:100%;background:#B8C4B5;"></div>'
       +(dev>=0
         ?'<div style="position:absolute;left:50%;width:'+bw+'%;height:100%;background:'+col+';border-radius:0 3px 3px 0;opacity:.85;"></div>'
@@ -3005,7 +3005,7 @@ function renderAside(){
   el.innerHTML=GAMES.map(function(g){
     var sel=g.id===SEL.game;
     return '<div class="wf-game-row'+(sel?' sel':'')+'" onclick="selectGame('+g.id+')">'
-      +'<div style="font-size:12px;color:#3A423A;">J'+g.id+' · '+g.adv+'</div>'
+      +'<div style="font-size:12px;color:#26262A;">J'+g.id+' · '+g.adv+'</div>'
       +'<div style="font-size:11px;color:'+C.mut+';margin:2px 0 6px;">'+g.date+' · '+g.local+'</div>'
       +'<div style="display:flex;align-items:center;gap:5px;">'
       +'<span style="font-size:14px;font-weight:600;color:'+(g.win?C.good:C.bad)+';">'+g.pts+'</span>'
@@ -3040,7 +3040,7 @@ function renderJogos(){
   // KPI grid
   html+='<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;" class="wf-kpi-grid">'
     +kpi('Pontos', g.pts, fmt(g.ortg/100,2)+' pts/posse', C.navy)
-    +kpi('Adversário', g.advPts, g.adv, '#D9A310')
+    +kpi('Adversário', g.advPts, g.adv, '#DE2027')
     +kpi('FG', g.fgm+'/'+g.fga, fmt(g.fgpct)+'%')
     +kpi('Assistências', g.us.AST)
     +kpi('Roubadas', g.us.STL)
@@ -3062,7 +3062,7 @@ function renderJogos(){
     var qplotW=QW-qpadL-qpadR, qplotH=QH-qpadT-qpadB;
     var rawMax=Math.max.apply(null,qs.map(function(q){return Math.max(q.usp,q.adv);}));
     var niceMax=Math.max(5,Math.ceil(rawMax/5)*5);
-    var advBlue='#D9A310';
+    var advBlue='#DE2027';
     function roundTopRect(x,y,w,h,r,color,tip,delay){
       if(h<=0) return '';
       r=Math.min(r,w/2,h);
@@ -3071,7 +3071,7 @@ function renderJogos(){
     var qGrid='';
     for(var lv=0; lv<=niceMax; lv+=5){
       var yy=qpadT+qplotH-(lv/niceMax)*qplotH;
-      qGrid+='<line x1="'+qpadL+'" y1="'+yy+'" x2="'+(QW-qpadR)+'" y2="'+yy+'" stroke="'+(lv===0?'#CDD6C6':'#DDE3D6')+'" stroke-width="1"'+(lv===0?'':' stroke-dasharray="3 5"')+'/>'
+      qGrid+='<line x1="'+qpadL+'" y1="'+yy+'" x2="'+(QW-qpadR)+'" y2="'+yy+'" stroke="'+(lv===0?'#C6C6C5':'#DADAD9')+'" stroke-width="1"'+(lv===0?'':' stroke-dasharray="3 5"')+'/>'
         +'<text x="'+(qpadL-10)+'" y="'+(yy+4)+'" text-anchor="end" font-size="11" fill="'+C.mut+'">'+lv+'</text>';
     }
     var groupW=qplotW/4, barW=groupW*0.34, bgap=groupW*0.08;
@@ -3089,8 +3089,8 @@ function renderJogos(){
       var ux=gx+offX, ax=ux+barW+bgap;
       var uH=(q.usp/niceMax)*qplotH, aH=(q.adv/niceMax)*qplotH;
       var uY=qpadT+qplotH-uH, aY=qpadT+qplotH-aH;
-      qBars+=roundTopRect(ux,uY,barW,uH,5,'#2E5B41','Med Usp · '+(i+1)+'Q · '+q.usp+' pts',i*90)
-        +'<text x="'+(ux+barW/2)+'" y="'+(uY-9)+'" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2E5B41">'+q.usp+'</text>'
+      qBars+=roundTopRect(ux,uY,barW,uH,5,'#121214','Med Usp · '+(i+1)+'Q · '+q.usp+' pts',i*90)
+        +'<text x="'+(ux+barW/2)+'" y="'+(uY-9)+'" text-anchor="middle" font-size="12.5" font-weight="700" fill="#121214">'+q.usp+'</text>'
         +roundTopRect(ax,aY,barW,aH,5,advBlue,g.adv+' · '+(i+1)+'Q · '+q.adv+' pts',i*90+45)
         +'<text x="'+(ax+barW/2)+'" y="'+(aY-9)+'" text-anchor="middle" font-size="12.5" font-weight="700" fill="'+advBlue+'">'+q.adv+'</text>';
       var gcx=gx+groupW/2, uspWon=q.usp>=q.adv;
@@ -3102,7 +3102,7 @@ function renderJogos(){
       +qAvgPts.map(function(p,i){return '<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="#1d4ed8" opacity="0.85"/><text x="'+p.x+'" y="'+(p.y-9)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8" stroke="#fff" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">'+fmt(qAvg[i],1)+'</text>';}).join('');
     html+='<div class="wf-card" id="qtr-wrap" style="display:none;margin-bottom:16px;">'
       +'<div style="font-size:14px;font-weight:600;margin-bottom:4px;">Pontuação por quarto</div>'
-      +'<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;"><span class="wf-zonelegend"><span class="wf-dot" style="background:#2E5B41;border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advBlue+';border-radius:50%;"></span>'+g.adv+'</span><span class="wf-zonelegend"><svg width="18" height="9"><line x1="1" y1="4.5" x2="17" y2="4.5" stroke="#1d4ed8" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/></svg>Média da temporada por quarto</span><span style="display:flex;gap:14px;">'+qAvg.map(function(v,i){return '<span style="display:inline-flex;align-items:baseline;gap:4px;"><span style="color:'+C.mut+';font-weight:700;">Q'+(i+1)+'</span><span style="color:#1d4ed8;font-weight:700;">'+fmt(v,1)+'</span></span>';}).join('')+'</span></div>'
+      +'<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;"><span class="wf-zonelegend"><span class="wf-dot" style="background:#121214;border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advBlue+';border-radius:50%;"></span>'+g.adv+'</span><span class="wf-zonelegend"><svg width="18" height="9"><line x1="1" y1="4.5" x2="17" y2="4.5" stroke="#1d4ed8" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/></svg>Média da temporada por quarto</span><span style="display:flex;gap:14px;">'+qAvg.map(function(v,i){return '<span style="display:inline-flex;align-items:baseline;gap:4px;"><span style="color:'+C.mut+';font-weight:700;">Q'+(i+1)+'</span><span style="color:#1d4ed8;font-weight:700;">'+fmt(v,1)+'</span></span>';}).join('')+'</span></div>'
       +'<svg viewBox="0 0 '+QW+' '+QH+'" style="width:100%;height:auto;display:block;">'+qGrid+qBars+qAvgLine+qLabels+'</svg>'
       +'</div>';
   }
@@ -3110,7 +3110,7 @@ function renderJogos(){
   // score evolution timeline (within the game) — toggleable + interactive hover
   if(tl){
     var TW=760,TH=280,tp=44;
-    var uspCol='#2E5B41', advCol='#D9A310', cmpCol='#2E5B41';
+    var uspCol='#121214', advCol='#DE2027', cmpCol='#121214';
     if(SEL.evoTeam!=='usp'&&SEL.evoTeam!=='adv') SEL.evoTeam='usp';
     var evoTeam=SEL.evoTeam;
     var cmpG=(SEL.evoCmpG&&SEL.evoCmpG!==g.id)?gById(SEL.evoCmpG):null;
@@ -3137,16 +3137,16 @@ function renderJogos(){
       return '<polyline fill="none" stroke="'+col+'" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round" points="'+pts+'"/><circle cx="'+lp.x+'" cy="'+lp.y+'" r="4" fill="#fff" stroke="'+col+'" stroke-width="2"/>';
     };
     var tlGrid='';
-    for(var qb=1;qb<4;qb+=2){var bx=tp+(qb/4)*(TW-tp*2);tlGrid+='<rect x="'+bx+'" y="'+tp+'" width="'+((TW-tp*2)/4)+'" height="'+(TH-tp*2)+'" fill="#2E5B41" fill-opacity="0.03"/>';}
-    for(var q2=0;q2<=4;q2++){var xx=tp+(q2/4)*(TW-tp*2);tlGrid+='<line x1="'+xx+'" y1="'+tp+'" x2="'+xx+'" y2="'+(TH-tp)+'" stroke="#DDE3D6" stroke-width="1"/>'+(q2<4?'<text x="'+(xx+(TW-tp*2)/8)+'" y="'+(TH-tp+22)+'" text-anchor="middle" font-size="12.5" font-weight="600" fill="'+C.mut+'">'+(q2+1)+'Q</text>':'');}
-    for(var vv=0;vv<=maxPts;vv+=10){var yy=TH-tp-(vv/maxPts)*(TH-tp*2);tlGrid+='<line x1="'+tp+'" y1="'+yy+'" x2="'+(TW-tp)+'" y2="'+yy+'" stroke="#E4E8DE" stroke-width="1"/><text x="'+(tp-8)+'" y="'+(yy+4)+'" text-anchor="end" font-size="10.5" fill="'+C.mut+'">'+vv+'</text>';}
+    for(var qb=1;qb<4;qb+=2){var bx=tp+(qb/4)*(TW-tp*2);tlGrid+='<rect x="'+bx+'" y="'+tp+'" width="'+((TW-tp*2)/4)+'" height="'+(TH-tp*2)+'" fill="#121214" fill-opacity="0.03"/>';}
+    for(var q2=0;q2<=4;q2++){var xx=tp+(q2/4)*(TW-tp*2);tlGrid+='<line x1="'+xx+'" y1="'+tp+'" x2="'+xx+'" y2="'+(TH-tp)+'" stroke="#DADAD9" stroke-width="1"/>'+(q2<4?'<text x="'+(xx+(TW-tp*2)/8)+'" y="'+(TH-tp+22)+'" text-anchor="middle" font-size="12.5" font-weight="600" fill="'+C.mut+'">'+(q2+1)+'Q</text>':'');}
+    for(var vv=0;vv<=maxPts;vv+=10){var yy=TH-tp-(vv/maxPts)*(TH-tp*2);tlGrid+='<line x1="'+tp+'" y1="'+yy+'" x2="'+(TW-tp)+'" y2="'+yy+'" stroke="#E4E4E3" stroke-width="1"/><text x="'+(tp-8)+'" y="'+(yy+4)+'" text-anchor="end" font-size="10.5" fill="'+C.mut+'">'+vv+'</text>';}
 
     var hoverEls = '<g id="evo-hover" style="opacity:0;pointer-events:none;">'
       +'<line id="evo-guide" x1="0" y1="'+tp+'" x2="0" y2="'+(TH-tp)+'" stroke="#C2CCBC" stroke-width="1.5" stroke-dasharray="3 3"/>'
       +'<circle id="evo-dot-adv" r="5" fill="'+(cmpG?cmpCol:advCol)+'" stroke="#fff" stroke-width="2"/>'
       +'<circle id="evo-dot-usp" r="5" fill="'+(cmpG?curCol:uspCol)+'" stroke="#fff" stroke-width="2"/>'
       +'<g id="evo-tip">'
-      +'<rect id="evo-tip-bg" width="134" height="54" rx="7" fill="#2E5B41" opacity="0.94"/>'
+      +'<rect id="evo-tip-bg" width="134" height="54" rx="7" fill="#121214" opacity="0.94"/>'
       +'<text id="evo-tip-time" x="10" y="17" font-size="10" fill="#C2CCBC"></text>'
       +'<text id="evo-tip-usp" x="10" y="34" font-size="12" font-weight="700" fill="'+(cmpG?curCol:uspCol)+'"></text>'
       +'<text id="evo-tip-adv" x="10" y="49" font-size="12" font-weight="700" fill="#B9CFC0"></text>'
@@ -3182,7 +3182,7 @@ function renderJogos(){
           ? '<span class="wf-zonelegend"><svg width="24" height="8"><line x1="1" y1="4" x2="23" y2="4" stroke="'+curCol+'" stroke-width="2.5"/></svg>vs '+g.adv+'</span><span class="wf-zonelegend"><svg width="24" height="8"><line x1="1" y1="4" x2="23" y2="4" stroke="'+cmpCol+'" stroke-width="2.5" stroke-dasharray="7 5"/></svg>vs '+cmpG.adv+'</span>'
           : '<span class="wf-zonelegend"><span class="wf-dot" style="background:'+uspCol+';border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advCol+';border-radius:50%;"></span>'+g.adv+'</span>')
         +'<span style="font-size:11px;color:'+C.mut2+';">Passe o mouse sobre o gráfico</span></div></div>'
-      +'<div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:10px 0 12px;margin-bottom:6px;border-bottom:1px solid #E4E8DE;">'
+      +'<div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:10px 0 12px;margin-bottom:6px;border-bottom:1px solid #E4E4E3;">'
         +'<div><div class="wf-stat-label" style="margin-bottom:4px;">Comparar com</div>'
         +'<select class="wf-sel" onchange="SEL.evoCmpG=+this.value;renderJogos();"><option value="0">— sem comparação —</option>'
         +GAMES.filter(function(o){return o.id!==g.id;}).map(function(o){return '<option value="'+o.id+'"'+(cmpG&&cmpG.id===o.id?' selected':'')+'>vs '+o.adv+' ('+o.date+')</option>';}).join('')
@@ -3270,9 +3270,9 @@ function renderJogos(){
     return '<div style="font-size:14px;font-weight:600;margin-bottom:12px;">'+title+'</div>'
     +'<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:600px;">'
     +'<thead><tr style="color:'+C.mut+';text-transform:uppercase;font-size:10px;letter-spacing:.04em;">'
-    +['Atleta','MIN','PTS','REB','AST','TO','STL','FG','3P','LL','+/-','PIR'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DDE3D6;">'+h+'</th>';}).join('')
+    +['Atleta','MIN','PTS','REB','AST','TO','STL','FG','3P','LL','+/-','PIR'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DADAD9;">'+h+'</th>';}).join('')
     +'</tr></thead><tbody>'
-    +rows.map(function(r){return '<tr style="border-bottom:1px solid #E4E8DE;">'
+    +rows.map(function(r){return '<tr style="border-bottom:1px solid #E4E4E3;">'
       +'<td style="padding:8px 6px;font-weight:600;color:'+C.navy+';">'+r.n+'</td>'
       +'<td style="padding:8px 6px;text-align:right;color:'+C.mut+';">'+fmt(r.min,0)+'</td>'
       +'<td style="padding:8px 6px;text-align:right;font-weight:700;color:'+C.navy+';">'+r.pts+'</td>'
@@ -3294,7 +3294,7 @@ function renderJogos(){
     +'</div>';
 
   // footer CTA
-  html+='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;margin-top:16px;padding:14px 18px;background:#ffffff;border:1px solid #DDE3D6;border-radius:10px;">'
+  html+='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;margin-top:16px;padding:14px 18px;background:#ffffff;border:1px solid #DADAD9;border-radius:10px;">'
     +'<span style="font-size:13px;color:'+C.mut+';">Quer ver a evolução ao longo da temporada?</span>'
     +'<div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="wf-chip" onclick="showTab(\'longitudinal\')">Longitudinal</button><button class="wf-chip" onclick="showTab(\'comparar\')">Comparar jogos</button><button class="wf-chip" style="border-color:'+C.gold+';color:'+C.gold+';font-weight:600;" onclick="showTab(\'quinteto\')">Quinteto ideal</button></div></div>';
 
@@ -3310,7 +3310,7 @@ function renderJogos(){
 
 /* ---------- Corridas de pontuação — painel de KPIs + lista ---------- */
 function renderRunsPanel(g, allRuns, onlyTeam, onlyLbl){
-  var uspCol='#2E5B41', advCol='#D9A310';
+  var uspCol='#121214', advCol='#DE2027';
   var uspRuns=allRuns.filter(function(r){return r.team==='usp';});
   var advRuns=allRuns.filter(function(r){return r.team==='adv';});
   var maxUsp=uspRuns.length?Math.max.apply(null,uspRuns.map(function(r){return r.pts;})):0;
@@ -3319,7 +3319,7 @@ function renderRunsPanel(g, allRuns, onlyTeam, onlyLbl){
   var qualifying=allRuns.filter(function(r){return r.pts>=min&&(!onlyTeam||r.team===onlyTeam);}).sort(function(a,b){return a.startT-b.startT;});
   var opts=[6,8,10,12].map(function(v){return '<option value="'+v+'"'+(v===min?' selected':'')+'>'+v+' pontos</option>';}).join('');
 
-  return '<div style="margin-top:18px;padding-top:16px;border-top:1px solid #E4E8DE;">'
+  return '<div style="margin-top:18px;padding-top:16px;border-top:1px solid #E4E4E3;">'
     +'<div style="font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:12px;">Corridas de pontuação (runs)</div>'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px;">'
     +'<div class="wf-card" style="padding:12px 14px;"><div class="wf-stat-label">Maior corrida — Med Usp</div><div class="wf-stat-value" style="color:'+uspCol+';">'+(maxUsp||0)+'-0</div></div>'
@@ -3334,7 +3334,7 @@ function renderRunsPanel(g, allRuns, onlyTeam, onlyLbl){
       ? qualifying.map(function(r){
           var col=r.team==='usp'?'#2F8A55':'#C4553B';
           var name=r.team==='usp'?'Med Usp':g.adv;
-          return '<div style="display:flex;align-items:center;gap:14px;padding:9px 4px;border-bottom:1px solid #E4E8DE;font-size:13px;">'
+          return '<div style="display:flex;align-items:center;gap:14px;padding:9px 4px;border-bottom:1px solid #E4E4E3;font-size:13px;">'
             +'<span style="color:'+C.mut+';font-variant-numeric:tabular-nums;min-width:150px;">'+clockLabel(r.startT)+' → '+clockLabel(r.endT)+'</span>'
             +'<span style="font-weight:600;color:'+col+';flex:1;">'+name+'</span>'
             +'<span style="font-weight:800;font-size:15px;color:'+col+';">'+r.pts+'-0</span>'
@@ -3458,7 +3458,7 @@ function renderTemporada(){
     +pctBar('Lances livres', fmt(s.ft,1)+'%', s.ft, C.navy)
     +pctBar('True Shooting', fmt(s.ts,1)+'%', s.ts, C.gold)
     +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px;font-size:13px;text-align:center;">'
-    +['Rebotes '+fmt(s.reb,1),'Assist. '+fmt(s.ast,1),'Roubos '+fmt(s.stl,1),'Turnov. '+fmt(s.to,1)].map(function(t){var p=t.split(' ');return '<div style="background:#F4F7F1;border:1px solid #E4E8DE;border-radius:8px;padding:10px 6px;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+p[1]+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+p[0]+'</div></div>';}).join('')
+    +['Rebotes '+fmt(s.reb,1),'Assist. '+fmt(s.ast,1),'Roubos '+fmt(s.stl,1),'Turnov. '+fmt(s.to,1)].map(function(t){var p=t.split(' ');return '<div style="background:#F7F7F6;border:1px solid #E4E4E3;border-radius:8px;padding:10px 6px;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+p[1]+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+p[0]+'</div></div>';}).join('')
     +'</div></div></div>';
 
   html+='<div>'
@@ -3472,9 +3472,9 @@ function renderTemporada(){
   html+='<div class="wf-card" style="margin-top:16px;overflow-x:auto;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Tabela da temporada</div>'
     +'<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:720px;">'
     +'<thead><tr style="color:'+C.mut+';text-transform:uppercase;font-size:10px;letter-spacing:.04em;">'
-    +['Jogo','Res','Placar','FG%','3P%','LL%','REB','AST','TO','STL','ORTG','DRTG','Net'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DDE3D6;">'+h+'</th>';}).join('')
+    +['Jogo','Res','Placar','FG%','3P%','LL%','REB','AST','TO','STL','ORTG','DRTG','Net'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DADAD9;">'+h+'</th>';}).join('')
     +'</tr></thead><tbody>'
-    +gs2.map(function(g){return '<tr style="border-bottom:1px solid #E4E8DE;">'
+    +gs2.map(function(g){return '<tr style="border-bottom:1px solid #E4E4E3;">'
       +'<td style="padding:8px 6px;font-weight:600;color:'+C.navy+';">vs '+g.adv+'</td>'
       +'<td style="padding:8px 6px;text-align:right;">'+badge(g.win?'good':'bad',g.win?'V':'D')+'</td>'
       +'<td style="padding:8px 6px;text-align:right;font-weight:700;color:'+(g.win?C.good:C.bad)+';">'+g.pts+'-'+g.advPts+'</td>'
@@ -3511,7 +3511,7 @@ function renderLongitudinal(){
   if(!SEL.lgMetric)SEL.lgMetric='pts';
   var m=LG_METRICS[SEL.lgMetric];
   var gs=GAMES.slice().sort(function(a,b){return a.id-b.id;});
-  var MU=C.navy, ADV='#D9A310';
+  var MU=C.navy, ADV='#DE2027';
   var W=760,H=330,padL=52,padR=30,padT=34,padB=58;
   var plotW=W-padL-padR, plotH=H-padT-padB;
   var valsA=gs.map(function(g){return m.f(g);});
@@ -3602,7 +3602,7 @@ function renderLongitudinal(){
   html+='<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Jogo a jogo</div>'
     +'<div style="display:flex;flex-direction:column;">'
     +gs.map(function(g){
-      return '<div style="display:flex;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid #E4E8DE;">'
+      return '<div style="display:flex;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid #E4E4E3;">'
         +'<span class="wf-badge wf-badge-'+(g.win?'good':'bad')+'" style="width:22px;text-align:center;">'+(g.win?'V':'D')+'</span>'
         +'<span style="font-size:13px;font-weight:600;min-width:90px;">vs '+g.adv+'</span>'
         +'<span style="font-size:12px;color:'+C.mut+';min-width:80px;">'+g.date+'</span>'
@@ -3682,13 +3682,13 @@ function paintSC(){
   var s2=shots.filter(function(s){return s.Tipo==='2pts';}),s2m=s2.filter(function(s){return s.Convertido==='Sim';}).length;
   var sc=document.getElementById('sc-sum-card');
   if(sc)sc.innerHTML='<div style="font-size:14px;font-weight:600;margin-bottom:10px;">Resumo</div>'
-    +'<div style="font-size:13px;line-height:2;color:#3A423A;">Arremessos: <b>'+tot+'</b><br>Convertidos: <b style="color:'+C.good+';">'+made+'</b> ('+(tot?Math.round(made/tot*100):0)+'%)<br>2 pontos: <b>'+s2m+'/'+s2.length+'</b> ('+(s2.length?Math.round(s2m/s2.length*100):0)+'%)<br>3 pontos: <b>'+s3m+'/'+s3.length+'</b> ('+(s3.length?Math.round(s3m/s3.length*100):0)+'%)</div>';
+    +'<div style="font-size:13px;line-height:2;color:#26262A;">Arremessos: <b>'+tot+'</b><br>Convertidos: <b style="color:'+C.good+';">'+made+'</b> ('+(tot?Math.round(made/tot*100):0)+'%)<br>2 pontos: <b>'+s2m+'/'+s2.length+'</b> ('+(s2.length?Math.round(s2m/s2.length*100):0)+'%)<br>3 pontos: <b>'+s3m+'/'+s3.length+'</b> ('+(s3.length?Math.round(s3m/s3.length*100):0)+'%)</div>';
   paintDivZones(shots,'sc-zone-card',zoneRef);
   var byP={};
   shots.forEach(function(s){if(!byP[s.Atleta])byP[s.Atleta]={m:0,a:0};byP[s.Atleta].a++;if(s.Convertido==='Sim')byP[s.Atleta].m++;});
   var bp=document.getElementById('sc-byp-card');
   if(bp)bp.innerHTML='<div style="font-size:14px;font-weight:600;margin-bottom:10px;">Por jogador</div>'
-    +Object.keys(byP).sort(function(a,b){return byP[b].a-byP[a].a;}).map(function(k){var d=byP[k];var pct=Math.round(d.m/d.a*100);return'<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid #E4E8DE;"><span style="font-weight:600;color:'+C.navy+';cursor:pointer;" onclick="setSCP(\''+k.replace(/'/g,"\\'")+'\')">'+k+'</span><span style="color:'+C.mut+';">'+d.m+'/'+d.a+' · <b style="color:'+(pct>=45?C.good:pct>=30?C.warn:C.bad)+';">'+pct+'%</b></span></div>';}).join('');
+    +Object.keys(byP).sort(function(a,b){return byP[b].a-byP[a].a;}).map(function(k){var d=byP[k];var pct=Math.round(d.m/d.a*100);return'<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid #E4E4E3;"><span style="font-weight:600;color:'+C.navy+';cursor:pointer;" onclick="setSCP(\''+k.replace(/'/g,"\\'")+'\')">'+k+'</span><span style="color:'+C.mut+';">'+d.m+'/'+d.a+' · <b style="color:'+(pct>=45?C.good:pct>=30?C.warn:C.bad)+';">'+pct+'%</b></span></div>';}).join('');
 }
 function setSCG(v){SEL.scG=+v; renderShotchart();}
 function setSCQ(v){SEL.scQ=v; renderShotchart();}
@@ -3727,7 +3727,7 @@ function paintCmp(){
     ['Turnovers', A.us.TO, B.us.TO, 0, false],['Roubadas', A.us.STL, B.us.STL, 0, true],
     ['ORTG', A.ortg, B.ortg, 0, true],['DRTG', A.drtg, B.drtg, 0, false],['Net RTG', A.net, B.net, 0, true],['TS%', A.ts, B.ts, 1, true]
   ];
-  var head='<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding-bottom:10px;border-bottom:1px solid #DDE3D6;margin-bottom:6px;font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;">'
+  var head='<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding-bottom:10px;border-bottom:1px solid #DADAD9;margin-bottom:6px;font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;">'
     +'<span></span><span style="text-align:center;font-weight:700;color:'+C.navy+';">vs '+A.adv+'</span><span style="text-align:center;font-weight:700;color:'+C.gold+';">vs '+B.adv+'</span><span style="text-align:right;">Δ</span></div>';
   var body=rows.map(function(r){
     var a=r[1],b=r[2],d=r[3],higherGood=r[4];
@@ -3739,7 +3739,7 @@ function paintCmp(){
     var cell=function(v,winner){
       return '<span style="text-align:center;font-size:15px;font-weight:700;'+(winner&&!tie?'background:#F5EFDF;border:1px solid #E6DCC0;border-radius:7px;padding:3px 0;color:'+C.navy+';':'color:#6C7369;padding:4px 0;')+'">'+fmt(v,d)+'</span>';
     };
-    return '<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding:7px 0;border-bottom:1px solid #E4E8DE;align-items:center;">'
+    return '<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding:7px 0;border-bottom:1px solid #E4E4E3;align-items:center;">'
       +'<span style="font-size:13px;color:'+C.mut+';">'+r[0]+'</span>'
       +cell(a,aBetter)+cell(b,!aBetter)
       +'<span style="text-align:right;font-size:12px;font-weight:700;color:'+diffCol+';">'+(tie?'=':(diff>0?'+':'')+fmt(diff,d))+'</span>'
@@ -3758,9 +3758,9 @@ function paintCmpPlayers(){
   var cell=function(r){return r? '<td style="padding:7px 5px;text-align:right;font-weight:700;color:'+C.gold+';">'+r.pts+'</td><td style="padding:7px 5px;text-align:right;">'+r.reb+'</td><td style="padding:7px 5px;text-align:right;">'+r.ast+'</td><td style="padding:7px 5px;text-align:right;">'+r.to+'</td><td style="padding:7px 5px;text-align:right;font-weight:600;color:'+(r.pm>0?C.good:r.pm<0?C.bad:'inherit')+';">'+(r.pm>0?'+':'')+r.pm+'</td>' : '<td colspan="5" style="padding:7px 5px;text-align:center;color:'+C.mut2+';">—</td>';};
   cp.innerHTML='<div style="font-size:14px;font-weight:600;margin-bottom:12px;">Comparação por jogador</div>'
     +'<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:640px;">'
-    +'<thead><tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;letter-spacing:.04em;"><th rowspan="2" style="padding:6px 5px;text-align:left;border-bottom:1px solid #DDE3D6;">Atleta</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid #E4E8DE;color:'+C.navy+';">vs '+A.adv+'</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid #E4E8DE;color:'+C.gold+';">vs '+B.adv+'</th></tr>'
-    +'<tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;">'+'<th style="padding:5px;text-align:right;border-bottom:1px solid #DDE3D6;">PTS</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DDE3D6;">REB</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DDE3D6;">AST</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DDE3D6;">TO</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DDE3D6;">+/-</th>'.repeat(2)+'</tr></thead><tbody>'
-    +names.map(function(n){return '<tr style="border-bottom:1px solid #E4E8DE;"><td style="padding:7px 5px;font-weight:600;color:'+C.navy+';">'+n+'</td>'+cell(M.a[n])+cell(M.b[n])+'</tr>';}).join('')
+    +'<thead><tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;letter-spacing:.04em;"><th rowspan="2" style="padding:6px 5px;text-align:left;border-bottom:1px solid #DADAD9;">Atleta</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid #E4E4E3;color:'+C.navy+';">vs '+A.adv+'</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid #E4E4E3;color:'+C.gold+';">vs '+B.adv+'</th></tr>'
+    +'<tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;">'+'<th style="padding:5px;text-align:right;border-bottom:1px solid #DADAD9;">PTS</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DADAD9;">REB</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DADAD9;">AST</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DADAD9;">TO</th><th style="padding:5px;text-align:right;border-bottom:1px solid #DADAD9;">+/-</th>'.repeat(2)+'</tr></thead><tbody>'
+    +names.map(function(n){return '<tr style="border-bottom:1px solid #E4E4E3;"><td style="padding:7px 5px;font-weight:600;color:'+C.navy+';">'+n+'</td>'+cell(M.a[n])+cell(M.b[n])+'</tr>';}).join('')
     +'</tbody></table></div>';
 }
 
@@ -3783,7 +3783,7 @@ function renderJogador(){
   if(!SEL.plr)SEL.plr=players[0].n;
   var html='<div style="display:flex;gap:16px;flex-wrap:wrap;" class="wf-body">'
     +'<aside style="width:200px;flex-shrink:0;" class="wf-aside"><div class="wf-card" style="padding:8px;"><div style="font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;padding:6px 8px;">Elenco</div>'
-    +players.map(function(p){var sel=p.n===SEL.plr;return '<div onclick="SEL.plr=\''+p.n.replace(/'/g,"\\'")+'\';renderJogador();" style="display:flex;justify-content:space-between;padding:9px 8px;border-radius:6px;cursor:pointer;'+(sel?'background:#EFE6C9;':'')+'"><span style="font-size:13px;font-weight:'+(sel?'600':'400')+';color:'+(sel?C.navy:'#3A423A')+';">'+p.n+'</span><span style="font-size:13px;color:'+C.mut+';">'+p.PTS+'</span></div>';}).join('')
+    +players.map(function(p){var sel=p.n===SEL.plr;return '<div onclick="SEL.plr=\''+p.n.replace(/'/g,"\\'")+'\';renderJogador();" style="display:flex;justify-content:space-between;padding:9px 8px;border-radius:6px;cursor:pointer;'+(sel?'background:#E4E4E3;':'')+'"><span style="font-size:13px;font-weight:'+(sel?'600':'400')+';color:'+(sel?C.navy:'#26262A')+';">'+p.n+'</span><span style="font-size:13px;color:'+C.mut+';">'+p.PTS+'</span></div>';}).join('')
     +'</div></aside><main style="flex:1;min-width:280px;" id="plr-detail"></main></div>';
   document.getElementById('wf-main').innerHTML=html;
   paintPlayer();
@@ -3805,7 +3805,7 @@ function paintPlayer(){
     +pctBar('2 pontos', p.FG2M+'/'+p.FG2A, p.FG2A?p.FG2M/p.FG2A*100:0)
     +pctBar('3 pontos', p.FG3M+'/'+p.FG3A, p.FG3A?p.FG3M/p.FG3A*100:0)
     +pctBar('Lance livre', p.FTM+'/'+p.FTA, p.FTA?p.FTM/p.FTA*100:0)
-    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:8px;padding-top:10px;border-top:1px solid #E4E8DE;"><span style="color:'+C.mut+';">Roubadas</span><b>'+p.STL+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:8px;padding-top:10px;border-top:1px solid #E4E4E3;"><span style="color:'+C.mut+';">Roubadas</span><b>'+p.STL+'</b></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;"><span style="color:'+C.mut+';">Turnovers</span><b style="color:'+C.bad+';">'+p.TO+'</b></div>'
     +'</div>'
     +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Mapa de arremessos</div>'+courtSVG('plr-hm','plr-dots')+'</div>'
@@ -3817,7 +3817,7 @@ function paintPlayer(){
   // advanced metrics + per-game +/-
   var efg=fga?(fgm+0.5*p.FG3M)/fga*100:0;
   var ts=(fga+0.44*p.FTA)?p.PTS/(2*(fga+0.44*p.FTA))*100:0;
-  var advCard=function(lbl,val,sub){return '<div style="background:#F4F7F1;border:1px solid #E4E8DE;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
+  var advCard=function(lbl,val,sub){return '<div style="background:#F7F7F6;border:1px solid #E4E4E3;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
   var gids=GAMES.slice().sort(function(a,b){return a.id-b.id;});
   var maxAbs=Math.max.apply(null,gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];return Math.abs(d?d.pm||0:0);}))||1;
   var adv='<div class="wf-card" style="margin-top:16px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Métricas avançadas</div>'
@@ -3830,7 +3830,7 @@ function paintPlayer(){
     +advCard('Deflex.', p.DEFL, '')
     +'</div>'
     +'<div style="font-size:13px;font-weight:600;margin:18px 0 10px;">Saldo (+/-) por jogo</div>'
-    +gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];var pm=d?(d.pm||0):0;var pct=Math.abs(pm)/maxAbs*100;var col=pm>0?C.good:pm<0?C.bad:C.mut;return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="font-size:12px;color:'+C.mut+';min-width:80px;">vs '+g.adv+'</span><div style="flex:1;height:8px;background:#E4E8DE;border-radius:4px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:'+col+';"></div></div><span style="font-size:13px;font-weight:700;color:'+col+';min-width:34px;text-align:right;">'+(pm>0?'+':'')+pm+'</span></div>';}).join('')
+    +gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];var pm=d?(d.pm||0):0;var pct=Math.abs(pm)/maxAbs*100;var col=pm>0?C.good:pm<0?C.bad:C.mut;return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="font-size:12px;color:'+C.mut+';min-width:80px;">vs '+g.adv+'</span><div style="flex:1;height:8px;background:#E4E4E3;border-radius:4px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:'+col+';"></div></div><span style="font-size:13px;font-weight:700;color:'+col+';min-width:34px;text-align:right;">'+(pm>0?'+':'')+pm+'</span></div>';}).join('')
     +'</div>';
   document.getElementById('plr-detail').innerHTML+=adv;
 }
@@ -3867,7 +3867,7 @@ function renderQuinteto(){
     +pill('Roubos', best.stl)
     +'</div></div>';
   html+='<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Ranking de quintetos <span style="font-weight:400;color:'+C.mut+';font-size:12px;">(saldo em quadra, mín. 2 min)</span></div>'
-    +lus.slice(0,8).map(function(m,i){var per=m.diff/m.min;return '<div style="display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid #E4E8DE;">'
+    +lus.slice(0,8).map(function(m,i){var per=m.diff/m.min;return '<div style="display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid #E4E4E3;">'
       +'<span style="font-size:13px;font-weight:700;color:'+C.mut+';width:20px;">'+(i+1)+'</span>'
       +'<span style="flex:1;font-size:13px;">'+m.names.join(' · ')+'</span>'
       +'<span style="font-size:12px;color:'+C.mut+';min-width:56px;text-align:right;">'+fmt(m.min,1)+' min</span>'
@@ -3990,7 +3990,7 @@ window.paintPlayer=function(){
     +pctBar('2 pontos', p.FG2M+'/'+p.FG2A, p.FG2A?p.FG2M/p.FG2A*100:0)
     +pctBar('3 pontos', p.FG3M+'/'+p.FG3A, p.FG3A?p.FG3M/p.FG3A*100:0)
     +pctBar('Lance livre', p.FTM+'/'+p.FTA, p.FTA?p.FTM/p.FTA*100:0)
-    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:8px;padding-top:10px;border-top:1px solid #E4E8DE;"><span style="color:'+C.mut+';">Roubadas</span><b>'+p.STL+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:8px;padding-top:10px;border-top:1px solid #E4E4E3;"><span style="color:'+C.mut+';">Roubadas</span><b>'+p.STL+'</b></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;"><span style="color:'+C.mut+';">Turnovers</span><b style="color:'+C.bad+';">'+p.TO+'</b></div>'
     +'</div>'
     +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Mapa de arremessos</div>'
@@ -4009,7 +4009,7 @@ window.paintPlayer=function(){
   GAMES.forEach(function(g){var t=sumTeam(GS[g.id].usp);tT.fga+=t.FG2A+t.FG3A;tT.fta+=t.FTA;tT.to+=t.TO;});
   var tmMP=200*GAMES.length;
   var usg=p.MIN>0?100*((fga+0.44*p.FTA+p.TO)*(tmMP/5))/(p.MIN*(tT.fga+0.44*tT.fta+tT.to)):0;
-  var advCard=function(lbl,val,sub){return '<div style="background:#F4F7F1;border:1px solid #E4E8DE;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
+  var advCard=function(lbl,val,sub){return '<div style="background:#F7F7F6;border:1px solid #E4E4E3;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+C.navy+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
   var gids=GAMES.slice().sort(function(a,b){return a.id-b.id;});
   var maxAbs=Math.max.apply(null,gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];return Math.abs(d?d.pm||0:0);}))||1;
   var adv='<div class="wf-card" style="margin-top:16px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Métricas avançadas</div>'
@@ -4023,7 +4023,7 @@ window.paintPlayer=function(){
     +advCard('Deflex.', p.DEFL, '')
     +'</div>'
     +'<div style="font-size:13px;font-weight:600;margin:18px 0 10px;">Saldo (+/-) por jogo</div>'
-    +gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];var pm=d?(d.pm||0):0;var pct=Math.abs(pm)/maxAbs*100;var col=pm>0?C.good:pm<0?C.bad:C.mut;return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="font-size:12px;color:'+C.mut+';min-width:80px;">vs '+g.adv+'</span><div style="flex:1;height:8px;background:#E4E8DE;border-radius:4px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:'+col+';"></div></div><span style="font-size:13px;font-weight:700;color:'+col+';min-width:34px;text-align:right;">'+(pm>0?'+':'')+pm+'</span></div>';}).join('')
+    +gids.map(function(g){var d=LD[p.n]&&LD[p.n][g.id];var pm=d?(d.pm||0):0;var pct=Math.abs(pm)/maxAbs*100;var col=pm>0?C.good:pm<0?C.bad:C.mut;return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="font-size:12px;color:'+C.mut+';min-width:80px;">vs '+g.adv+'</span><div style="flex:1;height:8px;background:#E4E4E3;border-radius:4px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:'+col+';"></div></div><span style="font-size:13px;font-weight:700;color:'+col+';min-width:34px;text-align:right;">'+(pm>0?'+':'')+pm+'</span></div>';}).join('')
     +'</div>';
   // glossário
   adv+='<div class="wf-card" style="margin-top:16px;"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Glossário</div>'
@@ -4065,12 +4065,12 @@ function lineupTable(title, color, stints, key){
   var head='<div style="display:flex;align-items:center;gap:12px;margin:26px 0 12px;">'
     +'<span style="font-size:15px;font-weight:800;letter-spacing:.04em;color:'+color+';text-transform:uppercase;">'+title+'</span>'
     +'<button class="wf-chip" id="lineup-'+key+'-btn" onclick="toggleSection(\'lineup-'+key+'-wrap\',\'lineup-'+key+'-btn\',\'Ver quintetos\',\'Ocultar quintetos\')">Ver quintetos</button>'
-    +'<span style="flex:1;height:1px;background:#DDE3D6;"></span></div>';
+    +'<span style="flex:1;height:1px;background:#DADAD9;"></span></div>';
   var cols=['Quinteto (5 jogadores)','Tempo','Placar','Diff','Pts/min','Reb','Stl','TO','Ast'];
   return head+'<div class="wf-card" id="lineup-'+key+'-wrap" style="display:none;overflow-x:auto;padding:0;">'
     +'<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:760px;">'
     +'<thead><tr style="color:'+C.mut+';font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;">'
-    +cols.map(function(h,i){return '<th style="padding:11px 12px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DDE3D6;font-weight:600;">'+h+'</th>';}).join('')
+    +cols.map(function(h,i){return '<th style="padding:11px 12px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DADAD9;font-weight:600;">'+h+'</th>';}).join('')
     +'</tr></thead><tbody>'
     +stints.map(function(s){
       var isBest=s.score_diff===maxD&&maxD>0, isWorst=s.score_diff===minD&&minD<0;
@@ -4078,7 +4078,7 @@ function lineupTable(title, color, stints, key){
       var rowBg=isBest?'#EAF4EC':isWorst?'#FAEBE6':'transparent';
       var lb=isBest?'3px solid '+C.good:isWorst?'3px solid '+C.bad:'3px solid transparent';
       var op=faint?'opacity:.45;':'';
-      return '<tr style="border-bottom:1px solid #E4E8DE;background:'+rowBg+';'+op+'">'
+      return '<tr style="border-bottom:1px solid #E4E4E3;background:'+rowBg+';'+op+'">'
         +'<td style="padding:11px 12px;border-left:'+lb+';">'+lineupName(s)+(isBest?' <span class="wf-badge wf-badge-good" style="margin-left:6px;">MELHOR</span>':'')+(isWorst?' <span class="wf-badge wf-badge-bad" style="margin-left:6px;">PIOR</span>':'')+'</td>'
         +'<td style="padding:11px 12px;text-align:right;color:'+C.mut+';font-variant-numeric:tabular-nums;">'+lineupTime(s)+'</td>'
         +'<td style="padding:11px 12px;text-align:right;font-weight:700;color:'+C.gold+';">'+s.pontos_pro+'-'+s.pontos_contra+'</td>'
@@ -4102,14 +4102,14 @@ window.renderQuinteto=function(){
   var chips=chron.map(function(gm,i){
     var on=gm.id===SEL.quintG;
     var dot=gm.win?C.good:C.bad;
-    return '<button onclick="SEL.quintG='+gm.id+';renderQuinteto();" style="display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:7px 13px;border-radius:8px;border:1px solid '+(on?C.gold:'#DDE3D6')+';background:'+(on?C.gold:'#fff')+';color:'+(on?'#121A14':C.navy)+';white-space:nowrap;">'
+    return '<button onclick="SEL.quintG='+gm.id+';renderQuinteto();" style="display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:7px 13px;border-radius:8px;border:1px solid '+(on?C.gold:'#DADAD9')+';background:'+(on?C.gold:'#fff')+';color:'+(on?'#121214':C.navy)+';white-space:nowrap;">'
       +'<span style="font-weight:700;">J'+(i+1)+'</span><span style="width:8px;height:8px;border-radius:50%;background:'+dot+';display:inline-block;"></span>'+gm.adv+'</button>';
   }).join('');
 
   var advColor=C.bad;
   var html=''
     // section title
-    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;"><span style="font-size:15px;font-weight:800;letter-spacing:.06em;color:'+C.gold+';text-transform:uppercase;">Line Up Analysis</span><span style="flex:1;height:1px;background:#DDE3D6;"></span></div>'
+    +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;"><span style="font-size:15px;font-weight:800;letter-spacing:.06em;color:'+C.gold+';text-transform:uppercase;">Line Up Analysis</span><span style="flex:1;height:1px;background:#DADAD9;"></span></div>'
     // selector card
     +'<div class="wf-card" style="margin-bottom:16px;">'
     +'<div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:'+C.mut+';margin-bottom:10px;">Selecionar partida</div>'
@@ -4165,7 +4165,7 @@ window.renderJogos = function(){
       la=leader(function(r){return r.ast;}), lm=leader(function(r){return r.pm;}),
       ls=leader(function(r){return r.stl;});
   function hl(icon,lbl,r,val,col){
-    return '<div style="background:#F4F7F1;border:1px solid #E4E8DE;border-radius:8px;padding:12px 14px;">'
+    return '<div style="background:#F7F7F6;border:1px solid #E4E4E3;border-radius:8px;padding:12px 14px;">'
       +'<div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;">'+icon+' '+lbl+'</div>'
       +'<div style="font-size:15px;font-weight:700;color:'+C.navy+';margin-top:4px;">'+r.n+'</div>'
       +'<div style="font-size:13px;font-weight:600;color:'+(col||C.gold)+';margin-top:1px;">'+val+'</div></div>';
@@ -4195,11 +4195,11 @@ window.renderTemporada = function(){
     +'<div style="font-size:14px;font-weight:600;margin-bottom:12px;">Totais — Jogadores</div>'
     +'<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px;">'
     +'<thead><tr style="color:'+C.mut+';text-transform:uppercase;font-size:10px;letter-spacing:.04em;">'
-    +['Atleta','J','MIN','PTS','PTS/J','REB','AST','TO','STL','FG','3P','LL','+/-','PIR'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DDE3D6;">'+h+'</th>';}).join('')
+    +['Atleta','J','MIN','PTS','PTS/J','REB','AST','TO','STL','FG','3P','LL','+/-','PIR'].map(function(h,i){return '<th style="padding:8px 6px;text-align:'+(i===0?'left':'right')+';border-bottom:1px solid #DADAD9;">'+h+'</th>';}).join('')
     +'</tr></thead><tbody>'
     +players.map(function(p){
       var fgm=p.FG2M+p.FG3M, fga=p.FG2A+p.FG3A;
-      return '<tr style="border-bottom:1px solid #E4E8DE;">'
+      return '<tr style="border-bottom:1px solid #E4E4E3;">'
       +'<td style="padding:8px 6px;font-weight:600;color:'+C.navy+';cursor:pointer;" onclick="SEL.plr=\''+p.n.replace(/'/g,"\\'")+'\';showTab(\'jogador\');">'+p.n+'</td>'
       +'<td style="padding:8px 6px;text-align:right;color:'+C.mut+';">'+p.g+'</td>'
       +'<td style="padding:8px 6px;text-align:right;color:'+C.mut+';">'+fmt(p.MIN,0)+'</td>'
@@ -4250,7 +4250,7 @@ window.paintPlayer = function(){
   var dirPart=p.PTS+p.AST+oreb, teamDir=0;
   GAMES.forEach(function(g){(GS[g.id].usp||[]).forEach(function(r){teamDir+=(+r.PTS||0)+(+r.AST||0)+(+r['REB.OF']||0);});});
   var dirPct=teamDir>0?Math.round(dirPart/teamDir*100):0;
-  var oc=function(val,lbl,sub,col){return '<div style="background:#F4F7F1;border:1px solid #E4E8DE;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+(col||C.navy)+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
+  var oc=function(val,lbl,sub,col){return '<div style="background:#F7F7F6;border:1px solid #E4E4E3;border-radius:8px;padding:11px 12px;text-align:center;"><div style="font-weight:700;font-size:18px;color:'+(col||C.navy)+';">'+val+'</div><div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;margin-top:2px;">'+lbl+'</div>'+(sub?'<div style="font-size:10px;color:'+C.mut2+';margin-top:1px;">'+sub+'</div>':'')+'</div>';};
   html+='<div class="wf-card" style="margin-top:16px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Impacto ofensivo</div>'
     +'<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;" class="wf-kpi-grid">'
     +oc(p.PTS,'Pontos',fmt(p.PTS/p.g,1)+'/jogo',C.gold)
@@ -4325,13 +4325,13 @@ window.paintPlayer = function(){
     html+='<div class="wf-card" style="margin-top:16px;"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Característica ofensiva</div>'
       +zones.map(function(o){
         var z=o.z, isBest=z.att>0&&z.pp===bestPP&&bestPP>0;
-        var bd=isBest?C.gold:'#DDE3D6', bg=isBest?'#F3F7F0':'#fff';
+        var bd=isBest?C.gold:'#DADAD9', bg=isBest?'#F7F7F6':'#fff';
         var rightCol=z.att===0?C.mut:(isBest?C.gold:o.col);
         return '<div style="border:1px solid '+bd+';background:'+bg+';border-radius:8px;padding:12px 14px;margin-bottom:10px;">'
           +'<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:'+(z.att?'8px':'4px')+';">'
           +'<span style="font-size:13px;font-weight:600;color:'+C.navy+';">'+o.lbl+(isBest?' <span style="color:'+C.gold+';">★</span>':'')+'</span>'
           +'<span style="font-size:13px;font-weight:700;color:'+rightCol+';">'+z.made+'/'+z.att+(z.att?' ('+z.pct+'%)':'')+'</span></div>'
-          +(z.att?'<div style="height:6px;background:#E4E8DE;border-radius:3px;overflow:hidden;"><div style="width:'+z.pct+'%;height:100%;background:'+(isBest?C.gold:o.col)+';"></div></div>':'')
+          +(z.att?'<div style="height:6px;background:#E4E4E3;border-radius:3px;overflow:hidden;"><div style="width:'+z.pct+'%;height:100%;background:'+(isBest?C.gold:o.col)+';"></div></div>':'')
           +'<div style="font-size:11px;color:'+C.mut+';margin-top:'+(z.att?'6px':'0')+';">'+(z.att?fmt(z.pp,2)+' pts/tentativa':'Sem arremessos')+'</div>'
           +'</div>';
       }).join('')
@@ -4345,7 +4345,7 @@ window.paintPlayer = function(){
       +gids.map(function(gid){var g=gById(gid);var d=LD[p.n][gid];var mn=d.min||0;
         return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'
         +'<span style="font-size:12px;color:'+C.mut+';min-width:80px;">vs '+g.adv+'</span>'
-        +'<div style="flex:1;height:8px;background:#E4E8DE;border-radius:4px;overflow:hidden;"><div style="width:'+(mn/maxMin*100)+'%;height:100%;background:'+C.navy+';"></div></div>'
+        +'<div style="flex:1;height:8px;background:#E4E4E3;border-radius:4px;overflow:hidden;"><div style="width:'+(mn/maxMin*100)+'%;height:100%;background:'+C.navy+';"></div></div>'
         +'<span style="font-size:12px;font-weight:600;min-width:110px;text-align:right;color:#5A6159;">'+fmt(mn,0)+' min · '+(d.pts||0)+' pts · '+(d.reb||0)+' reb</span></div>';}).join('')
       +'</div>';
   }
@@ -4630,3 +4630,4 @@ Object.assign(window,{renderPnr:renderPnr,pnrEdit:pnrEdit,pnrAddRow:pnrAddRow,pn
 </div>
 </body>
 </html>
+
