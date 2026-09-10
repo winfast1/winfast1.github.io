@@ -2725,7 +2725,7 @@ function wfZoneHi(name){
   for(var i=0;i<ps.length;i++){
     var on = name && ps[i].getAttribute('data-zone')===name;
     ps[i].setAttribute('fill', on?'rgba(255,255,255,.18)':'transparent');
-    ps[i].setAttribute('stroke', on?'#FFD34D':'none');
+    ps[i].setAttribute('stroke', on?'rgba(255,255,255,.75)':'none');
     ps[i].setAttribute('stroke-width', on?'2.2':'0');
   }
 }
