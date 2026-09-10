@@ -3151,7 +3151,7 @@ function renderJogos(){
       +'<rect id="evo-tip-bg" width="134" height="54" rx="7" fill="#121214" opacity="0.94"/>'
       +'<text id="evo-tip-time" x="10" y="17" font-size="10" fill="#ffffff"></text>'
       +'<text id="evo-tip-usp" x="10" y="34" font-size="12" font-weight="700" fill="#DE2027"></text>'
-      +'<text id="evo-tip-adv" x="10" y="49" font-size="12" font-weight="700" fill="#DE2027"></text>'
+      +'<text id="evo-tip-adv" x="10" y="49" font-size="12" font-weight="700" fill="#ffffff"></text>'
       +'</g></g>';
 
     var allRuns=calcRuns(tl);
@@ -3399,7 +3399,7 @@ function paintEvoAt(t,x){
   document.getElementById('evo-tip-usp').textContent=(st.uspName||'Med Usp')+'  '+uspV;
   document.getElementById('evo-tip-usp').setAttribute('fill','#DE2027');
   document.getElementById('evo-tip-adv').textContent=st.advName+'  '+advV;
-  document.getElementById('evo-tip-adv').setAttribute('fill','#DE2027');
+  document.getElementById('evo-tip-adv').setAttribute('fill','#ffffff');
 }
 function evoHover(evt){
   var st=window.__evo; if(!st)return;
