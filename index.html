@@ -2347,7 +2347,7 @@ function initWFDashboard(){
   // Inicializar SEL
   SEL = { game: GAMES[0].id, scG:0, scQ:'all', scT:'all', scR:'all', scP:'all', scView:'shots',
           cmpA:GAMES[0].id, cmpB:GAMES[1]?GAMES[1].id:GAMES[0].id,
-          plr:null, plrG:0, plrR:'all', quintG:0 };
+          plr:null, plrG:0, plrQ:'all', plrT:'all', plrR:'all', quintG:0 };
 
   // Atualizar header
   var teamSub=document.getElementById('wf-team-sub');
@@ -3965,6 +3965,8 @@ window.renderLongitudinal=function(){
 
 /* ---------- JOGADOR: filtros no mapa + USG% + glossário ---------- */
 window.setPlrG=function(v){SEL.plrG=+v;paintPlayer();};
+window.setPlrQ=function(v){SEL.plrQ=v;paintPlayer();};
+window.setPlrT=function(v){SEL.plrT=v;paintPlayer();};
 window.setPlrR=function(v){SEL.plrR=v;paintPlayer();};
 
 window.paintPlayer=function(){
@@ -3974,6 +3976,8 @@ window.paintPlayer=function(){
   var shots=SHOTS.filter(function(s){
     if(s.Time!==MY_TEAM||s.Atleta!==p.n)return false;
     if(SEL.plrG!==0&&s.jogo_id!==SEL.plrG)return false;
+    if(SEL.plrQ!=='all'&&s.Quarto!==SEL.plrQ)return false;
+    if(SEL.plrT!=='all'&&s.Tipo!==SEL.plrT)return false;
     if(SEL.plrR!=='all'&&s.Convertido!==SEL.plrR)return false;
     return true;
   });
@@ -3986,8 +3990,55 @@ window.paintPlayer=function(){
     +'</div>';
   // filtros do mapa
   var gchips=[{v:'0',l:'Todos'}].concat(GAMES.map(function(g){return {v:''+g.id,l:'vs '+g.adv};})).map(function(o){var on=+o.v===SEL.plrG;return '<button class="wf-chip'+(on?' on':'')+'" onclick="setPlrG(\''+o.v+'\')">'+o.l+'</button>';}).join('');
+  var qchips=[{v:'all',l:'Todos'},{v:'1Q',l:'1Q'},{v:'2Q',l:'2Q'},{v:'3Q',l:'3Q'},{v:'4Q',l:'4Q'}].map(function(o){var on=o.v===SEL.plrQ;return '<button class="wf-chip'+(on?' on':'')+'" onclick="setPlrQ(\''+o.v+'\')">'+o.l+'</button>';}).join('');
+  var tchips=[{v:'all',l:'Todos'},{v:'2pts',l:'2 pts'},{v:'3pts',l:'3 pts'}].map(function(o){var on=o.v===SEL.plrT;return '<button class="wf-chip'+(on?' on':'')+'" onclick="setPlrT(\''+o.v+'\')">'+o.l+'</button>';}).join('');
   var rchips=[{v:'all',l:'Todos'},{v:'Sim',l:'Convertidos'},{v:'Não',l:'Errados'}].map(function(o){var on=o.v===SEL.plrR;return '<button class="wf-chip'+(on?' on':'')+'" onclick="setPlrR(\''+o.v+'\')">'+o.l+'</button>';}).join('');
-  html+='<div style="display:grid;grid-template-columns:1fr 1.3fr;gap:16px;" class="wf-two-col">'
+  // aproveitamento por zona vs time
+  var teamShots=SHOTS.filter(function(s){return s.Time===MY_TEAM;});
+  var zPlayer=zoneStats(shots), zTeam=zoneStats(teamShots);
+  var zoneRows=ZONES.map(function(k){
+    var zp=zPlayer[k]||{m:0,a:0}, zt=zTeam[k]||{m:0,a:0};
+    if(!zp.a)return '';
+    var pPct=Math.round(zp.m/zp.a*100), tPct=zt.a>=5?Math.round(zt.m/zt.a*100):null;
+    var delta=tPct!==null?pPct-tPct:null;
+    var deltaStr=delta!==null?(delta>0?'+':'')+delta:'';
+    var deltaCol=delta===null?C.mut:delta>=5?C.good:delta<=-5?C.bad:C.mut;
+    var barCol=pPct>=45?C.good:pPct>=32?C.gold:C.bad;
+    return '<div style="margin-bottom:10px;">'
+      +'<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;">'
+      +'<span style="color:'+C.navy+';">'+k+'</span>'
+      +'<span><span style="font-weight:700;">'+pPct+'%</span>'+(tPct!==null?' <span style="color:'+deltaCol+';font-weight:700;font-size:11px;">'+deltaStr+'</span>':'')+'</span>'
+      +'</div>'
+      +'<div style="position:relative;height:6px;background:#E4E4E3;border-radius:3px;">'
+      +'<div style="position:absolute;top:0;left:0;height:100%;width:'+pPct+'%;background:'+barCol+';border-radius:3px;"></div>'
+      +(tPct!==null?'<div style="position:absolute;top:-3px;left:'+tPct+'%;width:2px;height:12px;background:#121214;border-radius:1px;"></div>':'')
+      +'</div>'
+      +'<div style="font-size:10px;color:'+C.mut2+';margin-top:2px;">'+zp.m+'/'+zp.a+(tPct!==null?' · ref '+tPct+'%':'')+'</div>'
+      +'</div>';
+  }).join('');
+  // resumo de arremessos
+  var fga2=p.FG2A+p.FG3A, fgm2=p.FG2M+p.FG3M;
+  var resumo='<div class="wf-card" style="margin-top:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Resumo</div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:'+C.mut+';">Arremessos</span><b>'+fga2+'</b></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:'+C.mut+';">Convertidos</span><b>'+fgm2+' ('+Math.round(fga2?fgm2/fga2*100:0)+'%)</b></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;"><span style="color:'+C.mut+';">2 pontos</span><b>'+p.FG2M+'/'+p.FG2A+' ('+Math.round(p.FG2A?p.FG2M/p.FG2A*100:0)+'%)</b></div>'
+    +'<div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:'+C.mut+';">3 pontos</span><b>'+p.FG3M+'/'+p.FG3A+' ('+Math.round(p.FG3A?p.FG3M/p.FG3A*100:0)+'%)</b></div>'
+    +'</div>';
+  html+='<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:start;" class="wf-two-col">'
+    +'<div class="wf-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'
+    +'<span style="font-size:14px;font-weight:600;">Mapa de arremessos</span>'
+    +'<span style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.05em;">'+p.n+' · Arremesso a arremesso</span>'
+    +'</div>'
+    +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Jogo</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'+gchips+'</div>'
+    +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Quarto</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'+qchips+'</div>'
+    +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Tipo</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'+tchips+'</div>'
+    +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Resultado</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">'+rchips+'</div>'
+    +courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2)+'</div>'
+    +'<div>'
     +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Aproveitamento</div>'
     +pctBar('2 pontos', p.FG2M+'/'+p.FG2A, p.FG2A?p.FG2M/p.FG2A*100:0)
     +pctBar('3 pontos', p.FG3M+'/'+p.FG3A, p.FG3A?p.FG3M/p.FG3A*100:0)
@@ -3995,10 +4046,9 @@ window.paintPlayer=function(){
     +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:8px;padding-top:10px;border-top:1px solid #E4E4E3;"><span style="color:'+C.mut+';">Roubadas</span><b>'+p.STL+'</b></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;"><span style="color:'+C.mut+';">Turnovers</span><b style="color:'+C.bad+';">'+p.TO+'</b></div>'
     +'</div>'
-    +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:10px;">Mapa de arremessos</div>'
-    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">'+gchips+'</div>'
-    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">'+rchips+'</div>'
-    +courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2)+'</div>'
+    +resumo
+    +(zoneRows?'<div class="wf-card" style="margin-top:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:4px;">Aproveitamento por zona</div><div style="font-size:10px;color:'+C.mut+';margin-bottom:10px;">0–100% · Marca preta = média da equipe</div>'+zoneRows+'</div>':'')
+    +'</div>'
     +'</div>';
   document.getElementById('plr-detail').innerHTML=html;
 
