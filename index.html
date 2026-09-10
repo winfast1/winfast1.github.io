@@ -853,17 +853,17 @@ function renderOffDef(name,t,gids){
     ctx.beginPath();qAvgs.forEach(function(v,i){i===0?ctx.moveTo(xpos[i],yFor(v)):ctx.lineTo(xpos[i],yFor(v));});ctx.stroke();
     ctx.setLineDash([]);
     qAvgs.forEach(function(v,i){
-      ctx.fillStyle='#1d4ed8';ctx.beginPath();ctx.arc(xpos[i],yFor(v),4,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='#1d4ed8';ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='center';
+      ctx.fillStyle='#6E6E70';ctx.beginPath();ctx.arc(xpos[i],yFor(v),4,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#6E6E70';ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='center';
       var yLbl=yFor(v)+14;if(yLbl>cv.height-pd.b-4)yLbl=yFor(v)-7;
       ctx.fillText(v.toFixed(1),xpos[i],yLbl);
     });
     ctx.font='10px Barlow Condensed,sans-serif';ctx.textAlign='left';
     ctx.fillStyle='#DE2027';ctx.beginPath();ctx.arc(pd.l+6,pd.t-18,4,0,Math.PI*2);ctx.fill();
     ctx.fillStyle=cvar('--tx');ctx.fillText('Total ('+numGames+' jogo'+(numGames>1?'s':')'),pd.l+14,pd.t-14);
-    ctx.strokeStyle='#1d4ed8';ctx.lineWidth=2;ctx.setLineDash([4,3]);
+    ctx.strokeStyle='#6E6E70';ctx.lineWidth=2;ctx.setLineDash([4,3]);
     ctx.beginPath();ctx.moveTo(pd.l+120,pd.t-18);ctx.lineTo(pd.l+133,pd.t-18);ctx.stroke();
-    ctx.setLineDash([]);ctx.fillStyle='#1d4ed8';ctx.beginPath();ctx.arc(pd.l+126,pd.t-18,3,0,Math.PI*2);ctx.fill();
+    ctx.setLineDash([]);ctx.fillStyle='#6E6E70';ctx.beginPath();ctx.arc(pd.l+126,pd.t-18,3,0,Math.PI*2);ctx.fill();
     ctx.fillStyle=cvar('--tx');ctx.fillText('Média/jogo',pd.l+137,pd.t-14);
     cv._xpos=xpos;cv._qPts=qTotals;cv._qAvg=qAvgs;cv._ng=numGames;
     cv.onmousemove=function(e){
@@ -874,7 +874,7 @@ function renderOffDef(name,t,gids){
       if(near>=0){
         tt.innerHTML=['1Q','2Q','3Q','4Q'][near]
           +'<br>Total: <strong style="color:#DE2027">'+cv._qPts[near]+'pts</strong>'
-          +'<br>Média/jogo: <strong style="color:#1d4ed8">'+cv._qAvg[near].toFixed(1)+'pts</strong>';
+          +'<br>Média/jogo: <strong style="color:#6E6E70">'+cv._qAvg[near].toFixed(1)+'pts</strong>';
         tt.style.opacity='1';tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY-36)+'px';
       } else{tt.style.opacity='0';}
     };
@@ -1852,7 +1852,7 @@ function drawQtrChart() {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#DE2027';
     if (hU > 10) ctx.fillText(uspQtr[qi], xU + barW / 2, PAD.top + cH - hU - 4);
-    ctx.fillStyle = '#1d4ed8';
+    ctx.fillStyle = '#6E6E70';
     if (hA > 10) ctx.fillText(advQtr[qi], xA + barW / 2, PAD.top + cH - hA - 4);
 
     // Label do quarto
@@ -3100,11 +3100,11 @@ function renderJogos(){
         +'<text x="'+gcx+'" y="'+(qpadT+qplotH+40)+'" text-anchor="middle" font-size="12" font-weight="700" fill="'+(uspWon?C.good:C.bad)+'">'+q.usp+'-'+q.adv+'</text>';
     });
     var qAvgPts=qAvgY.map(function(y,i){return {x:qpadL+i*groupW+groupW/2, y:y};});
-    var qAvgLine='<polyline points="'+qAvgPts.map(function(p){return p.x+','+p.y;}).join(' ')+'" fill="none" stroke="#1d4ed8" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/>'
-      +qAvgPts.map(function(p,i){return '<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="#1d4ed8" opacity="0.85"/><text x="'+p.x+'" y="'+(p.y-9)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8" stroke="#fff" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">'+fmt(qAvg[i],1)+'</text>';}).join('');
+    var qAvgLine='<polyline points="'+qAvgPts.map(function(p){return p.x+','+p.y;}).join(' ')+'" fill="none" stroke="#6E6E70" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/>'
+      +qAvgPts.map(function(p,i){return '<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="#6E6E70" opacity="0.85"/><text x="'+p.x+'" y="'+(p.y-9)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#6E6E70" stroke="#fff" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">'+fmt(qAvg[i],1)+'</text>';}).join('');
     html+='<div class="wf-card" id="qtr-wrap" style="display:none;margin-bottom:16px;">'
       +'<div style="font-size:14px;font-weight:600;margin-bottom:4px;">Pontuação por quarto</div>'
-      +'<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;"><span class="wf-zonelegend"><span class="wf-dot" style="background:#121214;border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advBlue+';border-radius:50%;"></span>'+g.adv+'</span><span class="wf-zonelegend"><svg width="18" height="9"><line x1="1" y1="4.5" x2="17" y2="4.5" stroke="#1d4ed8" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/></svg>Média da temporada por quarto</span><span style="display:flex;gap:14px;">'+qAvg.map(function(v,i){return '<span style="display:inline-flex;align-items:baseline;gap:4px;"><span style="color:'+C.mut+';font-weight:700;">Q'+(i+1)+'</span><span style="color:#1d4ed8;font-weight:700;">'+fmt(v,1)+'</span></span>';}).join('')+'</span></div>'
+      +'<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;"><span class="wf-zonelegend"><span class="wf-dot" style="background:#121214;border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advBlue+';border-radius:50%;"></span>'+g.adv+'</span><span class="wf-zonelegend"><svg width="18" height="9"><line x1="1" y1="4.5" x2="17" y2="4.5" stroke="#6E6E70" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/></svg>Média da temporada por quarto</span><span style="display:flex;gap:14px;">'+qAvg.map(function(v,i){return '<span style="display:inline-flex;align-items:baseline;gap:4px;"><span style="color:'+C.mut+';font-weight:700;">Q'+(i+1)+'</span><span style="color:#6E6E70;font-weight:700;">'+fmt(v,1)+'</span></span>';}).join('')+'</span></div>'
       +'<svg viewBox="0 0 '+QW+' '+QH+'" style="width:100%;height:auto;display:block;">'+qGrid+qBars+qAvgLine+qLabels+'</svg>'
       +'</div>';
   }
