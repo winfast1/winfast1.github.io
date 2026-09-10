@@ -3158,7 +3158,8 @@ function renderJogos(){
     if(!SEL.runsMin) SEL.runsMin=8;
     window.__runsAll=allRuns;
     var runOverlays=allRuns.filter(function(r){return r.pts>=SEL.runsMin&&(!cmpG||r.team===evoTeam);}).map(function(r,ri){
-      var col=r.team==='usp'?'#22c55e':'#DE2027';
+      var lineCol=r.team==='usp'?'#DE2027':'#3D3D3F';
+      var badgeCol=r.team==='usp'?'#22c55e':'#DE2027';
       var arr=tl[r.team];
       var seg=arr.filter(function(p){return p.t>=r.startT&&p.t<=r.endT;});
       if(seg.length<2) return '';
@@ -3168,10 +3169,10 @@ function renderJogos(){
       var sign=r.team==='usp'?'+':'−';
       var rid='run-'+g.id+'-'+ri;
       return '<g id="'+rid+'" style="cursor:pointer;">'
-        +'<polyline class="run-line" points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="1"><title>'+(r.team==='usp'?'Med Usp':g.adv)+' · corrida de '+r.pts+' pts · '+clockLabel(r.startT)+' → '+clockLabel(r.endT)+'</title></polyline>'
-        +'<circle class="run-mk" cx="'+p0.x+'" cy="'+p0.y+'" r="3.5" fill="#fff" stroke="'+col+'" stroke-width="2" opacity="1"/>'
-        +'<circle class="run-mk" cx="'+p1.x+'" cy="'+p1.y+'" r="3.5" fill="'+col+'" stroke="#fff" stroke-width="1.5" opacity="1"/>'
-        +'<rect class="run-mk" x="'+(midX-18)+'" y="'+(topY-14)+'" width="36" height="15" rx="4" fill="'+col+'" opacity="1"/>'
+        +'<polyline class="run-line" points="'+pts+'" fill="none" stroke="'+lineCol+'" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="1"><title>'+(r.team==='usp'?'Med Usp':g.adv)+' · corrida de '+r.pts+' pts · '+clockLabel(r.startT)+' → '+clockLabel(r.endT)+'</title></polyline>'
+        +'<circle class="run-mk" cx="'+p0.x+'" cy="'+p0.y+'" r="3.5" fill="#fff" stroke="'+lineCol+'" stroke-width="2" opacity="1"/>'
+        +'<circle class="run-mk" cx="'+p1.x+'" cy="'+p1.y+'" r="3.5" fill="'+lineCol+'" stroke="#fff" stroke-width="1.5" opacity="1"/>'
+        +'<rect class="run-mk" x="'+(midX-18)+'" y="'+(topY-14)+'" width="36" height="15" rx="4" fill="'+badgeCol+'" opacity="1"/>'
         +'<text class="run-mk" x="'+midX+'" y="'+(topY-3)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" opacity="1">'+sign+r.pts+'</text>'
         +'</g>';
     }).join('');
