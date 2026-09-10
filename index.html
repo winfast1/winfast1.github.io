@@ -2755,6 +2755,13 @@ function devColor(dev){
   if(dev>-14)return'#F08030';
   return'#DE2027';
 }
+function pctColor(pct){
+  if(pct>=60)return'#166B39';
+  if(pct>=50)return'#52A838';
+  if(pct>=38)return'#D4A020';
+  if(pct>=25)return'#E06030';
+  return'#DE2027';
+}
 
 function hexPts(cx,cy,r){
   var pts=[];
@@ -2791,26 +2798,22 @@ function buildHexBins(shots,R){
 
 function paintHexbin(shots,hexId,zoneRef){
   var g=document.getElementById(hexId);if(!g)return;
-  var leftS=shots.filter(function(s){return s.X_pct<50;}),rightS=shots.filter(function(s){return s.X_pct>=50;});
-  var lz=zoneStats(leftS),rz=zoneStats(rightS);
-  var maxCount=0;
-  ZONES.forEach(function(zone){
-    var l=lz[zone]||{a:0},r=rz[zone]||{a:0};
-    if(l.a>maxCount)maxCount=l.a;if(r.a>maxCount)maxCount=r.a;
-  });
-  if(!maxCount){g.innerHTML='';return;}
+  if(!shots.length){g.innerHTML='';return;}
+  var R=20;
+  var hexes=buildHexBins(shots,R);
+  var keys=Object.keys(hexes);
+  var maxT=0;
+  keys.forEach(function(k){if(hexes[k].total>maxT)maxT=hexes[k].total;});
+  if(!maxT){g.innerHTML='';return;}
   var parts=[];
-  function addZoneHex(stats,labelMap){
-    ZONES.forEach(function(zone){
-      var pos=labelMap[zone];if(!pos)return;
-      var d=stats[zone];if(!d||!d.a)return;
-      var pct=d.m/d.a*100,ref=(zoneRef&&zoneRef[zone])||40,dev=pct-ref;
-      var sz=12+(d.a/maxCount)*24;
-      var op=Math.min(0.92,0.52+d.a/maxCount*0.4).toFixed(2);
-      parts.push('<polygon points="'+hexPts(pos[0],pos[1],sz)+'" fill="'+devColor(dev)+'" opacity="'+op+'" stroke="rgba(0,0,0,.25)" stroke-width="0.8"/>');
-    });
-  }
-  addZoneHex(lz,ZONE_LABEL_LEFT);addZoneHex(rz,ZONE_LABEL_RIGHT);
+  keys.forEach(function(k){
+    var h=hexes[k];
+    var pct=h.total>0?h.made/h.total*100:0;
+    var ratio=h.total/maxT;
+    var sz=R*(0.4+0.6*ratio);
+    var op=Math.min(0.92,0.45+0.47*ratio).toFixed(2);
+    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+pctColor(pct)+'" opacity="'+op+'" stroke="rgba(0,0,0,.18)" stroke-width="0.6"/>');
+  });
   g.innerHTML=parts.join('');
 }
 
@@ -2823,8 +2826,8 @@ function paintZoneText(shots,ztId,zoneRef){
     ZONES.forEach(function(zone){
       var pos=labelMap[zone];if(!pos)return;
       var d=stats[zone];if(!d||d.a<3)return;
-      var pct=Math.round(d.m/d.a*100),ref=(zoneRef&&zoneRef[zone])||40,dev=pct-ref;
-      var fc=dev>5?'#FFB347':dev<-5?'#90C8FF':'#FFFFFF';
+      var pct=Math.round(d.m/d.a*100);
+      var fc='#FFFFFF';
       parts.push('<text x="'+pos[0]+'" y="'+pos[1]+'" text-anchor="middle" dominant-baseline="middle"'
         +' font-family="Barlow Condensed,sans-serif" font-size="11" font-weight="700"'
         +' stroke="#121214" stroke-width="3" paint-order="stroke"'
@@ -2856,14 +2859,14 @@ function hexLegend(zoneRef){
   var szDemo='<svg viewBox="0 0 90 24" style="width:90px;height:24px;vertical-align:middle;">'
     +[5,8,12,16].map(function(r,i){return'<polygon points="'+hexPts(10+i*23,12,r)+'" fill="rgba(200,200,200,.6)" stroke="#888" stroke-width="0.5"/>';}).join('')+'</svg>';
   var colDemo='<div style="display:flex;align-items:center;gap:2px;margin-top:4px;">'
-    +'<span style="font-size:9px;color:#6E6E70;">−20%</span>'
-    +['#DE2027','#F08030','#9D9D9C','#4C9EE8','#2355C0'].map(function(c){return'<div style="width:18px;height:9px;background:'+c+';border-radius:2px;opacity:.85;"></div>';}).join('')
-    +'<span style="font-size:9px;color:#6E6E70;">+20%</span></div>';
+    +'<span style="font-size:9px;color:#6E6E70;">0%</span>'
+    +['#DE2027','#E06030','#D4A020','#52A838','#166B39'].map(function(c){return'<div style="width:18px;height:9px;background:'+c+';border-radius:2px;opacity:.85;"></div>';}).join('')
+    +'<span style="font-size:9px;color:#6E6E70;">100%</span></div>';
   return'<div style="display:flex;gap:20px;margin-top:10px;flex-wrap:wrap;padding:0 2px;">'
     +'<div><div style="font-size:10px;color:#6E6E70;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Frequência</div>'
-    +szDemo+'<div style="font-size:9px;color:#9D9D9C;margin-top:3px;">poucos → muitos</div></div>'
-    +'<div><div style="font-size:10px;color:#6E6E70;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Aproveitamento vs ref.</div>'
-    +colDemo+'<div style="font-size:9px;color:#9D9D9C;margin-top:3px;">Ref.: '+refLabel+' por zona</div></div></div>';
+    +szDemo+'<div style="font-size:9px;color:#9D9D9C;margin-top:3px;">baixa → alta</div></div>'
+    +'<div><div style="font-size:10px;color:#6E6E70;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Aproveitamento</div>'
+    +colDemo+'<div style="font-size:9px;color:#9D9D9C;margin-top:3px;">% de acerto por cluster</div></div></div>';
 }
 
 function courtSVGHex(hexId,ztId){
@@ -2890,7 +2893,7 @@ function courtSVGHex(hexId,ztId){
    +'<rect x="588" y="147.2" width="4" height="25.6" fill="none" stroke="#DE2027" stroke-width="2"/>'
    +'<circle cx="566.2" cy="160" r="7" fill="none" stroke="#DE2027" stroke-width="2"/>'
    +courtZones()
-   +'<g id="'+hexId+'"></g><g id="'+ztId+'"></g></svg>';
+   +'<g id="'+hexId+'-dots"></g><g id="'+hexId+'"></g><g id="'+ztId+'"></g></svg>';
 }
 
 function paintDivZones(shots,cardId,zoneRef){
@@ -3681,6 +3684,7 @@ function renderShotchart(){
 function paintSC(){
   var shots=scShots(),view=SEL.scView||'shots',zoneRef=zoneRefFor();
   if(view==='region'){
+    paintDots(shots,'sc-hex-dots');
     paintHexbin(shots,'sc-hex',zoneRef);
     paintZoneText(shots,'sc-zt',zoneRef);
     var hl=document.getElementById('sc-hexlegend');
