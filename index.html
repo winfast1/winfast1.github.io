@@ -2520,6 +2520,8 @@ function pctBar(label, right, pct, color){
 
 /* ============================ SHOT CHART / HEATMAP ============================ */
 function renderHeatmap(shots, imgId){
+  var el=document.getElementById(imgId); if(el)el.setAttribute('href',''); return;
+  // heatmap desativado — quadra preta limpa
   var el=document.getElementById(imgId); if(!el)return;
   var SW=600,SH=320,GRID=5,s2=64,kr=20;
   var cols=Math.ceil(SW/GRID),rows=Math.ceil(SH/GRID);
