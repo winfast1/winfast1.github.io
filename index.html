@@ -3684,7 +3684,6 @@ function renderShotchart(){
 function paintSC(){
   var shots=scShots(),view=SEL.scView||'shots',zoneRef=zoneRefFor();
   if(view==='region'){
-    paintDots(shots,'sc-hex-dots');
     paintHexbin(shots,'sc-hex',zoneRef);
     paintZoneText(shots,'sc-zt',zoneRef);
     var hl=document.getElementById('sc-hexlegend');
