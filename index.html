@@ -2791,7 +2791,7 @@ function buildHexBins(shots,R){
 
 function paintHexbin(shots,hexId,zoneRef){
   var g=document.getElementById(hexId);if(!g)return;
-  var R=17,hexes=buildHexBins(shots,R);
+  var R=26,hexes=buildHexBins(shots,R);
   var maxCount=0;
   Object.keys(hexes).forEach(function(k){if(hexes[k].total>maxCount)maxCount=hexes[k].total;});
   if(!maxCount){g.innerHTML='';return;}
