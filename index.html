@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{--bg:#0a0c10;--sf:#10141c;--sf2:#161c28;--bd:#1e2535;--usp:#f5c518;--gr:#22c55e;--rd:#ef4444;--bl:#3b82f6;--tx:#e8eaf0;--mu:#6b7280;--mu2:#9ca3af;}
-body.light{--bg:#f0f4f8;--sf:#ffffff;--sf2:#f0f4f8;--bd:#dde2ea;--usp:#c47f00;--gr:#16a34a;--rd:#dc2626;--bl:#2563eb;--tx:#111827;--mu:#6b7280;--mu2:#374151;}
+body.light{--bg:#E8E8E7;--sf:#FDFDFC;--sf2:#F7F7F6;--bd:#DADAD9;--usp:#DE2027;--gr:#22c55e;--rd:#ef4444;--bl:#3b82f6;--tx:#121214;--mu:#6E6E70;--mu2:#9D9D9C;}
 /* tema claro: tooltip, hover de tabela, canvases */
 body.light .tt{background:#fff!important;border-color:#dde2ea!important;box-shadow:0 4px 16px rgba(0,0,0,.12);color:#111827!important;}
 body.light tr:hover td{background:#f0f4f8!important;}
@@ -394,7 +394,8 @@ function toggleTheme(){
   if(typeof renderSC==='function')renderSC();
 }
 (function(){
-  if(localStorage.getItem('wf-theme')==='light'){
+  // claro é o padrão; só usa escuro se o usuário escolheu explicitamente
+  if(localStorage.getItem('wf-theme')!=='dark'){
     document.body.classList.add('light');
     document.addEventListener('DOMContentLoaded',function(){
       var btn=document.getElementById('theme-toggle');
