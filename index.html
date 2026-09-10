@@ -2228,6 +2228,30 @@ function getSB(){
   return _sbClient;
 }
 
+var CLIENT_THEMES={
+  'eefa58ca-781e-4c78-8db9-d9c843ecb390':{
+    accent:'#ef4444', accentHi:'#fca5a5',
+    bg:'#0d0808', sf:'#130c0c', sf2:'#1a1010', bd:'#3d1515',
+    label:'COTP'
+  },
+  'default':{
+    accent:'#22c55e', accentHi:'#86efac',
+    bg:'#080d09', sf:'#0c1410', sf2:'#101a13', bd:'#0f3020',
+    label:'Med USP'
+  }
+};
+
+function applyClientTheme(userId){
+  var t=CLIENT_THEMES[userId]||CLIENT_THEMES['default'];
+  var r=document.documentElement;
+  r.style.setProperty('--usp',t.accent);
+  r.style.setProperty('--bg',t.bg);
+  r.style.setProperty('--sf',t.sf);
+  r.style.setProperty('--sf2',t.sf2);
+  r.style.setProperty('--bd',t.bd);
+  window._clientTheme=t;
+}
+
 async function loadUserGames(session){
   var sb=getSB();
   var msg=document.getElementById('login-msg');
@@ -2235,6 +2259,7 @@ async function loadUserGames(session){
   try{
     var userId=session&&session.user&&session.user.id;
     if(!userId)throw new Error('Sessão inválida — tente fazer login novamente.');
+    applyClientTheme(userId);
     var {data,error}=await sb.from(SB_TABLE).select('*').eq('user_id',userId);
     if(error)throw error;
     msg.textContent='';
