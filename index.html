@@ -2243,12 +2243,16 @@ var CLIENT_THEMES={
 
 function applyClientTheme(userId){
   var t=CLIENT_THEMES[userId]||CLIENT_THEMES['default'];
-  var r=document.documentElement;
-  r.style.setProperty('--usp',t.accent);
-  r.style.setProperty('--bg',t.bg);
-  r.style.setProperty('--sf',t.sf);
-  r.style.setProperty('--sf2',t.sf2);
-  r.style.setProperty('--bd',t.bd);
+  var b=document.body;
+  // --usp no body: sobrescreve body.light{--usp} no modo claro
+  b.style.setProperty('--usp',t.accent);
+  // bg/surface só no modo escuro (modo claro conserva fundo branco)
+  if(!b.classList.contains('light')){
+    b.style.setProperty('--bg',t.bg);
+    b.style.setProperty('--sf',t.sf);
+    b.style.setProperty('--sf2',t.sf2);
+    b.style.setProperty('--bd',t.bd);
+  }
   window._clientTheme=t;
 }
 
