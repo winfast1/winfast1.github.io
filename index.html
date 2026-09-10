@@ -3158,7 +3158,7 @@ function renderJogos(){
     if(!SEL.runsMin) SEL.runsMin=8;
     window.__runsAll=allRuns;
     var runOverlays=allRuns.filter(function(r){return r.pts>=SEL.runsMin&&(!cmpG||r.team===evoTeam);}).map(function(r,ri){
-      var col=r.team==='usp'?'#DE2027':'#3D3D3F';
+      var col=r.team==='usp'?'#22c55e':'#DE2027';
       var arr=tl[r.team];
       var seg=arr.filter(function(p){return p.t>=r.startT&&p.t<=r.endT;});
       if(seg.length<2) return '';
