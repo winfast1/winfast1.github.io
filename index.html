@@ -2347,7 +2347,7 @@ function initWFDashboard(){
   // Inicializar SEL
   SEL = { game: GAMES[0].id, scG:0, scQ:'all', scT:'all', scR:'all', scP:'all', scView:'shots',
           cmpA:GAMES[0].id, cmpB:GAMES[1]?GAMES[1].id:GAMES[0].id,
-          plr:null, plrG:0, plrQ:'all', plrT:'all', plrR:'all', quintG:0 };
+          plr:null, plrG:0, plrQ:'all', plrT:'all', plrR:'all', plrView:'shots', quintG:0 };
 
   // Atualizar header
   var teamSub=document.getElementById('wf-team-sub');
@@ -3982,6 +3982,7 @@ window.setPlrG=function(v){SEL.plrG=+v;paintPlayer();};
 window.setPlrQ=function(v){SEL.plrQ=v;paintPlayer();};
 window.setPlrT=function(v){SEL.plrT=v;paintPlayer();};
 window.setPlrR=function(v){SEL.plrR=v;paintPlayer();};
+window.setPlrView=function(v){SEL.plrView=v;paintPlayer();};
 
 window.paintPlayer=function(){
   var players=playerAgg(), p=players.filter(function(x){return x.n===SEL.plr;})[0]; if(!p)return;
@@ -4050,8 +4051,14 @@ window.paintPlayer=function(){
     +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Tipo</div>'
     +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'+tchips+'</div>'
     +'<div style="font-size:11px;color:'+C.mut+';margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Resultado</div>'
-    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">'+rchips+'</div>'
-    +courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2)+'</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">'+rchips+'</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">'
+    +'<span style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;min-width:52px;">Visão</span>'
+    +'<button class="wf-chip'+(SEL.plrView==='shots'?' on':'')+'" onclick="setPlrView(\'shots\')">Por arremesso</button>'
+    +'<button class="wf-chip'+(SEL.plrView==='region'?' on':'')+'" onclick="setPlrView(\'region\')">Por região</button>'
+    +'</div>'
+    +(SEL.plrView==='region'?courtSVGHex('plr-hex','plr-zt')+'<div id="plr-hexlegend"></div>':courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2))
+    +'</div>'
     +'<div>'
     +'<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Aproveitamento</div>'
     +pctBar('2 pontos', p.FG2M+'/'+p.FG2A, p.FG2A?p.FG2M/p.FG2A*100:0)
@@ -4066,7 +4073,14 @@ window.paintPlayer=function(){
     +'</div>';
   document.getElementById('plr-detail').innerHTML=html;
 
-  renderHeatmap(shots,'plr-hm'); paintDots(shots,'plr-dots');
+  if(SEL.plrView==='region'){
+    paintHexbin(shots,'plr-hex',null);
+    paintZoneText(shots,'plr-zt',null);
+    var hl=document.getElementById('plr-hexlegend');
+    if(hl)hl.innerHTML=hexLegend(null);
+  } else {
+    renderHeatmap(shots,'plr-hm'); paintDots(shots,'plr-dots');
+  }
 
   // avançadas + USG + saldo por jogo
   var efg=fga?(fgm+0.5*p.FG3M)/fga*100:0;
