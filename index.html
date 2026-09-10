@@ -2791,18 +2791,26 @@ function buildHexBins(shots,R){
 
 function paintHexbin(shots,hexId,zoneRef){
   var g=document.getElementById(hexId);if(!g)return;
-  var R=26,hexes=buildHexBins(shots,R);
+  var leftS=shots.filter(function(s){return s.X_pct<50;}),rightS=shots.filter(function(s){return s.X_pct>=50;});
+  var lz=zoneStats(leftS),rz=zoneStats(rightS);
   var maxCount=0;
-  Object.keys(hexes).forEach(function(k){if(hexes[k].total>maxCount)maxCount=hexes[k].total;});
+  ZONES.forEach(function(zone){
+    var l=lz[zone]||{a:0},r=rz[zone]||{a:0};
+    if(l.a>maxCount)maxCount=l.a;if(r.a>maxCount)maxCount=r.a;
+  });
   if(!maxCount){g.innerHTML='';return;}
   var parts=[];
-  Object.keys(hexes).forEach(function(k){
-    var h=hexes[k];
-    var pct=h.made/h.total*100,ref=(zoneRef&&zoneRef[h.zone])||40,dev=pct-ref;
-    var sz=5+(h.total/maxCount)*(R*0.88-5);
-    var op=Math.min(0.9,0.45+h.total/maxCount*0.45).toFixed(2);
-    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+devColor(dev)+'" opacity="'+op+'" stroke="rgba(22,40,29,.35)" stroke-width="0.5"/>');
-  });
+  function addZoneHex(stats,labelMap){
+    ZONES.forEach(function(zone){
+      var pos=labelMap[zone];if(!pos)return;
+      var d=stats[zone];if(!d||!d.a)return;
+      var pct=d.m/d.a*100,ref=(zoneRef&&zoneRef[zone])||40,dev=pct-ref;
+      var sz=12+(d.a/maxCount)*24;
+      var op=Math.min(0.92,0.52+d.a/maxCount*0.4).toFixed(2);
+      parts.push('<polygon points="'+hexPts(pos[0],pos[1],sz)+'" fill="'+devColor(dev)+'" opacity="'+op+'" stroke="rgba(0,0,0,.25)" stroke-width="0.8"/>');
+    });
+  }
+  addZoneHex(lz,ZONE_LABEL_LEFT);addZoneHex(rz,ZONE_LABEL_RIGHT);
   g.innerHTML=parts.join('');
 }
 
