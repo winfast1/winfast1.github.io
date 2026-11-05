@@ -1,0 +1,28 @@
+﻿{
+    "zip":  "MedUsp_vs_ZumbidosPalmares_1quarto",
+    "files":  [
+                  "Arremesso Errado/Arremesso Errado #01 - Q1 00m45s - Leozão.mp4",
+                  "Arremesso Errado/Arremesso Errado #02 - Q1 02m50s - Mogi.mp4",
+                  "Arremesso Errado/Arremesso Errado #03 - Q1 03m28s - Kuroba.mp4",
+                  "Arremesso Errado/Arremesso Errado #04 - Q1 05m39s - Mogi.mp4",
+                  "Arremesso Errado/Arremesso Errado #05 - Q1 06m02s - Henricão.mp4",
+                  "Arremesso Errado/Arremesso Errado #06 - Q1 07m56s - Mogi.mp4",
+                  "Arremesso Errado/Arremesso Errado #08 - Q1 08m43s - Mogi.mp4",
+                  "Arremesso Errado/Arremesso Errado #09 - Q1 12m13s - Henricão.mp4",
+                  "Arremesso Errado/Arremesso Errado #10 - Q1 14m53s - Mogi.mp4"
+              ],
+    "csv":  "categoria;numero;periodo;relogio_jogo;atleta;inicio_s;fim_s;duracao_s;hora;fonte;tecla;marcado_por;status;clipe\r\n\"Arremesso Errado\";\"1\";\"Q1\";\"00m45s\";\"Leozão\";\"40.41296\";\"45.41296\";\"5\";\"11:32:21\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #01 - Q1 00m45s - Leozão.mp4\"\r\n\"Arremesso Errado\";\"2\";\"Q1\";\"02m50s\";\"Mogi\";\"165.481317\";\"170.481317\";\"5\";\"11:34:23\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #02 - Q1 02m50s - Mogi.mp4\"\r\n\"Arremesso Errado\";\"3\";\"Q1\";\"03m28s\";\"Kuroba\";\"202.827968\";\"207.827968\";\"5\";\"11:36:17\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #03 - Q1 03m28s - Kuroba.mp4\"\r\n\"Arremesso Errado\";\"4\";\"Q1\";\"05m39s\";\"Mogi\";\"333.744437\";\"338.744437\";\"5\";\"11:39:33\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #04 - Q1 05m39s - Mogi.mp4\"\r\n\"Arremesso Errado\";\"5\";\"Q1\";\"06m02s\";\"Henricão\";\"356.636438\";\"361.636438\";\"5\";\"11:40:32\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #05 - Q1 06m02s - Henricão.mp4\"\r\n\"Arremesso Errado\";\"6\";\"Q1\";\"07m56s\";\"Mogi\";\"471.302884\";\"476.302884\";\"5\";\"11:42:29\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #06 - Q1 07m56s - Mogi.mp4\"\r\n\"Arremesso Errado\";\"8\";\"Q1\";\"08m43s\";\"Mogi\";\"517.748865\";\"522.748865\";\"5\";\"11:43:37\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #08 - Q1 08m43s - Mogi.mp4\"\r\n\"Arremesso Errado\";\"9\";\"Q1\";\"12m13s\";\"Henricão\";\"728.049629\";\"733.049629\";\"5\";\"11:46:11\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #09 - Q1 12m13s - Henricão.mp4\"\r\n\"Arremesso Errado\";\"10\";\"Q1\";\"14m53s\";\"Mogi\";\"887.695898\";\"892.695898\";\"5\";\"11:47:37\";\"vídeo gravado\";\"\";\"teclado\";\"READY\";\"Arremesso Errado/Arremesso Errado #10 - Q1 14m53s - Mogi.mp4\"",
+    "allEntries":  [
+                       "Arremesso Errado/Arremesso Errado #01 - Q1 00m45s - Leozão.mp4",
+                       "Arremesso Errado/Arremesso Errado #02 - Q1 02m50s - Mogi.mp4",
+                       "Arremesso Errado/Arremesso Errado #03 - Q1 03m28s - Kuroba.mp4",
+                       "Arremesso Errado/Arremesso Errado #04 - Q1 05m39s - Mogi.mp4",
+                       "Arremesso Errado/Arremesso Errado #05 - Q1 06m02s - Henricão.mp4",
+                       "Arremesso Errado/Arremesso Errado #06 - Q1 07m56s - Mogi.mp4",
+                       "Arremesso Errado/Arremesso Errado #08 - Q1 08m43s - Mogi.mp4",
+                       "Arremesso Errado/Arremesso Errado #09 - Q1 12m13s - Henricão.mp4",
+                       "Arremesso Errado/Arremesso Errado #10 - Q1 14m53s - Mogi.mp4",
+                       "Relatorio/relatorio.html",
+                       "Relatorio/dados_eventos.csv"
+                   ]
+}

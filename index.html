@@ -6,6 +6,10 @@
 <title>WinFast · Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="video-config.js"></script>
+<script src="video-match.js"></script>
+<script src="video-local.js"></script>
+<script src="video-ui.js"></script>
 <style>
 :root{--bg:#0a0c10;--sf:#10141c;--sf2:#161c28;--bd:#1e2535;--usp:#DE2027;--gr:#22c55e;--rd:#ef4444;--bl:#3b82f6;--tx:#e8eaf0;--mu:#6b7280;--mu2:#9ca3af;}
 body.light{--bg:#E8E8E7;--sf:#FDFDFC;--sf2:#F7F7F6;--bd:#DADAD9;--usp:#DE2027;--gr:#22c55e;--rd:#ef4444;--bl:#3b82f6;--tx:#121214;--mu:#6E6E70;--mu2:#9D9D9C;}
@@ -2070,7 +2074,7 @@ function processGames(rawRows){
   // Filtrar jogos finalizados
   var rawGames=Object.values(seen)
     .filter(function(r){var gd=r[SB_COL]||r.data||{};return gd.finished;})
-    .map(function(r){return r[SB_COL]||r.data;});
+    .map(function(r){var d=r[SB_COL]||r.data;d.__rowName=r.name||d.name||d.title||d.gameName||'';return d;});
 
   // Ordenar por data
   rawGames.sort(function(a,b){return parseDt(a.date)-parseDt(b.date);});
@@ -2080,7 +2084,7 @@ function processGames(rawRows){
   var myTeam=detectMyTeam(rawGames); MY_TEAM=myTeam;
 
   var qIdx={'1Q':0,'2Q':1,'3Q':2,'4Q':3};
-  var gid=1;
+  var gid=1, shotSeq=0;
 
   rawGames.forEach(function(game){
     var gidN=gid++;
@@ -2098,7 +2102,7 @@ function processGames(rawRows){
     var result=uspPts>advPts?'Vitória':'Derrota';
     var local=uspIdx===0?'Casa':'Fora';
 
-    GM.push({id:gidN,usp:uspTeamName.trim(),adv:advName,date:date,local:local,usp_pts:uspPts,adv_pts:advPts,resultado:result});
+    GM.push({id:gidN,usp:uspTeamName.trim(),adv:advName,date:date,local:local,usp_pts:uspPts,adv_pts:advPts,resultado:result,rowName:game.__rowName||''});
 
     // ── Timeline ──────────────────────────────────────────────────────────────
     var log=(game.log||[]).slice().reverse();
@@ -2138,7 +2142,7 @@ function processGames(rawRows){
       var pname=stripPfx(p.name);plsSet[pname]=true;
       (p.shots||[]).forEach(function(sh){
         var zone=sh.zone||(sh.three?'3pts':'2pts');
-        SHOTS.push({jogo_id:gidN,adv:advName,Atleta:pname,Time:uspTeamName.trim(),
+        SHOTS.push({sid:gidN+'-'+(shotSeq++),jogo_id:gidN,adv:advName,Atleta:pname,Time:uspTeamName.trim(),
           Quarto:sh.q,Tempo:sh.time||'',
           X_pct:Math.round((sh.x||0)*100)/100,Y_pct:Math.round((sh.y||0)*100)/100,
           Convertido:sh.made?'Sim':'Não',Tipo:zone,Subtipo:zone,
@@ -2582,15 +2586,25 @@ function courtSVG(imgId, dotsId){
 
 function paintDots(shots, dotsId){
   var g=document.getElementById(dotsId); if(!g)return;
+  var V=window.WFVideo, vOn=!!(V&&V.enabled());
   g.innerHTML=shots.map(function(s){
     var x=(s.X_pct/100)*600,y=(s.Y_pct/100)*320,conv=s.Convertido==='Sim';
-    var tip='<title>'+s.Atleta+' · J'+s.jogo_id+' vs '+s.adv+' · '+s.Tipo+' · '+s.Quarto+' · '+(conv?'Converteu':'Errou')+(s.Assistencia?' · Assist: '+s.Assistencia:'')+'</title>';
-    if(conv) return '<circle cx="'+x+'" cy="'+y+'" r="5.5" fill="#22c55e" stroke="#121214" stroke-width="1.6" style="cursor:pointer;">'+tip+'</circle>';
-    var s1=4.5;
-    return '<g style="cursor:pointer;">'+tip
-      +'<line x1="'+(x-s1)+'" y1="'+(y-s1)+'" x2="'+(x+s1)+'" y2="'+(y+s1)+'" stroke="#121214" stroke-width="4.5" stroke-linecap="round"/><line x1="'+(x+s1)+'" y1="'+(y-s1)+'" x2="'+(x-s1)+'" y2="'+(y+s1)+'" stroke="#121214" stroke-width="4.5" stroke-linecap="round"/>'
-      +'<line x1="'+(x-s1)+'" y1="'+(y-s1)+'" x2="'+(x+s1)+'" y2="'+(y+s1)+'" stroke="#DE2027" stroke-width="2.5" stroke-linecap="round"/><line x1="'+(x+s1)+'" y1="'+(y-s1)+'" x2="'+(x-s1)+'" y2="'+(y+s1)+'" stroke="#DE2027" stroke-width="2.5" stroke-linecap="round"/></g>';
+    var st=vOn?V.statusOf(s.sid):null, playable=(st==='ok'||st==='check');
+    var tip='<title>'+s.Atleta+' · J'+s.jogo_id+' vs '+s.adv+' · '+s.Tipo+' · '+s.Quarto+' · '+(conv?'Converteu':'Errou')+(s.Assistencia?' · Assist: '+s.Assistencia:'')+(playable?' · ▶ clique para ver o vídeo'+(st==='check'?' (conferir)':''):'')+'</title>';
+    var ring=playable?'<circle cx="'+x+'" cy="'+y+'" r="10" fill="none" stroke="'+(st==='ok'?'#ffffff':'#f59e0b')+'" stroke-width="1.6"'+(st==='check'?' stroke-dasharray="3 2"':'')+'/>':'';
+    var hit=vOn?'<circle cx="'+x+'" cy="'+y+'" r="11" fill="transparent"/>':'';
+    var attrs=vOn?' data-sid="'+s.sid+'" onclick="WFVideo.openShot(this.getAttribute(\'data-sid\'))"':'';
+    var shape;
+    if(conv){
+      shape='<circle cx="'+x+'" cy="'+y+'" r="5.5" fill="#22c55e" stroke="#121214" stroke-width="1.6"/>';
+    }else{
+      var s1=4.5;
+      shape='<line x1="'+(x-s1)+'" y1="'+(y-s1)+'" x2="'+(x+s1)+'" y2="'+(y+s1)+'" stroke="#121214" stroke-width="4.5" stroke-linecap="round"/><line x1="'+(x+s1)+'" y1="'+(y-s1)+'" x2="'+(x-s1)+'" y2="'+(y+s1)+'" stroke="#121214" stroke-width="4.5" stroke-linecap="round"/>'
+        +'<line x1="'+(x-s1)+'" y1="'+(y-s1)+'" x2="'+(x+s1)+'" y2="'+(y+s1)+'" stroke="#DE2027" stroke-width="2.5" stroke-linecap="round"/><line x1="'+(x+s1)+'" y1="'+(y-s1)+'" x2="'+(x-s1)+'" y2="'+(y+s1)+'" stroke="#DE2027" stroke-width="2.5" stroke-linecap="round"/>';
+    }
+    return '<g style="cursor:pointer;"'+attrs+'>'+tip+hit+ring+shape+'</g>';
   }).join('');
+  if(V&&V.track)V.track(dotsId,shots);
 }
 
 /* ================== ZONAS DE ARREMESSO (geometria da quadra) ==================
@@ -4057,6 +4071,7 @@ window.paintPlayer=function(){
     +'<button class="wf-chip'+(SEL.plrView==='shots'?' on':'')+'" onclick="setPlrView(\'shots\')">Por arremesso</button>'
     +'<button class="wf-chip'+(SEL.plrView==='region'?' on':'')+'" onclick="setPlrView(\'region\')">Por região</button>'
     +'</div>'
+    +(SEL.plrView==='region'?'':'<div id="wfv-panel-plr"></div>')
     +(SEL.plrView==='region'?courtSVGHex('plr-hex','plr-zt')+'<div id="plr-hexlegend"></div>':courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2))
     +'</div>'
     +'<div>'
@@ -4080,6 +4095,7 @@ window.paintPlayer=function(){
     if(hl)hl.innerHTML=hexLegend(null);
   } else {
     renderHeatmap(shots,'plr-hm'); paintDots(shots,'plr-dots');
+    if(window.WFVideo)WFVideo.mountPanel('wfv-panel-plr',function(){return shots;});
   }
 
   // avançadas + USG + saldo por jogo
@@ -4662,6 +4678,16 @@ function pnrSaveSession(){
 
 // aba pickroll removida
 Object.assign(window,{renderPnr:renderPnr,pnrEdit:pnrEdit,pnrAddRow:pnrAddRow,pnrRemove:pnrRemove,pnrSaveSession:pnrSaveSession});
+
+/* ─── Vídeos dos arremessos (pasta local do OneDrive) — ponte entre o site e video-ui.js ─── */
+if(window.WFVideo){
+  WFVideo.init({
+    getGame:function(gid){var g=GM.filter(function(x){return x.id===gid;})[0];return g?{id:g.id,name:g.rowName,usp:g.usp,adv:g.adv,date:g.date}:null;},
+    getShots:function(gid){return SHOTS.filter(function(s){return s.jogo_id===gid&&s.Time===MY_TEAM;});},
+    getShot:function(sid){for(var i=0;i<SHOTS.length;i++)if(SHOTS[i].sid===sid)return SHOTS[i];return null;},
+    paintDots:function(shots,id){paintDots(shots,id);}
+  });
+}
 
 </script>
 <div id="pg-quinteto" class="page">
