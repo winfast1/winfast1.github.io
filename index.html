@@ -184,6 +184,9 @@ td:first-child{text-align:left;font-weight:500;}tr:last-child td{border-bottom:n
 .wf-hdr{background:#121214;padding:0 24px;position:relative;}
 .wf-hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#DE2027;}
 .wf-hdr-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:8px;padding:16px 0 13px;border-bottom:1px solid rgba(255,255,255,.08);}
+.wf-hdr-left{display:flex;align-items:center;gap:18px;flex-wrap:wrap;row-gap:8px;}
+.wf-back{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9D9D9C;background:transparent;border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:7px 12px;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s,background .15s;}
+.wf-back:hover,.wf-back:focus-visible{color:#fff;border-color:#DE2027;background:rgba(222,32,39,.12);outline:none;}
 .wf-mark{display:flex;align-items:center;gap:11px;}
 .wf-logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:23px;letter-spacing:.06em;color:#fff;line-height:1;}
 .wf-logo em{color:#DE2027;font-style:normal;}
@@ -331,11 +334,14 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 
 <div class="wf-hdr">
   <div class="wf-hdr-top">
-    <div class="wf-mark" onclick="backToSelector()" title="Voltar para seleção de jogos" style="cursor:pointer;">
-      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#DE2027"/><path d="M12 0.5v23M0.5 12h23M4.5 4.9c3 2.8 4.6 4.3 7.5 7.1 2.9 2.8 4.5 4.3 7.5 7.1M19.5 4.9c-3 2.8-4.6 4.3-7.5 7.1-2.9 2.8-4.5 4.3-7.5 7.1" fill="none" stroke="rgba(22,40,29,0.45)" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <div>
-        <div class="wf-logo">WIN<em>FAST</em></div>
-        <div class="wf-logo-sub" id="wf-team-sub">Painel de Jogo</div>
+    <div class="wf-hdr-left">
+      <button type="button" class="wf-back" id="wf-back" onclick="backToSelector()" title="Voltar para a seleção de jogos" aria-label="Voltar para a seleção de jogos"><span aria-hidden="true">←</span> Voltar</button>
+      <div class="wf-mark" onclick="backToSelector()" title="Voltar para seleção de jogos" style="cursor:pointer;">
+        <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#DE2027"/><path d="M12 0.5v23M0.5 12h23M4.5 4.9c3 2.8 4.6 4.3 7.5 7.1 2.9 2.8 4.5 4.3 7.5 7.1M19.5 4.9c-3 2.8-4.6 4.3-7.5 7.1-2.9 2.8-4.5 4.3-7.5 7.1" fill="none" stroke="rgba(22,40,29,0.45)" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <div>
+          <div class="wf-logo">WIN<em>FAST</em></div>
+          <div class="wf-logo-sub" id="wf-team-sub">Painel de Jogo</div>
+        </div>
       </div>
     </div>
     <div class="wf-hdr-meta">
