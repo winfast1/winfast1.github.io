@@ -3179,7 +3179,7 @@ function renderJogos(){
       +'<g id="evo-tip">'
       +'<rect id="evo-tip-bg" width="134" height="54" rx="7" fill="var(--wf-navy-900)" opacity="0.96"/>'
       +'<text id="evo-tip-time" x="10" y="17" font-size="10" fill="var(--wf-card)"></text>'
-      +'<text id="evo-tip-usp" x="10" y="34" font-size="12" font-weight="700" fill="var(--wf-amber-500)"></text>'
+      +'<text id="evo-tip-usp" x="10" y="34" font-size="12" font-weight="700" fill="var(--wf-on-green)"></text>'
       +'<text id="evo-tip-adv" x="10" y="49" font-size="12" font-weight="700" fill="var(--wf-card)"></text>'
       +'</g></g>';
 
@@ -3433,7 +3433,7 @@ function paintEvoAt(t,x){
   document.getElementById('evo-tip').setAttribute('transform','translate('+tipX+',8)');
   document.getElementById('evo-tip-time').textContent=timeLabel;
   document.getElementById('evo-tip-usp').textContent=(st.uspName||'Med Usp')+'  '+uspV;
-  document.getElementById('evo-tip-usp').setAttribute('fill','var(--wf-amber-500)');
+  document.getElementById('evo-tip-usp').setAttribute('fill','var(--wf-on-green)');
   document.getElementById('evo-tip-adv').textContent=st.advName+'  '+advV;
   document.getElementById('evo-tip-adv').setAttribute('fill','var(--wf-card)');
 }

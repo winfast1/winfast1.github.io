@@ -46,9 +46,4 @@
   --wf-radius-sm: 8px;
   --wf-card-pad: 28px;
 
-  /* Acréscimo (não consta no briefing): extremo escuro do degradê sutil permitido só no login */
-  --wf-green-950: #0B2D21;
-
-  /* Aliases de leitura (sem novos valores) */
-  --wf-focus: 2px solid var(--wf-amber-500);
 }
