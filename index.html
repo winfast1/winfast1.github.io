@@ -4,50 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>WinFast · Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wf-tokens.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="video-config.js"></script>
 <script src="video-match.js"></script>
 <script src="video-local.js"></script>
 <script src="video-ui.js"></script>
 <style>
-/* ═══════════════ WinFast — DESIGN TOKENS (única fonte de cor do site) ═══════════════
-   Identidade: verde escuro (base) + azul-marinho (contraste) + off-white (leitura)
-   + âmbar (destaque) + vermelho (somente negativo/atenção).
-   Regra de desempenho:  positivo = --pos  ·  intermediário/alerta = --warn  ·  negativo = --neg  ·  neutro = --neu  */
+/* Aliases TEMPORÁRIOS: nomes antigos → tokens --wf-* (definidos em wf-tokens.css). Removidos na etapa final. */
 :root{
-  /* verdes */
-  --green-950:#071F16;--green-900:#0B2F22;--green-800:#0F4A34;--green-700:#17604A;--green-600:#1F7A58;--green-100:#DDEBE3;--green-50:#EEF5F0;
-  /* azul-marinho */
-  --navy-950:#09132B;--navy-900:#0E1F44;--navy-800:#162F61;--navy-700:#21427F;--navy-600:#2D58A5;--navy-100:#E1E8F4;
-  /* âmbar / laranja (destaque) */
-  --amber-500:#F5A524;--amber-600:#DB8A0D;--amber-700:#9A5A06;--amber-100:#FCEFD3;
-  /* vermelho (negativo) */
-  --red-600:#C8372D;--red-700:#A82A21;--red-100:#FBE4E1;
-  /* positivo */
-  --good-600:#1E9B5C;--good-700:#147A47;--good-100:#DFF1E6;
-  /* off-white e neutros esverdeados */
-  --paper:#F3F2EA;--surface:#FBFAF5;--surface-2:#F1F0E7;--card:#FFFFFF;
-  --border:#D8D6C9;--border-soft:#E6E4D9;--border-strong:#BDBAA9;
-  --ink:#0D2218;--text:#1A2E24;--muted:#58675E;--muted-2:#66746B;
-  --on-dark:#F4F3EA;--on-dark-muted:#A8B7AE;--line-dark:rgba(244,243,234,.16);
-
-  /* papéis semânticos (usar estes no CSS e no JS, nunca o hex) */
-  --brand:var(--green-800);--brand-hover:var(--green-700);--accent:var(--amber-500);--accent-ink:var(--amber-700);
-  --pos:var(--good-700);--pos-fill:var(--good-600);--pos-bg:var(--good-100);
-  --warn:var(--amber-700);--warn-fill:var(--amber-500);--warn-bg:var(--amber-100);
-  --neg:var(--red-700);--neg-fill:var(--red-600);--neg-bg:var(--red-100);
-  --neu:var(--muted);--neu-fill:var(--muted-2);--neu-bg:var(--surface-2);
-  --team:var(--green-700);--opp:var(--navy-700);   /* séries: Med Usp × adversário */
-  --court:var(--navy-900);--court-deep:var(--navy-950);
-  --pos-on-dark:#3FCB82;--neg-on-dark:#F2685C;--orange-500:#E5762B;--good-400:#58B882;
-  --stage:var(--green-950);
-  --shadow-sm:0 1px 3px rgba(7,31,22,.08);--shadow-md:0 6px 20px rgba(7,31,22,.14);--shadow-lg:0 14px 40px rgba(7,31,22,.28);
-  --focus:0 0 0 3px rgba(245,165,36,.45);
-
-  /* nomes legados (login, seletor de jogos) apontando para os tokens */
-  --bg:var(--paper);--sf:var(--surface);--sf2:var(--surface-2);--bd:var(--border);--usp:var(--brand);
-  --gr:var(--pos-fill);--rd:var(--neg-fill);--bl:var(--navy-600);--tx:var(--text);--mu:var(--muted);--mu2:var(--muted-2);
+  --green-950:var(--wf-green-900);--green-900:var(--wf-green-900);--green-800:var(--wf-green-900);--green-700:var(--wf-green-600);--green-600:var(--wf-green-600);--green-100:var(--wf-subtle);--green-50:var(--wf-subtle);
+  --navy-950:var(--wf-navy-900);--navy-900:var(--wf-navy-900);--navy-800:var(--wf-navy-900);--navy-700:var(--wf-navy-900);--navy-600:var(--wf-navy-900);--navy-100:var(--wf-subtle);
+  --amber-500:var(--wf-amber-500);--amber-600:var(--wf-amber-500);--amber-700:var(--wf-text);--amber-100:var(--wf-subtle);
+  --red-600:var(--wf-chart-neg);--red-700:var(--wf-neg);--red-100:var(--wf-subtle);
+  --good-600:var(--wf-chart-pos);--good-700:var(--wf-pos);--good-400:var(--wf-seq-4);--good-100:var(--wf-subtle);--orange-500:var(--wf-chart-neg);
+  --paper:var(--wf-bg);--surface:var(--wf-bg);--surface-2:var(--wf-subtle);--card:var(--wf-card);
+  --border:var(--wf-divider);--border-soft:var(--wf-divider);--border-strong:var(--wf-divider);
+  --ink:var(--wf-text);--text:var(--wf-text);--muted:var(--wf-text-2);--muted-2:var(--wf-text-2);
+  --on-dark:var(--wf-on-green);--on-dark-muted:var(--wf-on-green-2);--line-dark:var(--wf-green-600);
+  --brand:var(--wf-green-900);--brand-hover:var(--wf-green-600);--accent:var(--wf-amber-500);--accent-ink:var(--wf-text);
+  --pos:var(--wf-pos);--pos-fill:var(--wf-chart-pos);--pos-bg:var(--wf-subtle);
+  --warn:var(--wf-neutral);--warn-fill:var(--wf-neutral);--warn-bg:var(--wf-subtle);
+  --neg:var(--wf-neg);--neg-fill:var(--wf-chart-neg);--neg-bg:var(--wf-subtle);
+  --neu:var(--wf-neutral);--neu-fill:var(--wf-neutral);--neu-bg:var(--wf-subtle);
+  --team:var(--wf-green-600);--opp:var(--wf-opp);--court:var(--wf-navy-900);--court-deep:var(--wf-navy-900);--stage:var(--wf-bg);
+  --shadow-sm:none;--shadow-md:none;--shadow-lg:none;--focus:0 0 0 0 transparent;
+  --pos-on-dark:var(--wf-shot-made);--neg-on-dark:var(--wf-shot-miss);
+  --bg:var(--wf-bg);--sf:var(--wf-card);--sf2:var(--wf-subtle);--bd:var(--wf-divider);--usp:var(--wf-green-900);
+  --gr:var(--wf-chart-pos);--rd:var(--wf-chart-neg);--bl:var(--wf-navy-900);--tx:var(--wf-text);--mu:var(--wf-text-2);--mu2:var(--wf-text-2);
 }
 body.light{--bg:var(--paper);--sf:var(--surface);--sf2:var(--surface-2);--bd:var(--border);}
 body.light .tt{background:#fff!important;border-color:var(--border)!important;box-shadow:var(--shadow-md);color:var(--text)!important;}
@@ -57,7 +42,7 @@ body.light .logout-btn{border-color:var(--bd);color:var(--mu2);}
 body.light .logout-btn:hover{border-color:var(--neg-fill);color:var(--neg);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--stage);color:var(--tx);font-family:'Barlow',sans-serif;min-height:100vh;}
-:focus-visible{outline:none;box-shadow:var(--focus);}
+:focus-visible{outline:2px solid var(--wf-amber-500);outline-offset:2px;box-shadow:none;}
 header{background:var(--sf);border-bottom:2px solid var(--accent);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;letter-spacing:2px;color:var(--brand);}.logo span{color:var(--tx);}
 .top-nav{background:var(--sf);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;gap:2px;overflow-x:auto;}
