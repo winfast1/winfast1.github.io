@@ -105,6 +105,15 @@ td:first-child{text-align:left;font-weight:500;}tr:last-child td{border-bottom:n
 .sec-div{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .sec-div-line{flex:1;height:1px;opacity:.3;}
 
+/* botões reais no lugar de div/td/span com onclick */
+.wf-linkbtn{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-align:left;min-height:44px;min-width:44px;display:inline-flex;align-items:center;border-radius:var(--wf-radius-sm);}
+.wf-linkbtn:hover{text-decoration:underline;}
+button.gs-card{border:0;text-align:left;font-family:inherit;display:block;width:100%;color:var(--wf-text);}
+button.gs-card > *{display:block;}
+button.gs-period-mi,button.gs-cal-day.hg,button.gs-cal-game{border:0;background:none;font-family:inherit;width:100%;}
+button.gs-period-mi{text-align:left;}
+button.gs-cal-game{background:var(--wf-subtle);text-align:left;font-size:14px;}
+button.gs-cal-day.hg{padding:4px 2px;}
 /* ========== LOGIN ========== */
 #login-overlay{position:fixed;inset:0;background:var(--wf-green-900);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;}
 #login-box{background:var(--wf-card);border-radius:var(--wf-radius);padding:36px;width:100%;max-width:400px;text-align:center;}
@@ -209,7 +218,7 @@ button{font-family:inherit;}
 .wf-avatar{width:36px;height:36px;border-radius:50%;background:var(--wf-amber-500);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--wf-green-900);font-weight:700;}
 .wf-nav{display:flex;gap:28px;overflow-x:auto;scrollbar-width:none;}
 .wf-nav::-webkit-scrollbar{display:none;}
-.wf-tab{font:500 15px/1 'Barlow',sans-serif;color:var(--wf-on-green-2);background:none;border:0;border-bottom:2px solid transparent;padding:14px 0 12px;min-height:44px;cursor:pointer;white-space:nowrap;}
+.wf-tab{min-width:44px;font:500 15px/1 'Barlow',sans-serif;color:var(--wf-on-green-2);background:none;border:0;border-bottom:2px solid transparent;padding:14px 0 12px;min-height:44px;cursor:pointer;white-space:nowrap;}
 .wf-tab:hover{color:var(--wf-on-green);}
 .wf-tab.active{color:var(--wf-on-green);font-weight:600;border-bottom-color:var(--wf-amber-500);}
 .wf-body{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding:32px 0 24px;align-items:start;}
@@ -724,7 +733,7 @@ function buildGsPeriodMonths(){
   return sorted.map(function(k){
     var m=mmap[k],name=(GS_MONTHS_FULL[m.mo-1]||k)+' '+m.yr;
     var cls='gs-period-mi'+(_gsCalMonth===k?' active':'');
-    return '<div class="'+cls+'" onclick="showGsCalendar(\''+k+'\')">'+'<span>'+name+'</span>'+'<span style="color:var(--mu);font-size:11px;">'+m.wins+'V '+(m.total-m.wins)+'D &middot; '+m.total+'j</span>'+'</div>';
+    return '<button type="button" class="'+cls+'" onclick="showGsCalendar(\''+k+'\')">'+'<span>'+name+'</span>'+'<span style="color:var(--wf-text-2);font-size:13px;">'+m.wins+'V '+(m.total-m.wins)+'D &middot; '+m.total+'j</span>'+'</button>';
   }).join('');
 }
 
@@ -747,7 +756,7 @@ function showGsCalendar(monthKey,keepDay){
     var dd2=String(d2).padStart(2,'0'),dayKey=dd2+'/'+parts[0]+'/'+yr;
     var hasg=!!dayMap[dd2],isAct=_gsDayFilter===dayKey;
     var cls='gs-cal-day'+(hasg?' hg':'')+(isAct?' act':'');
-    html+='<div class="'+cls+'"'+(hasg?' onclick="setGsDay(\''+dayKey+'\')"':'')+'>'+d2+(hasg?'<div class="gs-cal-dots">'+dayMap[dd2].map(function(col){return '<div class="gs-cal-dot" style="background:'+col+';"></div>';}).join('')+'</div>':'')+'</div>';
+    html+=(hasg?'<button type="button" class="'+cls+'" onclick="setGsDay(\''+dayKey+'\')" aria-label="Dia '+d2+'">':'<div class="'+cls+'">')+d2+(hasg?'<span class="gs-cal-dots">'+dayMap[dd2].map(function(col){return '<span class="gs-cal-dot" style="background:'+col+';"></span>';}).join('')+'</span>':'')+(hasg?'</button>':'</div>');
   }
   html+='</div></div>';
   // Mini-cards do dia selecionado
@@ -831,11 +840,11 @@ function renderGsSections(){
       if(uspIdx<0)uspIdx=0;
       var adv=teams[1-uspIdx]||{},usp=teams[uspIdx]||{},uspPts=usp.score||0,advPts=adv.score||0;
       var win=uspPts>advPts,advName=(adv.name||'?').trim(),sel=_gsSelected[i]?'sel':'';
-      return '<div class="gs-card '+sel+'" data-i="'+i+'" onclick="toggleGameCard('+i+')"><div class="gs-chk" id="gs-chk-'+i+'"></div>'
-        +'<div class="gc-res '+(win?'wf-pos':'wf-neg')+'">'+(win?'Vitória':'Derrota')+'</div>'
-        +'<div class="gc-adv">vs '+advName+'</div>'
-        +'<div class="gc-score">'+uspPts+'<span class="x">\u00d7</span>'+advPts+'</div>'
-        +'<div class="gc-date">'+(g.date||'')+'</div></div>';
+      return '<button type="button" class="gs-card '+sel+'" data-i="'+i+'" onclick="toggleGameCard('+i+')" aria-pressed="'+(sel?'true':'false')+'"><span class="gs-chk" id="gs-chk-'+i+'"></span>'
+        +'<span class="gc-res '+(win?'wf-pos':'wf-neg')+'">'+(win?'Vitória':'Derrota')+'</span>'
+        +'<span class="gc-adv">vs '+advName+'</span>'
+        +'<span class="gc-score">'+uspPts+'<span class="x">\u00d7</span>'+advPts+'</span>'
+        +'<span class="gc-date">'+(g.date||'')+'</span></button>';
     }).join('');
     html+='</div></div>';return html;
   }).join('');
@@ -851,7 +860,7 @@ function updateGsFilterCount(shown,total){
 function toggleGameCard(i){
   _gsSelected[i]=!_gsSelected[i];
   var card=document.querySelector('.gs-card[data-i="'+i+'"]');
-  if(card)card.classList.toggle('sel',_gsSelected[i]);
+  if(card){card.classList.toggle('sel',_gsSelected[i]);card.setAttribute('aria-pressed',_gsSelected[i]?'true':'false');}
   updateGsCount();
 }
 
@@ -3803,7 +3812,7 @@ function paintSC(){
   shots.forEach(function(s){if(!byP[s.Atleta])byP[s.Atleta]={m:0,a:0};byP[s.Atleta].a++;if(s.Convertido==='Sim')byP[s.Atleta].m++;});
   var bp=document.getElementById('sc-byp-card');
   if(bp)bp.innerHTML='<h2 class="wf-title">Por jogador</h2>'
-    +Object.keys(byP).sort(function(a,b){return byP[b].a-byP[a].a;}).map(function(k){var d=byP[k];var pct=Math.round(d.m/d.a*100);return'<div class="wf-mrow" style="font-size:15px;"><span style="font-weight:600;cursor:pointer;" onclick="setSCP(\''+k.replace(/'/g,"\\'")+'\')">'+k+'</span><span style="color:var(--wf-text-2);">'+d.m+'/'+d.a+' · <b style="color:'+(pct>=45?'var(--wf-pos)':pct<30?'var(--wf-neg)':'var(--wf-text)')+';">'+pct+'%</b></span></div>';}).join('');
+    +Object.keys(byP).sort(function(a,b){return byP[b].a-byP[a].a;}).map(function(k){var d=byP[k];var pct=Math.round(d.m/d.a*100);return'<div class="wf-mrow" style="font-size:15px;"><button type="button" class="wf-linkbtn" style="font-weight:600;" onclick="setSCP(\''+k.replace(/'/g,"\\'")+'\')">'+k+'</button><span style="color:var(--wf-text-2);">'+d.m+'/'+d.a+' · <b style="color:'+(pct>=45?'var(--wf-pos)':pct<30?'var(--wf-neg)':'var(--wf-text)')+';">'+pct+'%</b></span></div>';}).join('');
 }
 function setSCG(v){SEL.scG=+v; renderShotchart();}
 function setSCQ(v){SEL.scQ=v; renderShotchart();}
@@ -4350,7 +4359,7 @@ window.renderTemporada = function(){
     +players.map(function(p){
       var fgm=p.FG2M+p.FG3M, fga=p.FG2A+p.FG3A;
       return '<tr>'
-      +'<td style="cursor:pointer;" onclick="SEL.plr=\''+p.n.replace(/'/g,"\\'")+'\';showTab(\'jogador\');">'+p.n+'</td>'
+      +'<td><button type="button" class="wf-linkbtn" onclick="SEL.plr=\''+p.n.replace(/'/g,"\\'")+'\';showTab(\'jogador\');">'+p.n+'</button></td>'
       +'<td>'+p.g+'</td><td>'+fmt(p.MIN,0)+'</td>'
       +'<td style="font-weight:600;">'+p.PTS+'</td>'
       +'<td>'+fmt(p.PTS/p.g,1)+'</td><td>'+p.REB+'</td><td>'+p.AST+'</td>'
