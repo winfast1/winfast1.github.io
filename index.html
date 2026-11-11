@@ -278,6 +278,60 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 .wf-btn-text{background:none;border:0;color:var(--wf-green-900);font:600 15px/1 'Barlow',sans-serif;min-height:44px;padding:0 12px;border-radius:var(--wf-radius-sm);cursor:pointer;}
 .wf-btn-text:hover{background:var(--wf-subtle);}
 
+/* ========== PÁGINA JOGOS ========== */
+.wf-game-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;padding:12px;border:0;border-radius:var(--wf-radius-sm);background:transparent;text-align:left;cursor:pointer;color:var(--wf-text);font-family:inherit;margin-bottom:2px;}
+.wf-game-row:hover{background:var(--wf-subtle);}
+.wf-game-row.sel{background:var(--wf-card);}
+.wf-game-row.sel .wf-game-adv{font-weight:600;}
+.wf-game-adv{font-size:14px;font-weight:500;line-height:1.3;}
+.wf-game-meta{font-size:13px;color:var(--wf-text-2);margin-top:2px;}
+.wf-game-score{display:flex;align-items:baseline;gap:8px;white-space:nowrap;font-size:14px;font-weight:600;}
+.wf-game-score .wf-res{font-size:13px;font-weight:600;}
+.wf-pos{color:var(--wf-pos);}
+.wf-neg{color:var(--wf-neg);}
+.wf-muted{color:var(--wf-text-2);}
+.wf-title{font-size:18px;font-weight:600;color:var(--wf-text);margin:0 0 16px;line-height:1.3;}
+.wf-jhead{display:flex;align-items:center;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;}
+.wf-overline{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--wf-text-2);}
+.wf-score{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap;margin-top:4px;}
+.wf-score-team{font-size:22px;font-weight:600;}
+.wf-score-n{font-size:64px;font-weight:700;line-height:1;}
+.wf-score-sep{font-size:32px;color:var(--wf-neutral);}
+.wf-score .opp{color:var(--wf-text-2);}
+.wf-result{font-size:15px;font-weight:600;margin-left:6px;}
+.wf-jhead-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.wf-subtabs{display:flex;gap:28px;border-bottom:1px solid var(--wf-divider);margin:24px 0;overflow-x:auto;scrollbar-width:none;}
+.wf-subtabs::-webkit-scrollbar{display:none;}
+.wf-subtab{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:12px 0;min-height:44px;font:500 14px/1.2 'Barlow',sans-serif;color:var(--wf-text-2);cursor:pointer;white-space:nowrap;}
+.wf-subtab:hover{color:var(--wf-text);}
+.wf-subtab.on{color:var(--wf-green-900);font-weight:600;border-bottom-color:var(--wf-green-900);}
+.wf-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;padding:24px 28px;}
+.wf-kpi-sub{font-size:13px;color:var(--wf-text-2);margin-top:4px;}
+.wf-cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start;}
+.wf-stack{display:flex;flex-direction:column;gap:24px;min-width:0;}
+.wf-bar{margin-bottom:16px;}
+.wf-bar:last-child{margin-bottom:0;}
+.wf-bar-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;font-weight:500;color:var(--wf-text-2);margin-bottom:6px;}
+.wf-bar-head .wf-bar-pct{font-weight:600;color:var(--wf-text);margin-left:8px;}
+.wf-bar-track{height:8px;background:var(--wf-subtle);border-radius:4px;overflow:hidden;}
+.wf-bar-fill{height:100%;border-radius:4px;background:var(--wf-green-600);}
+.wf-mrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--wf-subtle);}
+.wf-mrow:last-child{border-bottom:0;}
+.wf-mrow-name{font-size:15px;color:var(--wf-text);}
+.wf-mrow-name .q{font-size:13px;color:var(--wf-text-2);}
+.wf-mrow-val{font-size:18px;font-weight:600;}
+.wf-mrow-val.big{font-size:22px;font-weight:700;}
+.wf-mrow-val small{font-size:13px;font-weight:400;color:var(--wf-text-2);margin-left:6px;}
+.wf-lead{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;}
+.wf-lead .l{font-size:13px;color:var(--wf-text-2);}
+.wf-lead .n{font-size:15px;font-weight:600;margin-top:4px;}
+.wf-lead .v{font-size:15px;font-weight:400;color:var(--wf-text-2);margin-top:1px;}
+.wf-cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:8px 0;font-size:14px;color:var(--wf-text-2);}
+@media (max-width:1100px){.wf-kpis{grid-template-columns:repeat(3,minmax(0,1fr));}.wf-lead{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width:1000px){.wf-cols{grid-template-columns:minmax(0,1fr);}}
+@media (max-width:900px){.wf-game-row{min-width:200px;}.wf-score-n{font-size:48px;}}
+@media (max-width:560px){.wf-kpis{grid-template-columns:repeat(2,minmax(0,1fr));padding:20px;gap:20px;}.wf-lead{grid-template-columns:repeat(2,minmax(0,1fr));}.wf-score-n{font-size:44px;}}
+
 /* ── SELETOR DE JOGOS ── */
 #game-selector .gs-topbar{background:linear-gradient(115deg,var(--green-900) 0%,var(--green-800) 55%,var(--navy-900) 135%);border-bottom-color:var(--accent);--tx:var(--on-dark);--mu:var(--on-dark-muted);--mu2:var(--on-dark-muted);--bd:var(--line-dark);}
 #game-selector .gs-filterbar{background:var(--navy-900);border-bottom-color:var(--navy-800);--tx:var(--on-dark);--mu:var(--on-dark-muted);--mu2:var(--on-dark-muted);--bd:rgba(244,243,234,.22);--bg:var(--navy-950);}
@@ -2098,7 +2152,7 @@ function processGames(rawRows){
   // Filtrar jogos finalizados
   var rawGames=Object.values(seen)
     .filter(function(r){var gd=r[SB_COL]||r.data||{};return gd.finished;})
-    .map(function(r){var d=r[SB_COL]||r.data;d.__rowName=r.name||d.name||d.title||d.gameName||'';return d;});
+    .map(function(r){var d=r[SB_COL]||r.data;d.__rowName=r.name||d.name||d.title||d.gameName||'';d.__comp=r.competitionName||d.competitionName||r.gametype||d.gametype||'';return d;});
 
   // Ordenar por data
   rawGames.sort(function(a,b){return parseDt(a.date)-parseDt(b.date);});
@@ -2126,7 +2180,7 @@ function processGames(rawRows){
     var result=uspPts>advPts?'Vitória':'Derrota';
     var local=uspIdx===0?'Casa':'Fora';
 
-    GM.push({id:gidN,usp:uspTeamName.trim(),adv:advName,date:date,local:local,usp_pts:uspPts,adv_pts:advPts,resultado:result,rowName:game.__rowName||''});
+    GM.push({id:gidN,usp:uspTeamName.trim(),adv:advName,date:date,local:local,usp_pts:uspPts,adv_pts:advPts,resultado:result,rowName:game.__rowName||'',comp:game.__comp||''});
 
     // ── Timeline ──────────────────────────────────────────────────────────────
     var log=(game.log||[]).slice().reverse();
@@ -2496,7 +2550,7 @@ var GAMES; _GAMES_FACTORY = function(){ return GM.map(function(g){
   var ts=(fga+0.44*us.FTA)>0? us.PTS/(2*(fga+0.44*us.FTA))*100:0;
   var efg=fga>0?(fgm+0.5*us.FG3M)/fga*100:0;
   return {
-    id:g.id, adv:g.adv, date:g.date, local:g.local, res:g.resultado,
+    id:g.id, adv:g.adv, date:g.date, local:g.local, res:g.resultado, comp:g.comp,
     win:g.resultado==='Vitória', us:us, ad:ad,
     pts:g.usp_pts, advPts:g.adv_pts,
     fga:fga, fgm:fgm, fgpct:fga>0?fgm/fga*100:0,
@@ -2530,9 +2584,9 @@ var SEASON; _SEASON_FACTORY = function(){ return (function(){
 function badge(kind,txt){ return '<span class="wf-badge wf-badge-'+kind+'">'+txt+'</span>'; }
 function fmt(v,d){ if(v==null||isNaN(v))return '—'; return (+v).toFixed(d==null?1:d).replace('.',','); }
 function pctBar(label, right, pct, color){
-  return '<div style="margin-bottom:12px;">'
-    +'<div style="display:flex;justify-content:space-between;font-size:12px;color:'+C.mut+';margin-bottom:5px;"><span>'+label+'</span><span style="color:var(--text);">'+right+'</span></div>'
-    +'<div style="height:7px;background:var(--border-soft);border-radius:3px;overflow:hidden;"><div class="wf-bar-fill" style="width:'+Math.max(0,Math.min(100,pct))+'%;height:100%;border-radius:3px;background:linear-gradient(90deg,'+(color||C.team)+','+(color||C.team)+');"></div></div></div>';
+  var parts=String(right).split(' · '), qty=parts.length>1?parts[0]:'', pc=parts.length>1?parts[1]:parts[0];
+  return '<div class="wf-bar"><div class="wf-bar-head"><span>'+label+'</span><span>'+(qty?qty+' ':'')+'<span class="wf-bar-pct">'+pc+'</span></span></div>'
+    +'<div class="wf-bar-track"><div class="wf-bar-fill" style="width:'+Math.max(0,Math.min(100,pct))+'%;"></div></div></div>';
 }
 
 /* ============================ SHOT CHART / HEATMAP ============================ */
@@ -3044,58 +3098,45 @@ function renderAside(){
   var el=document.getElementById('wf-aside-list'); if(!el)return;
   el.innerHTML=GAMES.map(function(g){
     var sel=g.id===SEL.game;
-    return '<div class="wf-game-row'+(sel?' sel':'')+'" onclick="selectGame('+g.id+')">'
-      +'<div style="font-size:12px;color:var(--text);">J'+g.id+' · '+g.adv+'</div>'
-      +'<div style="font-size:11px;color:'+C.mut+';margin:2px 0 6px;">'+g.date+' · '+g.local+'</div>'
-      +'<div style="display:flex;align-items:center;gap:5px;">'
-      +'<span style="font-size:14px;font-weight:600;color:'+(g.win?C.good:C.bad)+';">'+g.pts+'</span>'
-      +'<span style="font-size:11px;color:'+C.mut+';">-</span>'
-      +'<span style="font-size:14px;font-weight:600;color:'+C.ink+';">'+g.advPts+'</span>'
-      +'<span class="wf-badge wf-badge-'+(g.win?'good':'bad')+'" style="margin-left:auto;padding:1px 7px;">'+(g.win?'V':'D')+'</span>'
-      +'</div></div>';
+    return '<button type="button" class="wf-game-row'+(sel?' sel':'')+'" onclick="selectGame('+g.id+')"'+(sel?' aria-current="true"':'')+'>'
+      +'<span><span class="wf-game-adv" style="display:block;">'+g.adv+'</span>'
+      +'<span class="wf-game-meta" style="display:block;">J'+g.id+' · '+g.date.slice(0,5)+' · '+g.local+'</span></span>'
+      +'<span class="wf-game-score"><span>'+g.pts+'–'+g.advPts+'</span><span class="wf-res '+(g.win?'wf-pos':'wf-neg')+'" aria-label="'+(g.win?'Vitória':'Derrota')+'">'+(g.win?'V':'D')+'</span></span>'
+      +'</button>';
   }).join('');
 }
 function selectGame(id){ SEL.game=id; renderAside(); renderJogos(); }
 
 /* ============================ ABA: JOGOS ============================ */
 function renderJogos(){
-  var evoWasOpen = document.getElementById('evo-wrap') && document.getElementById('evo-wrap').style.display!=='none';
-  var qtrWasOpen = document.getElementById('qtr-wrap') && document.getElementById('qtr-wrap').style.display!=='none';
-  var boxUspWasOpen = document.getElementById('box-usp-wrap') && document.getElementById('box-usp-wrap').style.display!=='none';
-  var boxAdvWasOpen = document.getElementById('box-adv-wrap') && document.getElementById('box-adv-wrap').style.display!=='none';
   var g=gById(SEL.game);
-  var kpi=function(lbl,val,sub,col){ return '<div class="wf-card" style="padding:12px 14px;"><div class="wf-stat-label">'+lbl+'</div><div class="wf-stat-value"'+(col?' style="color:'+col+';"':'')+'>'+val+'</div>'+(sub?'<div style="font-size:11px;color:'+C.mut+';margin-top:2px;">'+sub+'</div>':'')+'</div>'; };
+  var diff=g.pts-g.advPts, sgn=diff>0?'+':diff<0?'\u2212':'';
+  var comp=g.comp&&g.comp!=='Sem Competicao'?' · '+g.comp:'';
+  // referência de turnovers: média da própria temporada (dado existente); sem referência, fica neutro
+  var toRate=g.poss?g.us.TO/g.poss*100:0, sPoss=0, sTO=0;
+  GAMES.forEach(function(x){sPoss+=x.poss;sTO+=x.us.TO;});
+  var toRef=(GAMES.length>1&&sPoss)?sTO/sPoss*100:null;
+  var toWorse=toRef!==null&&toRate>toRef, toBetter=toRef!==null&&toRate<toRef;
+  var kpi=function(lbl,val,sub,col){ return '<div><div class="wf-stat-label">'+lbl+'</div><div class="wf-stat-value"'+(col?' style="color:'+col+';"':'')+'>'+val+'</div><div class="wf-kpi-sub">'+(sub||'—')+'</div></div>'; };
 
-  var html='<div class="wf-card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:12px;margin-bottom:16px;">'
-    +'<div><div style="font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.02em;">Jogo '+g.id+' · '+g.date+' · '+g.local+'</div>'
-    +'<div style="display:flex;align-items:baseline;gap:10px;margin-top:4px;flex-wrap:wrap;">'
-    +'<span style="font-size:18px;font-weight:600;">Med Usp</span>'
-    +'<span style="font-size:28px;font-weight:700;color:'+(g.win?C.good:C.bad)+';">'+g.pts+'</span>'
-    +'<span style="font-size:13px;color:'+C.mut+';">x</span>'
-    +'<span style="font-size:28px;font-weight:700;">'+g.advPts+'</span>'
-    +'<span style="font-size:18px;font-weight:600;">'+g.adv+'</span>'
-    +badge(g.win?'good':'bad', g.win?'Vitória':'Derrota')+'</div></div>'
-    +'<div style="display:flex;gap:8px;"><button class="wf-chip" onclick="showTab(\'jogador\')">Por jogador</button><button class="wf-chip" onclick="showTab(\'comparar\')">Comparar jogo</button></div></div>';
-
-  // KPI grid
-  html+='<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;" class="wf-kpi-grid">'
-    +kpi('Pontos', g.pts, fmt(g.ortg/100,2)+' pts/posse', C.navy)
-    +kpi('Adversário', g.advPts, g.adv, C.opp)
-    +kpi('FG', g.fgm+'/'+g.fga, fmt(g.fgpct)+'%')
-    +kpi('Assistências', g.us.AST)
-    +kpi('Roubadas', g.us.STL)
-    +kpi('Turnovers', g.us.TO, fmt(g.us.TO/g.poss*100)+'% das posses', toColor(g.us.TO/g.poss*100))
+  var html='<div class="wf-jhead">'
+    +'<div class="wf-overline">Jogo '+g.id+comp+' · '+g.date+' · '+g.local+'</div>'
+    +'<div class="wf-jhead-actions"><button type="button" class="wf-btn-text" onclick="showTab(\x27jogador\x27)">Por jogador</button><button type="button" class="wf-btn-primary" onclick="showTab(\x27comparar\x27)">Comparar jogo</button></div></div>'
+    +'<div class="wf-score">'
+    +'<span class="wf-score-team">Med Usp</span><span class="wf-score-n">'+g.pts+'</span><span class="wf-score-sep">–</span><span class="wf-score-n opp">'+g.advPts+'</span><span class="wf-score-team opp">'+g.adv+'</span>'
+    +'<span class="wf-result '+(g.win?'wf-pos':'wf-neg')+'">'+(g.win?'Vitória':'Derrota')+' · '+sgn+Math.abs(diff)+'</span>'
     +'</div>';
 
-  // quarter scoreline + score evolution toggle buttons (side by side)
+  // sub-abas do jogo (cada uma mostra o conteúdo que antes abria por botão)
   var qs=getQtrScores(g.id);
   var tl=TL[String(g.id)];
   var advRows=boxRowsAdv(g.id);
-  html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">'
-    +'<button class="wf-chip" id="qtr-btn" onclick="toggleSection(\'qtr-wrap\',\'qtr-btn\',\'Ver placar por quarto\',\'Ocultar placar por quarto\')">Ver placar por quarto</button>'
-    +'<button class="wf-chip" id="evo-btn" onclick="toggleSection(\'evo-wrap\',\'evo-btn\',\'Ver evolução do placar\',\'Ocultar evolução do placar\')">Ver evolução do placar</button>'
-    +'<button class="wf-chip" id="box-usp-btn" onclick="toggleSection(\'box-usp-wrap\',\'box-usp-btn\',\'Ver box score — Med Usp\',\'Ocultar box score — Med Usp\')">Ver box score — Med Usp</button>'
-    +(advRows.length?'<button class="wf-chip" id="box-adv-btn" onclick="toggleSection(\'box-adv-wrap\',\'box-adv-btn\',\'Ver box score — '+g.adv+'\',\'Ocultar box score — '+g.adv+'\')">Ver box score — '+g.adv+'</button>':'')
+  html+='<div class="wf-subtabs" role="tablist" aria-label="Seções do jogo">'
+    +'<button type="button" role="tab" class="wf-subtab" id="jt-resumo" onclick="showJogoTab(\'resumo\')">Resumo</button>'
+    +'<button type="button" role="tab" class="wf-subtab" id="jt-qtr" onclick="showJogoTab(\'qtr\')">Placar por quarto</button>'
+    +'<button type="button" role="tab" class="wf-subtab" id="jt-evo" onclick="showJogoTab(\'evo\')">Evolução do placar</button>'
+    +'<button type="button" role="tab" class="wf-subtab" id="jt-boxusp" onclick="showJogoTab(\'boxusp\')">Box score — Med Usp</button>'
+    +(advRows.length?'<button type="button" role="tab" class="wf-subtab" id="jt-boxadv" onclick="showJogoTab(\'boxadv\')">Box score — '+g.adv+'</button>':'')
     +'</div>';
   if(qs){
     var QW=760,QH=280,qpadL=42,qpadR=14,qpadT=36,qpadB=54;
@@ -3140,7 +3181,7 @@ function renderJogos(){
     var qAvgPts=qAvgY.map(function(y,i){return {x:qpadL+i*groupW+groupW/2, y:y};});
     var qAvgLine='<polyline points="'+qAvgPts.map(function(p){return p.x+','+p.y;}).join(' ')+'" fill="none" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/>'
       +qAvgPts.map(function(p,i){return '<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="var(--muted)" opacity="0.85"/><text x="'+p.x+'" y="'+(p.y-9)+'" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted)" stroke="#fff" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">'+fmt(qAvg[i],1)+'</text>';}).join('');
-    html+='<div class="wf-card" id="qtr-wrap" style="display:none;margin-bottom:16px;">'
+    html+='<div class="wf-card" id="qtr-wrap" style="display:none;">'
       +'<div style="font-size:14px;font-weight:600;margin-bottom:4px;">Pontuação por quarto</div>'
       +'<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;"><span class="wf-zonelegend"><span class="wf-dot" style="background:var(--team);border-radius:50%;"></span>Med Usp</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+advBlue+';border-radius:50%;"></span>'+g.adv+'</span><span class="wf-zonelegend"><svg width="18" height="9"><line x1="1" y1="4.5" x2="17" y2="4.5" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/></svg>Média da temporada por quarto</span><span style="display:flex;gap:14px;">'+qAvg.map(function(v,i){return '<span style="display:inline-flex;align-items:baseline;gap:4px;"><span style="color:'+C.mut+';font-weight:700;">Q'+(i+1)+'</span><span style="color:var(--muted);font-weight:700;">'+fmt(v,1)+'</span></span>';}).join('')+'</span></div>'
       +'<svg viewBox="0 0 '+QW+' '+QH+'" style="width:100%;height:auto;display:block;">'+qGrid+qBars+qAvgLine+qLabels+'</svg>'
@@ -3215,7 +3256,7 @@ function renderJogos(){
         +'</g>';
     }).join('');
 
-    html+='<div class="wf-card" id="evo-wrap" style="display:none;margin-bottom:16px;">'
+    html+='<div class="wf-card" id="evo-wrap" style="display:none;">'
       +'<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:6px;margin-bottom:4px;">'
       +'<span style="font-size:14px;font-weight:600;">Evolução do placar</span>'
       +'<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">'
@@ -3255,56 +3296,68 @@ function renderJogos(){
       uspCol:cmpG?curCol:uspCol};
   }
 
-  // two-col: court + shot bars | advanced + possessions
-  html+='<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;" class="wf-two-col"><div>';
+  // painel "Resumo": KPIs + mapa/zonas/tipos | métricas/posses
+  html+='<div id="jogo-pane-resumo">'
+    +'<div class="wf-card wf-kpis" style="margin-bottom:24px;">'
+    +kpi('Pontos', g.pts, fmt(g.ortg/100,2)+' por posse')
+    +kpi('Sofridos', g.advPts, 'adversário')
+    +kpi('Arremessos', g.fgm+'/'+g.fga, fmt(g.fgpct)+'%')
+    +kpi('Assistências', g.us.AST)
+    +kpi('Roubadas', g.us.STL)
+    +kpi('Turnovers', g.us.TO, (toWorse?'\u25B2 ':toBetter?'\u25BC ':'')+fmt(toRate)+'% das posses', toWorse?'var(--wf-neg)':'')
+    +'</div>'
+    +'<div class="wf-cols"><div class="wf-stack">';
 
   // court card
-  html+='<div class="wf-card" style="margin-bottom:16px;">'
-    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;row-gap:6px;">'
-    +'<span style="font-size:14px;font-weight:600;">Mapa de arremessos — Med Usp</span>'
-    +'<div style="display:flex;gap:12px;"><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.good+';"></span>Converteu</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.bad+';"></span>Errou</span></div></div>'
+  html+='<div class="wf-card">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;row-gap:6px;">'
+    +'<h2 class="wf-title" style="margin:0;">Mapa de arremessos</h2>'
+    +'<div style="display:flex;gap:16px;"><span class="wf-zonelegend"><span class="wf-dot" style="background:var(--wf-chart-pos);border-radius:50%;"></span>Convertido</span><span class="wf-zonelegend"><span style="color:var(--wf-chart-neg);font-weight:700;">\u2715</span>Errou</span></div></div>'
     +courtSVG('jg-hm','jg-dots');
   // zone legend
   var shots=SHOTS.filter(function(s){return s.Time===MY_TEAM&&s.jogo_id===g.id;});
   var z=zoneStats(shots);
-  html+=(shots.length?zoneLegend(shots,3):'<div style="text-align:center;padding:10px 0 4px;font-size:12px;color:'+C.mut+';">Arremessos não registrados para este jogo</div>')
+  html+=(shots.length?zoneLegend(shots,3):'<div style="text-align:center;padding:10px 0 4px;font-size:13px;color:var(--wf-text-2);">Arremessos não registrados para este jogo</div>')
     +'</div>';
 
   // shot type bars
-  html+='<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Aproveitamento por tipo de arremesso</div>'
+  html+='<div class="wf-card"><h2 class="wf-title">Aproveitamento por tipo de arremesso</h2>'
     +pctBar('2 pontos', g.us.FG2M+'/'+g.us.FG2A+' · '+fmt(g.fg2pct,0)+'%', g.fg2pct)
     +pctBar('3 pontos', g.us.FG3M+'/'+g.us.FG3A+' · '+fmt(g.fg3pct,0)+'%', g.fg3pct)
     +pctBar('Lance livre', g.us.FTM+'/'+g.us.FTA+' · '+fmt(g.ftpct,0)+'%', g.ftpct)
-    +'</div></div><div>';
+    +'</div></div><div class="wf-stack">';
 
-  // advanced metrics
-  function mrow(lbl,val,kind,tag,tip){
-    return '<div class="wf-metric-row"><div style="display:flex;justify-content:space-between;align-items:baseline;">'
-      +'<span style="font-size:12px;color:'+C.mut+';" title="'+(tip||'')+'">'+lbl+'</span>'
-      +'<span style="font-size:16px;font-weight:600;'+(kind==='bad'?'color:'+C.bad+';':'')+'">'+val+'</span></div>'
-      +badge(kind,tag)+'</div>';
+  // advanced metrics: qualificador como texto discreto; cor só no Net RTG
+  function mrow(lbl,val,qual,tip,big,kind){
+    var arrow=kind==='bad'?'\u25BC ':kind==='good'?'\u25B2 ':'';
+    var cls=kind==='bad'?' wf-neg':kind==='good'?' wf-pos':'';
+    return '<div class="wf-mrow"><span class="wf-mrow-name" title="'+(tip||'')+'">'+lbl+(qual?' <span class="q">· '+qual+'</span>':'')+'</span>'
+      +'<span class="wf-mrow-val'+(big?' big':'')+cls+'">'+arrow+val+'</span></div>';
   }
   var netKind=g.net>=5?'good':g.net>=-5?'warn':'bad';
-  html+='<div class="wf-card" style="margin-bottom:16px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:14px;font-weight:600;">Métricas avançadas</span></div>'
-    +mrow('POSS', g.poss, 'neutral', g.poss>=75?'Alto volume':'Moderado', 'Possessões no jogo')
-    +mrow('PACE', g.pace, 'neutral', 'Ritmo', 'Posses por 40 min')
-    +mrow('ORTG', fmt(g.ortg,0), g.ortg>=105?'good':g.ortg>=95?'warn':'bad', g.ortg>=105?'Forte':g.ortg>=95?'Médio':'Fraco', 'Pontos por 100 posses')
-    +mrow('DRTG', fmt(g.drtg,0), g.drtg<=95?'good':g.drtg<=108?'warn':'bad', g.drtg<=95?'Forte':g.drtg<=108?'Média':'Fraca', 'Pontos sofridos por 100 posses')
-    +mrow('Net RTG', (g.net>0?'+':'')+fmt(g.net,0), netKind, netKind==='good'?'Positivo':netKind==='warn'?'Equilíbrio':'Crítico', 'ORTG − DRTG')
-    +mrow('TS%', fmt(g.ts)+'%', g.ts>=55?'good':g.ts>=50?'warn':'bad', g.ts>=55?'Bom':g.ts>=50?'Médio':'Baixo', 'True Shooting')
-    +mrow('eFG%', fmt(g.efg)+'%', g.efg>=50?'good':g.efg>=44?'warn':'bad', g.efg>=50?'Bom':g.efg>=44?'Médio':'Baixo', 'Effective FG%')
+  html+='<div class="wf-card"><h2 class="wf-title">Métricas avançadas</h2>'
+    +mrow('POSS', g.poss, g.poss>=75?'alto volume':'moderado', 'Possessões no jogo')
+    +mrow('PACE', g.pace, 'ritmo', 'Posses por 40 min')
+    +mrow('ORTG', fmt(g.ortg,0), g.ortg>=105?'forte':g.ortg>=95?'médio':'fraco', 'Pontos por 100 posses')
+    +mrow('DRTG', fmt(g.drtg,0), g.drtg<=95?'forte':g.drtg<=108?'média':'fraca', 'Pontos sofridos por 100 posses')
+    +mrow('Net RTG', (g.net>0?'+':'')+fmt(g.net,0), netKind==='good'?'positivo':netKind==='warn'?'equilíbrio':'crítico', 'ORTG − DRTG', true, netKind)
+    +mrow('TS%', fmt(g.ts)+'%', g.ts>=55?'bom':g.ts>=50?'médio':'baixo', 'True Shooting')
+    +mrow('eFG%', fmt(g.efg)+'%', g.efg>=50?'bom':g.efg>=44?'médio':'baixo', 'Effective FG%')
     +'</div>';
 
   // possessions card
-  html+='<div class="wf-card"><div style="font-size:14px;font-weight:600;margin-bottom:12px;">Posses — Med Usp</div>'
-    +'<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;font-size:13px;">'
-    +'<div><div class="wf-stat-label" style="margin-bottom:2px;">Cestas</div><div style="font-weight:600;">'+g.fgm+' <span style="color:'+C.mut+';font-weight:400;font-size:12px;">'+fmt(g.fgm/g.poss*100,0)+'%</span></div></div>'
-    +'<div><div class="wf-stat-label" style="margin-bottom:2px;">Turnovers</div><div style="font-weight:600;color:'+toColor(g.us.TO/g.poss*100)+';">'+g.us.TO+' <span style="color:'+C.mut+';font-weight:400;font-size:12px;">'+fmt(g.us.TO/g.poss*100,0)+'%</span></div></div>'
-    +'<div><div class="wf-stat-label" style="margin-bottom:2px;">Erros de arr.</div><div style="font-weight:600;">'+(g.fga-g.fgm)+' <span style="color:'+C.mut+';font-weight:400;font-size:12px;">'+fmt((g.fga-g.fgm)/g.poss*100,0)+'%</span></div></div>'
-    +'<div><div class="wf-stat-label" style="margin-bottom:2px;">Rebotes</div><div style="font-weight:600;">'+g.us.REB+' <span style="color:'+C.mut+';font-weight:400;font-size:12px;">O'+g.us.REBOF+'·D'+(g.us.REB-g.us.REBOF)+'</span></div></div>'
-    +'</div></div>';
+  html+='<div class="wf-card"><h2 class="wf-title">Posses — Med Usp</h2>'
+    +'<div class="wf-mrow"><span class="wf-mrow-name">Cestas</span><span class="wf-mrow-val">'+g.fgm+'<small>'+fmt(g.fgm/g.poss*100,0)+'%</small></span></div>'
+    +'<div class="wf-mrow"><span class="wf-mrow-name">Turnovers</span><span class="wf-mrow-val">'+g.us.TO+'<small>'+fmt(g.us.TO/g.poss*100,0)+'%</small></span></div>'
+    +'<div class="wf-mrow"><span class="wf-mrow-name">Erros de arremesso</span><span class="wf-mrow-val">'+(g.fga-g.fgm)+'<small>'+fmt((g.fga-g.fgm)/g.poss*100,0)+'%</small></span></div>'
+    +'<div class="wf-mrow"><span class="wf-mrow-name">Rebotes</span><span class="wf-mrow-val">'+g.us.REB+'<small>O'+g.us.REBOF+' · D'+(g.us.REB-g.us.REBOF)+'</small></span></div>'
+    +'</div>';
 
   html+='</div></div>';
+  // CTA (dentro do painel Resumo; os destaques da partida entram antes dele)
+  html+='<div class="wf-cta" id="jogo-cta"><span>Quer ver a evolução ao longo da temporada?</span>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;"><button type="button" class="wf-btn-text" onclick="showTab(\'longitudinal\')">Longitudinal</button><button type="button" class="wf-btn-text" onclick="showTab(\'comparar\')">Comparar jogos</button><button type="button" class="wf-btn-text" onclick="showTab(\'quinteto\')">Quinteto ideal</button></div></div>';
+  html+='</div><!-- /jogo-pane-resumo -->';
 
   // full box score (both teams)
   function boxTable(title, rows){
@@ -3329,24 +3382,15 @@ function renderJogos(){
       +'</tr>';}).join('')
     +'</tbody></table></div>';
   }
-  html+='<div id="box-scores-grid" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">'
-    +'<div class="wf-card" id="box-usp-wrap" style="display:none;flex:1;min-width:280px;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
-    +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;flex:1;min-width:280px;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'')
+  html+='<div id="box-scores-grid">'
+    +'<div class="wf-card" id="box-usp-wrap" style="display:none;">'+boxTable('Box score — Med Usp', boxRows(g.id))+'</div>'
+    +(advRows.length?'<div class="wf-card" id="box-adv-wrap" style="display:none;">'+boxTable('Box score — '+g.adv, advRows)+'</div>':'')
     +'</div>';
-
-  // footer CTA
-  html+='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;margin-top:16px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;">'
-    +'<span style="font-size:13px;color:'+C.mut+';">Quer ver a evolução ao longo da temporada?</span>'
-    +'<div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="wf-chip" onclick="showTab(\'longitudinal\')">Longitudinal</button><button class="wf-chip" onclick="showTab(\'comparar\')">Comparar jogos</button><button class="wf-chip" style="border-color:'+C.goldFill+';color:'+C.gold+';font-weight:600;" onclick="showTab(\'quinteto\')">Quinteto ideal</button></div></div>';
 
   document.getElementById('wf-main').innerHTML=html;
   // paint court
   renderHeatmap(shots,'jg-hm'); paintDots(shots,'jg-dots');
-  // restore any sections the user had open before this re-render
-  if(evoWasOpen) toggleSection('evo-wrap','evo-btn','Ver evolução do placar','Ocultar evolução do placar');
-  if(qtrWasOpen) toggleSection('qtr-wrap','qtr-btn','Ver placar por quarto','Ocultar placar por quarto');
-  if(boxUspWasOpen) toggleSection('box-usp-wrap','box-usp-btn','Ver box score — Med Usp','Ocultar box score — Med Usp');
-  if(boxAdvWasOpen && document.getElementById('box-adv-btn')) toggleSection('box-adv-wrap','box-adv-btn','Ver box score — '+g.adv,'Ocultar box score — '+g.adv);
+  showJogoTab(SEL.jogoTab||'resumo');
 }
 
 /* ---------- Corridas de pontuação — painel de KPIs + lista ---------- */
@@ -3393,6 +3437,15 @@ function runHide(id){
   g.querySelectorAll('.run-line,.run-mk').forEach(function(el){el.setAttribute('opacity','0');});
 }
 
+function showJogoTab(name){
+  var map={resumo:'jogo-pane-resumo',qtr:'qtr-wrap',evo:'evo-wrap',boxusp:'box-usp-wrap',boxadv:'box-adv-wrap'};
+  if(!map[name]||!document.getElementById(map[name]))name='resumo';
+  SEL.jogoTab=name;
+  Object.keys(map).forEach(function(k){
+    var p=document.getElementById(map[k]); if(p)p.style.display=(k===name)?'':'none';
+    var b=document.getElementById('jt-'+k); if(b){b.classList.toggle('on',k===name);b.setAttribute('aria-selected',k===name?'true':'false');}
+  });
+}
 function toggleSection(id, btnId, showLabel, hideLabel){
   var el=document.getElementById(id); if(!el)return;
   var btn=document.getElementById(btnId);
@@ -4275,24 +4328,20 @@ window.renderJogos = function(){
       la=leader(function(r){return r.ast;}), lm=leader(function(r){return r.pm;}),
       ls=leader(function(r){return r.stl;});
   function hl(icon,lbl,r,val,col){
-    return '<div style="background:var(--surface-2);border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;">'
-      +'<div style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;">'+icon+' '+lbl+'</div>'
-      +'<div style="font-size:15px;font-weight:700;color:'+C.navy+';margin-top:4px;">'+r.n+'</div>'
-      +'<div style="font-size:13px;font-weight:600;color:'+(col||C.gold)+';margin-top:1px;">'+val+'</div></div>';
+    return '<div><div class="l">'+lbl+'</div><div class="n">'+r.n+'</div><div class="v"'+(col?' style="color:'+col+';font-weight:600;"':'')+'>'+val+'</div></div>';
   }
-  var card='<div class="wf-card" style="margin-top:16px;">'
-    +'<div style="font-size:14px;font-weight:600;margin-bottom:12px;">Destaques da partida</div>'
-    +'<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;" class="wf-kpi-grid">'
-    +hl('●','Cestinha',lp,lp.pts+' pts')
-    +hl('●','Rebotes',lr,lr.reb+' reb',C.navy)
-    +hl('●','Assistências',la,la.ast+' ast',C.navy)
-    +hl('●','Roubadas',ls,ls.stl+' rb',C.navy)
-    +hl('●','Melhor +/-',lm,(lm.pm>0?'+':'')+lm.pm,lm.pm>=0?C.good:C.bad)
+  var card='<div class="wf-card" style="margin-top:24px;">'
+    +'<h2 class="wf-title">Destaques da partida</h2>'
+    +'<div class="wf-lead">'
+    +hl('','Cestinha',lp,lp.pts+' pts')
+    +hl('','Rebotes',lr,lr.reb+' reb')
+    +hl('','Assistências',la,la.ast+' ast')
+    +hl('','Roubadas',ls,ls.stl+' rb')
+    +hl('','Melhor +/-',lm,(lm.pm>0?'+':lm.pm<0?'\u2212':'')+Math.abs(lm.pm),lm.pm>0?'var(--wf-pos)':lm.pm<0?'var(--wf-neg)':'')
     +'</div></div>';
-  // insere antes do CTA final (último bloco)
-  var main=document.getElementById('wf-main');
-  var cta=main.lastElementChild;
-  cta.insertAdjacentHTML('beforebegin', card);
+  // insere antes do CTA (dentro do painel Resumo)
+  var cta=document.getElementById('jogo-cta');
+  if(cta) cta.insertAdjacentHTML('beforebegin', card);
 };
 TABS.jogos = window.renderJogos;
 
