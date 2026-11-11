@@ -1,0 +1,49 @@
+/* ═══════════════ WinFast — TOKENS DE DESIGN ═══════════════
+   Único arquivo onde cores HEX podem existir. Todo o resto do site usa var(--wf-*).
+   Direção híbrida: cabeçalho verde escuro · conteúdo claro com cards brancos ·
+   quadras/painéis densos em azul-marinho · âmbar só em logo, aba ativa, avatar, foco e marcadores. */
+:root {
+  /* Identidade da marca */
+  --wf-green-900: #0F3D2E;   /* cabeçalho, navegação e ações primárias */
+  --wf-green-600: #1F5C46;   /* estados ativos, hover e série da nossa equipe */
+  --wf-navy-900:  #13233F;   /* quadra e painéis densos */
+  --wf-amber-500: #E0A526;   /* logo, aba ativa, foco e destaques pontuais */
+
+  /* Superfícies */
+  --wf-bg:        #F4F5F2;   /* fundo geral */
+  --wf-card:      #FFFFFF;   /* cards e painéis */
+  --wf-subtle:    #ECEEEA;   /* trilhos, seleção, zebra e chips */
+  --wf-divider:   #E1E4DF;   /* divisórias discretas */
+
+  /* Texto */
+  --wf-text:      #14201B;   /* texto principal */
+  --wf-text-2:    #55625C;   /* rótulos, datas e unidades */
+  --wf-on-green:  #FFFFFF;   /* texto sobre verde */
+  --wf-on-green-2:#B7CBC1;   /* texto secundário sobre verde */
+
+  /* Cores semânticas */
+  --wf-pos:       #1A7046;   /* resultado positivo */
+  --wf-neg:       #B3261E;   /* resultado negativo */
+  --wf-neutral:   #66726C;   /* informação neutra */
+  --wf-opp:       #7C93B8;   /* série do adversário */
+
+  /* Elementos de dados */
+  --wf-shot-made:  #34B27A;
+  --wf-shot-miss:  #F0705A;
+  --wf-court-line: #3A4D70;
+  --wf-chart-pos:  #2E9E6B;
+  --wf-chart-neg:  #D2553F;
+
+  /* Escala sequencial do Heat Map: 0% a 60%+ (um único matiz) */
+  --wf-seq-1: #E6F0EA;
+  --wf-seq-2: #B9D7C6;
+  --wf-seq-3: #7DB79A;
+  --wf-seq-4: #3E8F68;
+  --wf-seq-5: #0F5A3C;
+
+  /* Forma e espaçamento */
+  --wf-radius: 12px;
+  --wf-radius-sm: 8px;
+  --wf-card-pad: 28px;
+
+}
