@@ -159,7 +159,7 @@
     h += '<span class="wfv-ok">▶ ' + (ok + chk) + '</span> de ' + tot + ' arremesso' + (tot === 1 ? '' : 's') + ' com vídeo' +
       (chk ? ' · <span class="wfv-warn">' + chk + ' para conferir</span>' : '') +
       (bad && !loading ? ' · <span class="wfv-err2">' + bad + ' sem vínculo</span>' : '') + '</div>' +
-      '<div class="wfv-muted wfv-legend"><i class="wfv-ring"></i> contorno branco = vídeo disponível (clique no ponto) · <i class="wfv-ring wfv-ring-w"></i> tracejado = conferir</div>' +
+      '<div class="wfv-muted wfv-legend"><i class="wfv-ring"></i> aro fino = vídeo disponível (clique no ponto) · <i class="wfv-ring wfv-ring-w"></i> tracejado = conferir</div>' +
       (errs.length ? '<div class="wfv-err">' + esc(errs[0]) + ' <a href="#" onclick="WFVideo.retry();return false;">tentar de novo</a></div>' : '') + '</div>' +
       '<div class="wfv-actions"><button class="wfv-btn wfv-btn2" onclick="WFVideo.showReport()">Relatório de vínculos</button>' +
       '<button class="wfv-btn wfv-btn2" onclick="WFVideo.disconnect()">' + esc(lb.disconnect || 'Desconectar') + '</button></div>';
