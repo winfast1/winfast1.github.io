@@ -29,6 +29,7 @@ Depois: `playwright-cli --help` e `playwright-cli install --skills`.
 
 Enquanto isso, os testes usam Chrome headless via protocolo CDP (mesmo navegador, mesma ideia): abrir página,
 navegar entre abas, capturar telas, medir contraste/alvos/rolagem e ler erros do console.
+Os scripts estão em `dev-tools/` (ver `dev-tools/README.md`): `bash dev-tools/runshots.sh . saida 1440` (repetir com 768 e 390).
 
 ## Fluxo de uso (resumo; detalhes no `DESIGN.md` §9)
 1. Diagnóstico → 2. Referência visual → 3. Atualizar `DESIGN.md`/`wf-tokens.css` → 4. Implementar →
@@ -36,4 +37,11 @@ navegar entre abas, capturar telas, medir contraste/alvos/rolagem e ler erros do
 
 ## Observação sobre a publicação
 O GitHub Pages publica toda a raiz do repositório. `DESIGN.md`, `docs/` e `img/` ficam acessíveis publicamente
-(sem dados sensíveis). Nunca colocar segredos, dumps de dados ou as pastas das ferramentas dentro do repositório.
+(sem dados sensíveis). Nunca colocar segredos nem dados reais no repositório (as skills ficam fora; só `dev-tools/` com dados fictícios é versionado).
+
+## Retomar em outro computador
+1. Instalar Node 20+, Git e Chrome; `git config --global core.longpaths true`.
+2. `git clone https://github.com/winfast1/winfast1.github.io.git` e `git checkout redesign/marca-preto-laranja`.
+3. Reinstalar as skills da tabela acima (copiar `skills/<nome>` de cada repositório para `~/.claude/skills/`).
+4. Validar o ambiente: `node tests/video-match.test.js`, `node tests/video-local.test.js` e `dev-tools/runshots.sh`.
+5. Abrir a pasta no Claude Code: `CLAUDE.md` e `DESIGN.md` trazem as regras. O histórico da conversa não sincroniza; se necessário, copiar o `.jsonl` em `~/.claude/projects/<pasta-do-projeto>/`.
