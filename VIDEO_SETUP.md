@@ -1,6 +1,6 @@
 # Vídeos dos arremessos nos Heat Maps
 
-Na aba **Shot Chart** (visão *Por arremesso*), cada ponto do mapa de arremessos que tem clipe ganha um contorno branco; clicar abre um pop-up com o vídeo (play/pause, volume, tela cheia, fechar).
+Em **todos os mapas de arremessos** (Shot Chart, Jogador, relatório da partida), cada ponto que tem clipe ganha um contorno branco; clicar abre um pop-up com o vídeo (play/pause, volume, tela cheia, fechar). Nos mapas por região, clicar num hexágono lista os arremessos daquela região, cada um com o seu vídeo. A conexão e o gerenciamento da pasta ficam só na aba **Shot Chart**; uma vez conectada, vale para todas as abas.
 
 ## Como o site acessa os vídeos (sem Azure, sem login, sem link público)
 

@@ -2662,13 +2662,13 @@ function courtSVG(imgId, dotsId){
    +'<g id="'+dotsId+'"></g></svg>';
 }
 
-/* withVideo=true só no mapa do Shot Chart: é a única aba com os vídeos dos arremessos */
-function paintDots(shots, dotsId, withVideo){
+/* Todos os mapas abrem o vídeo do arremesso (vínculos únicos em video-ui.js); conectar/gerenciar a pasta fica só no Shot Chart */
+function paintDots(shots, dotsId){
   var g=document.getElementById(dotsId); if(!g)return;
-  var V=window.WFVideo, vOn=!!(withVideo&&V&&V.enabled());
+  var V=window.WFVideo, vOn=!!(V&&V.enabled());
   g.innerHTML=shots.map(function(s){
     var x=(s.X_pct/100)*600,y=(s.Y_pct/100)*320,conv=s.Convertido==='Sim';
-    var st=vOn?V.statusOf(s.sid):null, playable=(st==='ok'||st==='check');
+    var st=vOn&&V.signedIn()?V.statusOf(s.sid):null, playable=(st==='ok'||st==='check');   /* contorno só com a pasta liberada nesta sessão */
     var tip='<title>'+s.Atleta+' · J'+s.jogo_id+' vs '+s.adv+' · '+s.Tipo+' · '+s.Quarto+' · '+(conv?'Converteu':'Errou')+(s.Assistencia?' · Assist: '+s.Assistencia:'')+(playable?' · ▶ clique para ver o vídeo'+(st==='check'?' (conferir)':''):'')+'</title>';
     var ring=playable?'<circle cx="'+x+'" cy="'+y+'" r="10" fill="none" stroke="'+(st==='ok'?'var(--on-dark)':'var(--amber-500)')+'" stroke-width="1.6"'+(st==='check'?' stroke-dasharray="3 2"':'')+'/>':'';
     var hit=vOn?'<circle cx="'+x+'" cy="'+y+'" r="11" fill="transparent"/>':'';
@@ -2876,8 +2876,9 @@ function buildHexBins(shots,R){
     if(dq>dr&&dq>ds)rq=-rr-rs;else if(dr>ds)rr=-rq-rs;
     var k=rq+','+rr;
     var cx=R*1.5*rq,cy=R*(sq3/2*rq+sq3*rr);
-    if(!hexes[k])hexes[k]={made:0,total:0,cx:cx,cy:cy};
+    if(!hexes[k])hexes[k]={made:0,total:0,cx:cx,cy:cy,sids:[]};
     hexes[k].total++;
+    hexes[k].sids.push(s.sid);
     if(s.Convertido==='Sim')hexes[k].made++;
   });
   Object.keys(hexes).forEach(function(k){
@@ -2903,16 +2904,27 @@ function paintHexbin(shots,hexId,zoneRef){
   keys.forEach(function(k){if(hexes[k].total>maxT)maxT=hexes[k].total;});
   if(!maxT){g.innerHTML='';return;}
   window._wfHexMax=maxT;
+  var vOn=!!(window.WFVideo&&WFVideo.enabled());
+  var store=(window._wfHexSids=window._wfHexSids||{})[hexId]={};
   var parts=[];
   keys.forEach(function(k){
     var h=hexes[k];
     var pct=h.total>0?h.made/h.total*100:0;
     var ratio=h.total/maxT;
     var sz=R*(0.35+0.65*Math.sqrt(ratio));   // area proporcional ao n de arremessos
-    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+hexColor(pct)+'" stroke="var(--court)" stroke-width="1"><title>'+h.made+'/'+h.total+' convertidos ('+Math.round(pct)+'%)</title></polygon>');
+    store[k]=h.sids;
+    var click=vOn?' style="cursor:pointer;" onclick="wfOpenHex(\''+hexId+'\',\''+k+'\')"':'';
+    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+hexColor(pct)+'" stroke="var(--court)" stroke-width="1"'+click+'><title>'+h.made+'/'+h.total+' convertidos ('+Math.round(pct)+'%)'+(vOn?' · clique para ver os arremessos e vídeos':'')+'</title></polygon>');
   });
   g.innerHTML=parts.join('');
 }
+
+/* hexágono → lista dos arremessos daquela região, cada um com o seu próprio vídeo (nunca um clipe "da região") */
+function wfOpenHex(hexId,k){
+  var sids=((window._wfHexSids||{})[hexId]||{})[k]||[];
+  if(window.WFVideo&&sids.length)WFVideo.openList(sids,'Arremessos da região',sids.length+' arremesso'+(sids.length===1?'':'s')+' neste hexágono');
+}
+window.wfOpenHex=wfOpenHex;
 
 function paintZoneText(shots,ztId,zoneRef){
   var g=document.getElementById(ztId);if(!g)return;
@@ -2992,7 +3004,7 @@ function courtSVGHex(hexId,ztId){
    +'<rect x="588" y="147.2" width="4" height="25.6" fill="none" stroke="var(--amber-500)" stroke-width="2"/>'
    +'<circle cx="566.2" cy="160" r="7" fill="none" stroke="var(--amber-500)" stroke-width="2"/>'
    +courtZones()
-   +'<g id="'+hexId+'-dots"></g><g id="'+hexId+'"></g><g id="'+ztId+'"></g></svg>';
+   +'<g id="'+hexId+'-dots"></g><g id="'+hexId+'"></g><g id="'+ztId+'" style="pointer-events:none;"></g></svg>';
 }
 
 function paintDivZones(shots,cardId,zoneRef){
@@ -3757,7 +3769,7 @@ function renderShotchart(){
     +'<span style="margin-left:auto;font-size:11px;color:'+C.mut2+';font-style:italic;">'+scopeLabel+'</span></div>';
   var courtHtml,legendHtml,vOn=!!(window.WFVideo&&WFVideo.enabled());
   var videoHtml='<div id="wfv-panel-sc" style="margin-top:10px;"></div>'
-    +(view==='region'&&vOn?'<div style="font-size:11px;color:'+C.mut2+';margin:-4px 0 8px;">Os vídeos abrem pelos pontos da visão <b>Por arremesso</b>.</div>':'');
+    +(view==='region'&&vOn?'<div style="font-size:11px;color:'+C.mut2+';margin:-4px 0 8px;">Clique em um hexágono para ver os arremessos daquela região e abrir o vídeo de cada um.</div>':'');
   if(view==='region'){
     courtHtml=courtSVGHex('sc-hex','sc-zt');
     legendHtml='<div id="sc-hexlegend"></div>';
@@ -3791,7 +3803,7 @@ function paintSC(){
     var hl=document.getElementById('sc-hexlegend');
     if(hl)hl.innerHTML=hexLegend(zoneRef);
   } else {
-    renderHeatmap(shots,'sc-hm');paintDots(shots,'sc-dots',true);
+    renderHeatmap(shots,'sc-hm');paintDots(shots,'sc-dots');
     var zl=document.getElementById('sc-zonelegend');
     if(zl)zl.innerHTML=zoneLegend(shots,3);
   }
@@ -4784,7 +4796,9 @@ if(window.WFVideo){
     getGame:function(gid){var g=GM.filter(function(x){return x.id===gid;})[0];return g?{id:g.id,name:g.rowName,usp:g.usp,adv:g.adv,date:g.date}:null;},
     getShots:function(gid){return SHOTS.filter(function(s){return s.jogo_id===gid&&s.Time===MY_TEAM;});},
     getShot:function(sid){for(var i=0;i<SHOTS.length;i++)if(SHOTS[i].sid===sid)return SHOTS[i];return null;},
-    paintDots:function(shots,id){paintDots(shots,id,true);}
+    paintDots:function(shots,id){paintDots(shots,id);},
+    isManageView:function(){return !!document.getElementById('wfv-panel-sc');},
+    goManage:function(){showTab('shotchart');}
   });
 }
 

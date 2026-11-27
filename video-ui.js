@@ -1,4 +1,7 @@
-/* WinFast · vídeos dos arremessos no Shot Chart (controlador + interface)
+/* WinFast · vídeos dos arremessos em todos os mapas (controlador + interface)
+ *
+ * Gerenciamento (conectar/reconectar, trocar pasta, relatório de vínculos) só no painel do Shot Chart;
+ * os vínculos (links/games) são únicos e servem a todos os mapas: pontos individuais e hexágonos (lista).
  *
  * Fluxo: ponto do mapa → WFVideo.openShot(sid) → vínculo (video-match.js) → blob: URL local do
  * clipe (video-local.js, pasta do OneDrive sincronizada) → pop-up com <video controls>.
@@ -123,6 +126,7 @@
       if (!el) { delete panels[id]; return; }
       renderPanel(el, panels[id]());
     });
+    refreshList();
   }
 
   function mountPanel(elId, getShots) {
@@ -203,13 +207,19 @@
     document.getElementById('wfv-close').focus();
   }
 
-  function close() {
-    if (!modal || modal.hidden) return;
+  function stopMedia() {
+    if (!modal) return;
+    modal._tok = null;
     var v = modal.querySelector('video');
     if (v) { try { v.pause(); } catch (e) {} v.removeAttribute('src'); v.load(); }
-    modal.hidden = true;
-    document.getElementById('wfv-body').innerHTML = '';
     if (modal._clip) { backend.forgetUrl(modal._clip[0], modal._clip[1]); modal._clip = null; }
+  }
+
+  function close() {
+    if (!modal || modal.hidden) return;
+    stopMedia();
+    modal.hidden = true; modal._mode = null; listCtx = null;
+    document.getElementById('wfv-body').innerHTML = '';
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
   }
 
@@ -221,27 +231,47 @@
     };
   }
 
-  function openShot(sid) {
+  /* Pasta não conectada: o botão de conectar/reconectar só existe no Shot Chart (host.isManageView);
+     nas outras abas o pop-up apenas leva até lá. */
+  function notConnectedHtml(after) {
+    var re = backend.needsReconnect && backend.needsReconnect();
+    if (host.isManageView && !host.isManageView()) {
+      return '<div class="wfv-msg">' + esc(re ? 'O acesso à pasta de vídeos expirou nesta sessão.' : 'A pasta de vídeos ainda não foi conectada.') +
+        '<br>Conecte ou reconecte na aba <b>Shot Chart</b>; depois os vídeos abrem em todas as abas.' +
+        '<br><button class="wfv-btn" onclick="WFVideo.close();WFVideo.goManage()">Ir para o Shot Chart</button></div>';
+    }
+    return '<div class="wfv-msg">' + esc(re ? L().reconnectHint : L().hint) + '<br><button class="wfv-btn" onclick="WFVideo.connect().then(function(){' + after + '})">' + esc(re ? L().reconnect : L().connect) + '</button></div>';
+  }
+  function goManage() { if (host.goManage) host.goManage(); }
+
+  var listCtx = null;   // lista aberta a partir de um hexágono: {sids, title, sub}
+  function backHtml(fromList) {
+    return fromList && listCtx ? '<button class="wfv-btn wfv-btn2 wfv-back" onclick="WFVideo.backToList()">← Voltar à lista</button>' : '';
+  }
+
+  function openShot(sid, fromList) {
     var s = host.getShot ? host.getShot(sid) : null;
     if (!s || !enabled()) return;
-    var cap = shotCaption(s);
+    if (!fromList) listCtx = null;
+    stopMedia();
+    if (modal) modal._mode = 'shot';
+    var cap = shotCaption(s), back = backHtml(fromList);
     if (!signedIn()) {
-      var re2 = backend.needsReconnect && backend.needsReconnect();
-      open(cap.title, cap.sub, '<div class="wfv-msg">' + esc(re2 ? L().reconnectHint : L().hint) + '<br><button class="wfv-btn" onclick="WFVideo.connect().then(function(){WFVideo.openShot(\'' + esc(sid) + '\')})">' + esc(re2 ? L().reconnect : L().connect) + '</button></div>');
+      open(cap.title, cap.sub, back + notConnectedHtml('WFVideo.openShot(\'' + esc(sid) + '\')'));
       return;
     }
     var l = links[sid], gs = games[s.jogo_id];
     if (!l) {
-      open(cap.title, cap.sub, '<div class="wfv-msg">' + (gs && gs.state === 'error' ? esc(gs.error) : 'Ainda localizando os vídeos desta partida…') + '</div>');
+      open(cap.title, cap.sub, back + '<div class="wfv-msg">' + (gs && gs.state === 'error' ? esc(gs.error) : 'Ainda localizando os vídeos desta partida…') + '</div>');
       if (!gs) ensureForShots([s]);
       return;
     }
     if (l.status !== 'ok' && l.status !== 'check') {
-      open(cap.title, cap.sub, '<div class="wfv-msg"><b>' + esc(M.STATUS_LABEL[l.status] || l.status) + '</b><br>' + esc(l.reason) + '</div>');
+      open(cap.title, cap.sub, back + '<div class="wfv-msg"><b>' + esc(M.STATUS_LABEL[l.status] || l.status) + '</b><br>' + esc(l.reason) + '</div>');
       return;
     }
     var clipTxt = 'Clipe: ' + l.clip.fileName;
-    open(cap.title, cap.sub + ' · ' + l.clip.q + ' ' + l.clip.clock, '<div class="wfv-vwrap"><div class="wfv-msg" id="wfv-load">Carregando vídeo…</div></div>' +
+    open(cap.title, cap.sub + ' · ' + l.clip.q + ' ' + l.clip.clock, back + '<div class="wfv-vwrap"><div class="wfv-msg" id="wfv-load">Carregando vídeo…</div></div>' +
       (l.status === 'check' ? '<div class="wfv-note">⚠ ' + esc(l.reason) + '</div>' : '') +
       '<div class="wfv-file">' + esc(clipTxt) + '</div>');
     var token = modal._tok = {};
@@ -262,6 +292,36 @@
       if (modal._tok !== token) return;
       modal.querySelector('.wfv-vwrap').innerHTML = '<div class="wfv-msg">' + esc(e.message || 'Falha ao abrir o vídeo.') + '</div>';
     });
+  }
+
+  /* ───────────── lista de arremessos (hexágono / região) ─────────────
+     Cada linha é um arremesso individual com o SEU vínculo; nenhum clipe é atribuído à região. */
+  function listBody(shots) {
+    var on = signedIn(), h = on ? '' : notConnectedHtml('WFVideo.backToList()');
+    h += '<ul class="wfv-list">' + shots.map(function (s) {
+      var conv = s.Convertido === 'Sim', st = statusOf(s.sid), g = games[s.jogo_id];
+      var right;
+      if (on && (st === 'ok' || st === 'check')) right = '<button class="wfv-btn wfv-btn-sm" onclick="WFVideo.openShot(\'' + esc(s.sid) + '\',true)">▶ Ver vídeo' + (st === 'check' ? ' (conferir)' : '') + '</button>';
+      else right = '<span class="wfv-li-st">' + esc(!on ? 'pasta não conectada' : st ? (M.STATUS_LABEL[st] || st) : (g && g.state === 'error' ? 'erro' : 'localizando…')) + '</span>';
+      return '<li data-sid="' + esc(s.sid) + '"><span class="wfv-res ' + (conv ? 'wfv-made' : 'wfv-miss') + '">' + (conv ? '●' : '✕') + '</span>' +
+        '<span class="wfv-li-t"><b>' + esc(s.Atleta) + '</b> · ' + (conv ? 'convertido' : 'errado') +
+        '<br><span class="wfv-li-sub">J' + esc(s.jogo_id) + ' vs ' + esc(s.adv) + ' · ' + esc(s.Quarto) + (s.Tempo ? ' ' + esc(s.Tempo) : '') + ' · ' + esc(s.Tipo) + '</span></span>' + right + '</li>';
+    }).join('') + '</ul>';
+    return h;
+  }
+  function openList(sids, title, sub) {
+    if (!enabled() || !host.getShot) return;
+    listCtx = { sids: sids.slice(), title: title, sub: sub };
+    var shots = sids.map(function (id) { return host.getShot(id); }).filter(Boolean);
+    if (signedIn()) ensureForShots(shots);
+    stopMedia();
+    open(title, sub, listBody(shots));
+    modal._mode = 'list';
+  }
+  function backToList() { if (listCtx) { var c = listCtx; openList(c.sids, c.title, c.sub); } }
+  function refreshList() {
+    if (!modal || modal.hidden || modal._mode !== 'list' || !listCtx) return;
+    document.getElementById('wfv-body').innerHTML = listBody(listCtx.sids.map(function (id) { return host.getShot(id); }).filter(Boolean));
   }
 
   /* ───────────── relatório de vínculos ───────────── */
@@ -320,14 +380,17 @@
       '.wfv-report .wfv-rg{border:1px solid var(--navy-800);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--navy-900)}.wfv-rh{font-size:14px;margin-bottom:4px}' +
       '.wfv-chip{font-size:11px;border-radius:10px;padding:1px 8px;margin-left:6px;background:var(--navy-800);color:var(--on-dark)}.wfv-ready{background:var(--green-800);color:var(--on-dark)}.wfv-nofolder,.wfv-ambiguous,.wfv-error{background:var(--red-700);color:#fff}' +
       '.wfv-report .wfv-muted{color:var(--on-dark-muted)}.wfv-report .wfv-ok{color:var(--pos-on-dark)}.wfv-report .wfv-err{color:var(--neg-on-dark)}.wfv-report code{background:var(--navy-950);padding:1px 4px;border-radius:3px}' +
-      '.wfv-issues{margin:8px 0 4px 18px;padding:0;font-size:12.5px;line-height:1.45}.wfv-i-error{color:var(--neg-on-dark)}.wfv-i-warn{color:var(--amber-500)}.wfv-i-info{color:var(--on-dark-muted)}';
+      '.wfv-issues{margin:8px 0 4px 18px;padding:0;font-size:12.5px;line-height:1.45}.wfv-i-error{color:var(--neg-on-dark)}.wfv-i-warn{color:var(--amber-500)}.wfv-i-info{color:var(--on-dark-muted)}' +
+      '.wfv-list{list-style:none;margin:0;padding:0}.wfv-list li{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--navy-800)}.wfv-li-t{flex:1;min-width:0;font-size:13.5px;line-height:1.35}.wfv-li-sub{font-size:12px;color:var(--on-dark-muted)}' +
+      '.wfv-res{width:16px;text-align:center;font-weight:700}.wfv-made{color:var(--pos-on-dark)}.wfv-miss{color:var(--neg-on-dark)}.wfv-li-st{font-size:12px;color:var(--on-dark-muted);white-space:nowrap}' +
+      '.wfv-btn-sm{padding:6px 11px;font-size:12.5px;white-space:nowrap;background:var(--accent);color:var(--green-950)}.wfv-btn-sm:hover{background:var(--gold-400)}.wfv-box .wfv-btn{background:var(--accent);color:var(--green-950)}.wfv-box .wfv-btn:hover{background:var(--gold-400)}.wfv-box .wfv-back{margin-bottom:10px;background:transparent;color:var(--on-dark);border:1px solid var(--line-dark)}.wfv-box .wfv-back:hover{background:var(--navy-800);border-color:var(--accent)}';
     document.head.appendChild(st);
   }
 
   root.WFVideo = {
     init: init, enabled: enabled, signedIn: signedIn, statusOf: statusOf,
     track: track, mountPanel: mountPanel, refresh: refresh, ensureForShots: ensureForShots,
-    openShot: openShot, close: close, showReport: showReport, connect: connect, disconnect: disconnect, retry: retry,
+    openShot: openShot, openList: openList, backToList: backToList, goManage: goManage, close: close, showReport: showReport, connect: connect, disconnect: disconnect, retry: retry,
     setBackend: function (b) { backend = b; if (b && b.init) b.init(cfg); },
     _state: function () { return { games: games, links: links }; }
   };
