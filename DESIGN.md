@@ -30,6 +30,17 @@ Os nomes antigos foram mantidos para não tocar no CSS/JS que os usa:
 - Legenda **sem fundo próprio** (fundo claro do card), com as duas escalas separadas; os tamanhos de exemplo
   são calculados dos dados filtrados (1, ~15%, ~50% e o máximo — ex.: 1, 7, 22, 44).
 
+## Seleção de jogos
+- Cabeçalho e barra de filtros pretos; área principal clara (`--selector-bg` = `--paper`), cards brancos (`--card`).
+- Títulos das competições em tons legíveis sobre fundo claro (`GS_PALETTE`: `--accent-ink`, `--ink`, `--navy-700`).
+
+## Aba Comparar
+- Jogo A = laranja (`--cmp-a` = `--accent`), Jogo B = cinza (`--cmp-b` = `--gray-400`), em seletores, legenda, barras e tabela por jogador.
+- Uma linha por indicador: nome · valor A · barras divergentes a partir do eixo central · valor B · Δ.
+- Barras proporcionais ao maior valor absoluto da linha (escala começa em zero); valor negativo = barra tracejada.
+- **Negrito** no melhor valor conforme a direção do indicador (Pontos do adversário, Turnovers e DRTG: menor é melhor).
+- Δ = Jogo A − Jogo B; verde quando favorece o Jogo A, vermelho quando favorece o Jogo B, cinza "=" no empate.
+
 ## Validação obrigatória
 Comparar antes × depois em 1440, 1024, 768 e 390 px, medindo as caixas dos cards/colunas (devem ser iguais),
 conferindo que o número de marcadores e a soma dos hexágonos batem com o total de arremessos, e sem erros novos no console.
