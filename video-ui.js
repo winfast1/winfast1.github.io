@@ -1,4 +1,4 @@
-/* WinFast · vídeos dos arremessos nos Heat Maps (controlador + interface)
+/* WinFast · vídeos dos arremessos no Shot Chart (controlador + interface)
  *
  * Fluxo: ponto do mapa → WFVideo.openShot(sid) → vínculo (video-match.js) → blob: URL local do
  * clipe (video-local.js, pasta do OneDrive sincronizada) → pop-up com <video controls>.
@@ -131,7 +131,7 @@
     if (el) renderPanel(el, getShots());
   }
 
-  /* ───────────── painel de status (aba do atleta) ───────────── */
+  /* ───────────── painel de status (aba Shot Chart) ───────────── */
   function renderPanel(el, shots) {
     var h = '<div class="wfv-panel">', lb = L();
     if (!enabled()) {
@@ -302,7 +302,7 @@
     if (document.getElementById('wfv-style')) return;
     var st = document.createElement('style'); st.id = 'wfv-style';
     st.textContent =
-      '.wfv-ov{position:fixed;inset:0;background:rgba(9,19,43,.82);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px}.wfv-ov[hidden]{display:none}' +
+      '.wfv-ov{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px}.wfv-ov[hidden]{display:none}' +
       '.wfv-box{background:var(--navy-950);color:var(--on-dark);border:1px solid var(--navy-700);border-radius:10px;width:min(920px,100%);max-height:92vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);font-family:Barlow,system-ui,sans-serif}' +
       '.wfv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:14px 16px;background:linear-gradient(115deg,var(--green-900),var(--navy-900));border-bottom:2px solid var(--accent);border-radius:10px 10px 0 0}' +
       '.wfv-title{font-size:17px;font-weight:700}.wfv-sub{font-size:12.5px;color:var(--on-dark-muted);margin-top:2px}' +

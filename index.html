@@ -2662,9 +2662,10 @@ function courtSVG(imgId, dotsId){
    +'<g id="'+dotsId+'"></g></svg>';
 }
 
-function paintDots(shots, dotsId){
+/* withVideo=true só no mapa do Shot Chart: é a única aba com os vídeos dos arremessos */
+function paintDots(shots, dotsId, withVideo){
   var g=document.getElementById(dotsId); if(!g)return;
-  var V=window.WFVideo, vOn=!!(V&&V.enabled());
+  var V=window.WFVideo, vOn=!!(withVideo&&V&&V.enabled());
   g.innerHTML=shots.map(function(s){
     var x=(s.X_pct/100)*600,y=(s.Y_pct/100)*320,conv=s.Convertido==='Sim';
     var st=vOn?V.statusOf(s.sid):null, playable=(st==='ok'||st==='check');
@@ -2682,7 +2683,7 @@ function paintDots(shots, dotsId){
     }
     return '<g style="cursor:pointer;"'+attrs+'>'+tip+hit+ring+shape+'</g>';
   }).join('');
-  if(V&&V.track)V.track(dotsId,shots);
+  if(vOn&&V.track)V.track(dotsId,shots);
 }
 
 /* ================== ZONAS DE ARREMESSO (geometria da quadra) ==================
@@ -3754,14 +3755,16 @@ function renderShotchart(){
     +'<button class="wf-chip'+(view==='shots'?' on':'')+'" onclick="setSCView(\'shots\')">Por arremesso</button>'
     +'<button class="wf-chip'+(view==='region'?' on':'')+'" onclick="setSCView(\'region\')">Por região</button>'
     +'<span style="margin-left:auto;font-size:11px;color:'+C.mut2+';font-style:italic;">'+scopeLabel+'</span></div>';
-  var courtHtml,legendHtml;
+  var courtHtml,legendHtml,vOn=!!(window.WFVideo&&WFVideo.enabled());
+  var videoHtml='<div id="wfv-panel-sc" style="margin-top:10px;"></div>'
+    +(view==='region'&&vOn?'<div style="font-size:11px;color:'+C.mut2+';margin:-4px 0 8px;">Os vídeos abrem pelos pontos da visão <b>Por arremesso</b>.</div>':'');
   if(view==='region'){
     courtHtml=courtSVGHex('sc-hex','sc-zt');
     legendHtml='<div id="sc-hexlegend"></div>';
   } else {
     courtHtml=courtSVG('sc-hm','sc-dots');
     legendHtml='<div id="sc-zonelegend"></div>'
-      +'<div style="display:flex;gap:16px;margin-top:10px;"><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.good+';border-radius:50%;"></span>Converteu</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.bad+';"></span>Errou</span><span style="font-size:11px;color:'+C.mut2+';margin-left:auto;">Passe o mouse sobre um arremesso para detalhes</span></div>';
+      +'<div style="display:flex;gap:16px;margin-top:10px;"><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.good+';border-radius:50%;"></span>Converteu</span><span class="wf-zonelegend"><span class="wf-dot" style="background:'+C.bad+';"></span>Errou</span><span style="font-size:11px;color:'+C.mut2+';margin-left:auto;">'+(vOn?'Clique em um arremesso com contorno para ver o vídeo':'Passe o mouse sobre um arremesso para detalhes')+'</span></div>';
   }
   var html='<div style="display:flex;gap:16px;flex-wrap:wrap;" class="wf-body"><div style="flex:2;min-width:320px;"><div class="wf-card">'
     +'<div style="font-size:14px;font-weight:600;margin-bottom:12px;">Mapa de arremessos</div>'
@@ -3772,6 +3775,7 @@ function renderShotchart(){
     +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;min-width:52px;">Jogador</span>'
     +'<select class="wf-sel" onchange="setSCP(this.value)"><option value="all"'+(SEL.scP==='all'?' selected':'')+'>Todos</option>'+shooters.map(function(p){return'<option value="'+p+'"'+(SEL.scP===p?' selected':'')+'>'+p+'</option>';}).join('')+'</select></div>'
     +viewSel
+    +videoHtml
     +'<div style="margin-top:6px;">'+courtHtml+'</div>'
     +legendHtml
     +'</div></div>'
@@ -3787,10 +3791,11 @@ function paintSC(){
     var hl=document.getElementById('sc-hexlegend');
     if(hl)hl.innerHTML=hexLegend(zoneRef);
   } else {
-    renderHeatmap(shots,'sc-hm');paintDots(shots,'sc-dots');
+    renderHeatmap(shots,'sc-hm');paintDots(shots,'sc-dots',true);
     var zl=document.getElementById('sc-zonelegend');
     if(zl)zl.innerHTML=zoneLegend(shots,3);
   }
+  if(window.WFVideo)WFVideo.mountPanel('wfv-panel-sc',scShots);
   var tot=shots.length,made=shots.filter(function(s){return s.Convertido==='Sim';}).length;
   var s3=shots.filter(function(s){return s.Tipo==='3pts';}),s3m=s3.filter(function(s){return s.Convertido==='Sim';}).length;
   var s2=shots.filter(function(s){return s.Tipo==='2pts';}),s2m=s2.filter(function(s){return s.Convertido==='Sim';}).length;
@@ -4167,7 +4172,6 @@ window.paintPlayer=function(){
     +'<button class="wf-chip'+(SEL.plrView==='shots'?' on':'')+'" onclick="setPlrView(\'shots\')">Por arremesso</button>'
     +'<button class="wf-chip'+(SEL.plrView==='region'?' on':'')+'" onclick="setPlrView(\'region\')">Por região</button>'
     +'</div>'
-    +(SEL.plrView==='region'?'':'<div id="wfv-panel-plr"></div>')
     +(SEL.plrView==='region'?courtSVGHex('plr-hex','plr-zt')+'<div id="plr-hexlegend"></div>':courtSVG('plr-hm','plr-dots')+zoneLegend(shots,2))
     +'</div>'
     +'<div>'
@@ -4191,7 +4195,6 @@ window.paintPlayer=function(){
     if(hl)hl.innerHTML=hexLegend(null);
   } else {
     renderHeatmap(shots,'plr-hm'); paintDots(shots,'plr-dots');
-    if(window.WFVideo)WFVideo.mountPanel('wfv-panel-plr',function(){return shots;});
   }
 
   // avançadas + USG + saldo por jogo
@@ -4781,7 +4784,7 @@ if(window.WFVideo){
     getGame:function(gid){var g=GM.filter(function(x){return x.id===gid;})[0];return g?{id:g.id,name:g.rowName,usp:g.usp,adv:g.adv,date:g.date}:null;},
     getShots:function(gid){return SHOTS.filter(function(s){return s.jogo_id===gid&&s.Time===MY_TEAM;});},
     getShot:function(sid){for(var i=0;i<SHOTS.length;i++)if(SHOTS[i].sid===sid)return SHOTS[i];return null;},
-    paintDots:function(shots,id){paintDots(shots,id);}
+    paintDots:function(shots,id){paintDots(shots,id,true);}
   });
 }
 

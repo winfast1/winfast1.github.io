@@ -1,10 +1,10 @@
 # Vídeos dos arremessos nos Heat Maps
 
-Na aba **Jogador**, cada ponto do mapa de arremessos que tem clipe ganha um contorno branco; clicar abre um pop-up com o vídeo (play/pause, volume, tela cheia, fechar).
+Na aba **Shot Chart** (visão *Por arremesso*), cada ponto do mapa de arremessos que tem clipe ganha um contorno branco; clicar abre um pop-up com o vídeo (play/pause, volume, tela cheia, fechar).
 
 ## Como o site acessa os vídeos (sem Azure, sem login, sem link público)
 
-Os clipes ficam na pasta do OneDrive **sincronizada no computador** (ex.: `...\Área de Trabalho\BASQUETE`). Na aba Jogador, clique em **Selecionar pasta de vídeos** e escolha essa pasta raiz. O navegador (Chrome ou Edge no desktop) passa a ler a pasta em modo **somente leitura**; o vídeo toca direto do disco, via `blob:` local.
+Os clipes ficam na pasta do OneDrive **sincronizada no computador** (ex.: `...\Área de Trabalho\BASQUETE`). Na aba Shot Chart, clique em **Selecionar pasta de vídeos** e escolha essa pasta raiz. O navegador (Chrome ou Edge no desktop) passa a ler a pasta em modo **somente leitura**; o vídeo toca direto do disco, via `blob:` local.
 
 - Nenhum vídeo, caminho ou dado sai do computador; nada vai para o GitHub.
 - Só vê os vídeos quem tem a pasta sincronizada no PC — ou seja, quem tem acesso no OneDrive. Para liberar alguém, compartilhe a pasta com a pessoa e ela a sincroniza ("Adicionar atalho ao meu OneDrive" / Sincronizar).
