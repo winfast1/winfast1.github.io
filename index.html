@@ -16,21 +16,23 @@
    + âmbar (destaque) + vermelho (somente negativo/atenção).
    Regra de desempenho:  positivo = --pos  ·  intermediário/alerta = --warn  ·  negativo = --neg  ·  neutro = --neu  */
 :root{
-  /* verdes */
-  --green-950:#071F16;--green-900:#0B2F22;--green-800:#0F4A34;--green-700:#17604A;--green-600:#1F7A58;--green-100:#DDEBE3;--green-50:#EEF5F0;
-  /* azul-marinho */
-  --navy-950:#09132B;--navy-900:#0E1F44;--navy-800:#162F61;--navy-700:#21427F;--navy-600:#2D58A5;--navy-100:#E1E8F4;
-  /* âmbar / laranja (destaque) */
-  --amber-500:#F5A524;--amber-600:#DB8A0D;--amber-700:#9A5A06;--amber-100:#FCEFD3;
+  /* IDENTIDADE WINFAST (preto/laranja/dourado, amostrada do logotipo oficial).
+     Os nomes "green"/"navy"/"amber" foram mantidos para nao mexer no CSS/JS que os usa:
+     green-* = escala de pretos (institucional) · navy-* = quadra e cinzas · amber-* = laranja/dourado */
+  --green-950:#000000;--green-900:#0A0A0A;--green-800:#000000;--green-700:#1F1F1F;--green-600:#3A3A3A;--green-100:#EBEBE9;--green-50:#F4F4F2;
+  --navy-950:#000000;--navy-900:#111111;--navy-800:#1F1F1F;--navy-700:#6B6B6B;--navy-600:#404040;--navy-100:#EBEBE9;
+  --amber-500:#F5A000;--amber-600:#C77700;--amber-700:#9A5B00;--amber-100:#FDF0D5;--gold-400:#FFB52E;
+  /* Heat Map: escala sequencial laranja; mais claro = maior aproveitamento */
+  --seq-1:#4A3510;--seq-2:#8A5A00;--seq-3:#C77700;--seq-4:#F5A000;--seq-5:#FFD27A;
   /* vermelho (negativo) */
   --red-600:#C8372D;--red-700:#A82A21;--red-100:#FBE4E1;
   /* positivo */
   --good-600:#1E9B5C;--good-700:#147A47;--good-100:#DFF1E6;
-  /* off-white e neutros esverdeados */
-  --paper:#F3F2EA;--surface:#FBFAF5;--surface-2:#F1F0E7;--card:#FFFFFF;
-  --border:#D8D6C9;--border-soft:#E6E4D9;--border-strong:#BDBAA9;
-  --ink:#0D2218;--text:#1A2E24;--muted:#58675E;--muted-2:#66746B;
-  --on-dark:#F4F3EA;--on-dark-muted:#A8B7AE;--line-dark:rgba(244,243,234,.16);
+  /* branco e cinza-claro (neutros) */
+  --paper:#F4F4F2;--surface:#FAFAF9;--surface-2:#EFEFED;--card:#FFFFFF;
+  --border:#DCDCD9;--border-soft:#E8E8E5;--border-strong:#BDBDB9;
+  --ink:#111111;--text:#1A1A1A;--muted:#595959;--muted-2:#666666;
+  --on-dark:#FFFFFF;--on-dark-muted:#B8B8B8;--line-dark:rgba(255,255,255,.16);
 
   /* papéis semânticos (usar estes no CSS e no JS, nunca o hex) */
   --brand:var(--green-800);--brand-hover:var(--green-700);--accent:var(--amber-500);--accent-ink:var(--amber-700);
@@ -38,12 +40,14 @@
   --warn:var(--amber-700);--warn-fill:var(--amber-500);--warn-bg:var(--amber-100);
   --neg:var(--red-700);--neg-fill:var(--red-600);--neg-bg:var(--red-100);
   --neu:var(--muted);--neu-fill:var(--muted-2);--neu-bg:var(--surface-2);
-  --team:var(--green-700);--opp:var(--navy-700);   /* séries: Med Usp × adversário */
+  --team:var(--amber-600);--opp:var(--navy-700);   /* séries: Med Usp (laranja) × adversário (cinza) */
+  --gray-400:#A3A3A3;--cmp-a:var(--accent);--cmp-b:var(--gray-400);   /* aba Comparar: Jogo A (laranja) × Jogo B (cinza) */
+  --selector-bg:var(--paper);   /* área principal da seleção de jogos */
   --court:var(--navy-900);--court-deep:var(--navy-950);
   --pos-on-dark:#3FCB82;--neg-on-dark:#F2685C;--orange-500:#E5762B;--good-400:#58B882;
   --stage:var(--green-950);
-  --shadow-sm:0 1px 3px rgba(7,31,22,.08);--shadow-md:0 6px 20px rgba(7,31,22,.14);--shadow-lg:0 14px 40px rgba(7,31,22,.28);
-  --focus:0 0 0 3px rgba(245,165,36,.45);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.14);--shadow-lg:0 14px 40px rgba(0,0,0,.28);
+  --focus:0 0 0 3px rgba(245,160,0,.45);
 
   /* nomes legados (login, seletor de jogos) apontando para os tokens */
   --bg:var(--paper);--sf:var(--surface);--sf2:var(--surface-2);--bd:var(--border);--usp:var(--brand);
@@ -149,7 +153,7 @@ td:first-child{text-align:left;font-weight:500;}tr:last-child td{border-bottom:n
 .back-btn:hover{border-color:var(--brand);color:var(--brand);}
 .logout-btn:hover{border-color:var(--neg-fill);color:var(--neg);}
 #app-container{display:none;}
-#game-selector{position:fixed;inset:0;background:var(--stage);z-index:9998;display:none;flex-direction:column;overflow-y:auto;}
+#game-selector{position:fixed;inset:0;background:var(--selector-bg);z-index:9998;display:none;flex-direction:column;overflow-y:auto;}
 .gs-topbar{background:var(--sf);border-bottom:2px solid var(--accent);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:3;}
 .gs-filterbar{background:var(--sf2);border-bottom:1px solid var(--bd);padding:10px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:57px;z-index:2;}
 .gs-search-wrap{position:relative;flex:1;min-width:180px;max-width:300px;}
@@ -295,10 +299,52 @@ svg polyline.ln{stroke-dasharray:1600;stroke-dashoffset:1600;animation:wfDraw 1.
 #game-selector .gs-topbar .gs-action-btn:hover{border-color:var(--accent);color:var(--accent);}
 #game-selector #gs-count{color:var(--on-dark);}
 #game-selector .gs-card{box-shadow:var(--shadow-sm);}
-#game-selector .gs-section-title{color:var(--on-dark);}
+#game-selector .gs-card{background:var(--card);}
+#game-selector .gs-section-title{color:var(--ink);border-bottom:1px solid var(--border);}
+#game-selector .gs-section-count{color:var(--muted);opacity:1;}
 #game-selector .gs-search-input{background:var(--navy-950);color:var(--on-dark);}
 #game-selector .gs-search-input::placeholder{color:var(--on-dark-muted);}
 #game-selector .gs-period-dd{--tx:var(--text);--mu:var(--muted);--mu2:var(--muted-2);--bd:var(--border);--bg:var(--paper);}
+/* ── ABA COMPARAR: tabela de barras divergentes (Jogo A laranja × Jogo B cinza) ── */
+.cmp-pick{display:flex;gap:14px;align-items:flex-end;}
+.cmp-pick>div{flex:0 1 320px;min-width:0;}
+.cmp-pick .wf-sel{width:100%;text-overflow:ellipsis;}
+.cmp-sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;}
+.cmp-sw.a{background:var(--cmp-a);}.cmp-sw.b{background:var(--cmp-b);}
+.cmp-vs{font-size:14px;color:var(--muted);padding-bottom:9px;}
+.cmp-wrap{max-width:920px;margin:0 auto;}
+.cmp-legend{display:flex;gap:8px 24px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:16px;}
+.cmp-legend b{color:var(--ink);font-weight:600;}
+.cmp-grid{display:grid;grid-template-columns:minmax(120px,1.3fr) 64px minmax(0,4fr) 64px 72px;column-gap:12px;align-items:center;}
+.cmp-head{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.cmp-head .c{text-align:center;}
+.cmp-row{min-height:42px;border-bottom:1px solid var(--border-soft);}
+.cmp-lbl{font-size:13px;color:var(--text);padding:6px 0;}
+.cmp-lbl small{display:block;font-size:10.5px;color:var(--muted-2);margin-top:1px;}
+.cmp-val{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.cmp-val.a{text-align:right;}.cmp-val.b{text-align:left;}
+.cmp-val.best{font-weight:700;color:var(--ink);}
+.cmp-bars{align-self:stretch;display:flex;align-items:center;position:relative;}
+.cmp-bars::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border-strong);}
+.cmp-half{flex:1;display:flex;height:16px;}
+.cmp-half.a{justify-content:flex-end;padding-right:1px;}.cmp-half.b{justify-content:flex-start;padding-left:1px;}
+.cmp-half span{display:block;height:100%;}
+.cmp-half.a span{background:var(--cmp-a);border-radius:3px 0 0 3px;}
+.cmp-half.b span{background:var(--cmp-b);border-radius:0 3px 3px 0;}
+.cmp-half span.neg{background:transparent;border:1.5px dashed var(--muted-2);box-sizing:border-box;}
+.cmp-half.a span.neg{background:transparent;border-color:var(--cmp-a);}
+.cmp-half.b span.neg{background:transparent;}
+.cmp-d{text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.cmp-note{font-size:11.5px;color:var(--muted-2);margin-top:14px;line-height:1.55;}
+@media (max-width:600px){
+  .cmp-pick{gap:8px;}.cmp-vs{display:none;}
+  .cmp-grid{grid-template-columns:48px minmax(0,1fr) 48px 56px;column-gap:8px;}
+  .cmp-lbl{grid-column:1/-1;padding:8px 0 2px;}
+  .cmp-lbl small{display:inline;margin-left:6px;}
+  .cmp-head .lbl{display:none;}
+  .cmp-row{padding-bottom:6px;}
+  .cmp-val{font-size:14px;}
+}
 </style>
 </head>
 <body>
@@ -557,7 +603,7 @@ var _gsCompColorMap={};
 var GS_MONTHS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 var GS_MONTHS_FULL=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 var GS_DOW=['D','S','T','Q','Q','S','S'];
-var GS_PALETTE=['#7FA8F2','#F5A524','#5FCB97','#B9A2E6','#F2905A','#62C4DE','#C2D162','#A9B8C2'];
+var GS_PALETTE=['var(--accent-ink)','var(--ink)','var(--navy-700)'];   /* cores das competicoes: tons da marca legiveis como texto no fundo claro da selecao */
 
 function gsCompColor(name){
   if(!_gsCompColorMap[name]){var idx=Object.keys(_gsCompColorMap).length%GS_PALETTE.length;_gsCompColorMap[name]=GS_PALETTE[idx];}
@@ -2383,7 +2429,7 @@ function initWFDashboard(){
   if(teamSub&&window._myTeamName)teamSub.textContent='Painel de Jogo · '+window._myTeamName;
 
   var recEl=document.getElementById('wf-record');
-  if(recEl)recEl.innerHTML=SEASON.n+' JOGOS &middot; <span style="color:#4CBF6C;">'+SEASON.w+'V</span> <span style="color:#A5171C;">'+SEASON.l+'D</span>';
+  if(recEl)recEl.innerHTML=SEASON.n+' JOGOS &middot; <span style="color:var(--pos-on-dark);">'+SEASON.w+'V</span> <span style="color:var(--neg-on-dark);">'+SEASON.l+'D</span>';
 
   // Inicializar renderização
   if(typeof renderAside==='function')renderAside();
@@ -2809,6 +2855,10 @@ function pctColor(pct){
   return'var(--neg-fill)';
 }
 
+// Heat Map: 5 faixas de aproveitamento (0–7, 8–22, 23–37, 38–52, 53%+)
+var HEX_FAIXAS=[[7.5,'var(--seq-1)','0–7%'],[22.5,'var(--seq-2)','8–22%'],[37.5,'var(--seq-3)','23–37%'],[52.5,'var(--seq-4)','38–52%'],[1e9,'var(--seq-5)','53%+']];
+function hexColor(pct){ for(var i=0;i<HEX_FAIXAS.length;i++){ if(pct<HEX_FAIXAS[i][0]) return HEX_FAIXAS[i][1]; } return HEX_FAIXAS[4][1]; }
+
 function hexPts(cx,cy,r){
   var pts=[];
   for(var i=0;i<6;i++){var a=Math.PI/3*i;pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));}
@@ -2851,14 +2901,14 @@ function paintHexbin(shots,hexId,zoneRef){
   var maxT=0;
   keys.forEach(function(k){if(hexes[k].total>maxT)maxT=hexes[k].total;});
   if(!maxT){g.innerHTML='';return;}
+  window._wfHexMax=maxT;
   var parts=[];
   keys.forEach(function(k){
     var h=hexes[k];
     var pct=h.total>0?h.made/h.total*100:0;
     var ratio=h.total/maxT;
-    var sz=R*(0.4+0.6*ratio);
-    var op=Math.min(0.92,0.45+0.47*ratio).toFixed(2);
-    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+pctColor(pct)+'" opacity="'+op+'" stroke="rgba(0,0,0,.18)" stroke-width="0.6"/>');
+    var sz=R*(0.35+0.65*Math.sqrt(ratio));   // area proporcional ao n de arremessos
+    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+hexColor(pct)+'" stroke="var(--court)" stroke-width="1"><title>'+h.made+'/'+h.total+' convertidos ('+Math.round(pct)+'%)</title></polygon>');
   });
   g.innerHTML=parts.join('');
 }
@@ -2901,18 +2951,20 @@ function zoneRefFor(){
 }
 
 function hexLegend(zoneRef){
-  var refLabel=SEL.scP!=='all'?'média da equipe':'baseline universitário';
-  var szDemo='<svg viewBox="0 0 90 24" style="width:90px;height:24px;vertical-align:middle;">'
-    +[5,8,12,16].map(function(r,i){return'<polygon points="'+hexPts(10+i*23,12,r)+'" fill="rgba(200,200,200,.6)" stroke="var(--muted-2)" stroke-width="0.5"/>';}).join('')+'</svg>';
-  var colDemo='<div style="display:flex;align-items:center;gap:2px;margin-top:4px;">'
-    +'<span style="font-size:9px;color:var(--muted);">0%</span>'
-    +['var(--neg-fill)','var(--orange-500)','var(--amber-500)','var(--good-400)','var(--good-600)'].map(function(c){return'<div style="width:18px;height:9px;background:'+c+';border-radius:2px;opacity:.85;"></div>';}).join('')
-    +'<span style="font-size:9px;color:var(--muted);">100%</span></div>';
-  return'<div style="display:flex;gap:20px;margin-top:10px;flex-wrap:wrap;padding:0 2px;">'
-    +'<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Frequência</div>'
-    +szDemo+'<div style="font-size:9px;color:var(--muted-2);margin-top:3px;">baixa → alta</div></div>'
-    +'<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Aproveitamento</div>'
-    +colDemo+'<div style="font-size:9px;color:var(--muted-2);margin-top:3px;">% de acerto por cluster</div></div></div>';
+  var mx=window._wfHexMax||1;
+  var cor=HEX_FAIXAS.map(function(f){
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:50px;"><span style="display:block;width:50px;height:14px;border-radius:2px;background:'+f[1]+';"></span><span style="font-size:12px;color:var(--muted);">'+f[2]+'</span></div>';
+  }).join('');
+  var tams=[0,0.15,0.5,1].map(function(r){return Math.max(1,Math.round(mx*r));});
+  tams=tams.filter(function(v,i){return tams.indexOf(v)===i;});
+  var tam=tams.map(function(v){
+    var sz=14*(0.35+0.65*Math.sqrt(v/mx));
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:34px;"><svg viewBox="0 0 30 30" width="30" height="30" aria-hidden="true"><polygon points="'+hexPts(15,15,sz)+'" fill="var(--muted-2)"/></svg><span style="font-size:12px;color:var(--muted);">'+v+'</span></div>';
+  }).join('');
+  return '<div style="display:flex;gap:16px 36px;margin-top:10px;flex-wrap:wrap;padding:0 2px;align-items:flex-start;">'
+    +'<div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Cor = aproveitamento</div><div style="display:flex;gap:4px;align-items:flex-end;">'+cor+'</div></div>'
+    +'<div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Tamanho = nº de arremessos</div><div style="display:flex;gap:8px;align-items:flex-end;">'+tam+'</div></div>'
+    +'</div>';
 }
 
 function courtSVGHex(hexId,ztId){
@@ -3771,10 +3823,10 @@ function cmpRowMaps(A,B){
 }
 function renderComparar(){
   var opt=function(sel){return GAMES.map(function(g){return '<option value="'+g.id+'"'+(g.id===sel?' selected':'')+'>vs '+g.adv+' ('+g.date+')</option>';}).join('');};
-  var html='<div class="wf-card" style="margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;">'
-    +'<div><div class="wf-stat-label" style="margin-bottom:4px;">Jogo A</div><select class="wf-sel" onchange="SEL.cmpA=+this.value;paintCmp();">'+opt(SEL.cmpA)+'</select></div>'
-    +'<div style="font-size:18px;color:'+C.mut+';">vs</div>'
-    +'<div><div class="wf-stat-label" style="margin-bottom:4px;">Jogo B</div><select class="wf-sel" onchange="SEL.cmpB=+this.value;paintCmp();">'+opt(SEL.cmpB)+'</select></div></div>'
+  var html='<div class="wf-card cmp-pick" style="margin-bottom:16px;">'
+    +'<div><label class="wf-stat-label" for="cmp-sel-a" style="display:block;margin-bottom:4px;"><span class="cmp-sw a"></span>Jogo A</label><select id="cmp-sel-a" class="wf-sel" onchange="SEL.cmpA=+this.value;paintCmp();">'+opt(SEL.cmpA)+'</select></div>'
+    +'<div class="cmp-vs" style="flex:none;">vs</div>'
+    +'<div><label class="wf-stat-label" for="cmp-sel-b" style="display:block;margin-bottom:4px;"><span class="cmp-sw b"></span>Jogo B</label><select id="cmp-sel-b" class="wf-sel" onchange="SEL.cmpB=+this.value;paintCmp();">'+opt(SEL.cmpB)+'</select></div></div>'
     +'<div class="wf-card" id="cmp-body"></div>'
     +'<div class="wf-card" id="cmp-players" style="margin-top:16px;"></div>';
   document.getElementById('wf-main').innerHTML=html;
@@ -3783,14 +3835,18 @@ function renderComparar(){
 function paintCmp(){
   var A=gById(SEL.cmpA), B=gById(SEL.cmpB);
   var rows=[
-    ['Pontos', A.pts, B.pts, 0, true],['Adversário', A.advPts, B.advPts, 0, false],
+    ['Pontos', A.pts, B.pts, 0, true],['Pontos do adversário', A.advPts, B.advPts, 0, false],
     ['FG%', A.fgpct, B.fgpct, 1, true],['3P%', A.fg3pct, B.fg3pct, 1, true],['LL%', A.ftpct, B.ftpct, 1, true],
     ['Rebotes', A.us.REB, B.us.REB, 0, true],['Assistências', A.us.AST, B.us.AST, 0, true],
     ['Turnovers', A.us.TO, B.us.TO, 0, false],['Roubadas', A.us.STL, B.us.STL, 0, true],
     ['ORTG', A.ortg, B.ortg, 0, true],['DRTG', A.drtg, B.drtg, 0, false],['Net RTG', A.net, B.net, 0, true],['TS%', A.ts, B.ts, 1, true]
   ];
-  var head='<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:6px;font-size:11px;color:'+C.mut+';text-transform:uppercase;letter-spacing:.04em;">'
-    +'<span></span><span style="text-align:center;font-weight:700;color:'+C.navy+';">vs '+A.adv+'</span><span style="text-align:center;font-weight:700;color:'+C.gold+';">vs '+B.adv+'</span><span style="text-align:right;">Δ</span></div>';
+  var gameLbl=function(g){return 'vs '+g.adv+' · '+g.date+' · '+g.pts+' × '+g.advPts;};
+  var top='<div class="cmp-legend"><span><span class="cmp-sw a"></span><b>Jogo A</b> — '+gameLbl(A)+'</span>'
+    +'<span><span class="cmp-sw b"></span><b>Jogo B</b> — '+gameLbl(B)+'</span></div>';
+  var head='<div class="cmp-grid cmp-head"><span class="lbl">Indicador</span><span style="text-align:right;">Jogo A</span>'
+    +'<span></span><span>Jogo B</span><span style="text-align:right;">Δ (A − B)</span></div>';
+  var anyNeg=false;
   var body=rows.map(function(r){
     var a=r[1],b=r[2],d=r[3],higherGood=r[4];
     var tie=Math.abs(a-b)<1e-9;
@@ -3798,17 +3854,25 @@ function paintCmp(){
     var diff=a-b;
     var diffGoodSide=higherGood?diff>0:diff<0;
     var diffCol=tie?C.mut:(diffGoodSide?C.good:C.bad);
-    var cell=function(v,winner){
-      return '<span style="text-align:center;font-size:15px;font-weight:700;'+(winner&&!tie?'background:var(--surface-2);border:1px solid var(--border);border-radius:7px;padding:3px 0;color:'+C.navy+';':'color:var(--muted);padding:4px 0;')+'">'+fmt(v,d)+'</span>';
+    /* barras proporcionais ao maior valor absoluto da linha; valor negativo = barra tracejada */
+    var mx=Math.max(Math.abs(a)||0,Math.abs(b)||0);
+    var bar=function(v){
+      if(!mx||!isFinite(v)) return '';
+      if(v<0) anyNeg=true;
+      return '<span class="'+(v<0?'neg':'')+'" style="width:'+(Math.abs(v)/mx*100).toFixed(2)+'%;" data-v="'+v+'"></span>';
     };
-    return '<div style="display:grid;grid-template-columns:1fr 104px 104px 74px;gap:8px;padding:7px 0;border-bottom:1px solid var(--border-soft);align-items:center;">'
-      +'<span style="font-size:13px;color:'+C.mut+';">'+r[0]+'</span>'
-      +cell(a,aBetter)+cell(b,!aBetter)
-      +'<span style="text-align:right;font-size:12px;font-weight:700;color:'+diffCol+';">'+(tie?'=':(diff>0?'+':'')+fmt(diff,d))+'</span>'
+    return '<div class="cmp-grid cmp-row" data-ind="'+r[0]+'" data-better="'+(tie?'=':aBetter?'A':'B')+'">'
+      +'<span class="cmp-lbl">'+r[0]+(higherGood?'':'<small>menor é melhor</small>')+'</span>'
+      +'<span class="cmp-val a'+(aBetter&&!tie?' best':'')+'">'+fmt(a,d)+'</span>'
+      +'<span class="cmp-bars"><span class="cmp-half a">'+bar(a)+'</span><span class="cmp-half b">'+bar(b)+'</span></span>'
+      +'<span class="cmp-val b'+(!aBetter&&!tie?' best':'')+'">'+fmt(b,d)+'</span>'
+      +'<span class="cmp-d" style="color:'+diffCol+';">'+(tie?'=':(diff>0?'+':'')+fmt(diff,d))+'</span>'
       +'</div>';
   }).join('');
-  var legend='<div style="font-size:11px;color:'+C.mut2+';margin-top:10px;">Valor destacado = melhor no indicador · Δ = diferença (Jogo A − Jogo B), verde quando favorece o Jogo A</div>';
-  document.getElementById('cmp-body').innerHTML=head+body+legend;
+  var legend='<div class="cmp-note"><b>Negrito</b> = melhor desempenho no indicador, considerando a direção desejável (em Pontos do adversário, Turnovers e DRTG, menor é melhor). '
+    +'Δ = Jogo A − Jogo B: <span style="color:'+C.good+';font-weight:700;">verde</span> quando a diferença favorece o Jogo A, <span style="color:'+C.bad+';font-weight:700;">vermelho</span> quando favorece o Jogo B. '
+    +'Barras proporcionais ao maior valor de cada linha'+(anyNeg?'; barra tracejada = valor negativo':'')+'.</div>';
+  document.getElementById('cmp-body').innerHTML='<div class="cmp-wrap">'+top+head+body+legend+'</div>';
 
   paintCmpPlayers();
 }
@@ -3817,10 +3881,10 @@ function paintCmpPlayers(){
   var cp=document.getElementById('cmp-players'); if(!cp)return;
   var A=gById(SEL.cmpA), B=gById(SEL.cmpB);
   var M=cmpRowMaps(A,B), names=M.names;
-  var cell=function(r){return r? '<td style="padding:7px 5px;text-align:right;font-weight:700;color:'+C.gold+';">'+r.pts+'</td><td style="padding:7px 5px;text-align:right;">'+r.reb+'</td><td style="padding:7px 5px;text-align:right;">'+r.ast+'</td><td style="padding:7px 5px;text-align:right;">'+r.to+'</td><td style="padding:7px 5px;text-align:right;font-weight:600;color:'+(r.pm>0?C.good:r.pm<0?C.bad:'inherit')+';">'+(r.pm>0?'+':'')+r.pm+'</td>' : '<td colspan="5" style="padding:7px 5px;text-align:center;color:'+C.mut2+';">—</td>';};
+  var cell=function(r){return r? '<td style="padding:7px 5px;text-align:right;font-weight:700;color:'+C.navy+';">'+r.pts+'</td><td style="padding:7px 5px;text-align:right;">'+r.reb+'</td><td style="padding:7px 5px;text-align:right;">'+r.ast+'</td><td style="padding:7px 5px;text-align:right;">'+r.to+'</td><td style="padding:7px 5px;text-align:right;font-weight:600;color:'+(r.pm>0?C.good:r.pm<0?C.bad:'inherit')+';">'+(r.pm>0?'+':'')+r.pm+'</td>' : '<td colspan="5" style="padding:7px 5px;text-align:center;color:'+C.mut2+';">—</td>';};
   cp.innerHTML='<div style="font-size:14px;font-weight:600;margin-bottom:12px;">Comparação por jogador</div>'
     +'<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:640px;">'
-    +'<thead><tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;letter-spacing:.04em;"><th rowspan="2" style="padding:6px 5px;text-align:left;border-bottom:1px solid var(--border);">Atleta</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid var(--border-soft);color:'+C.navy+';">vs '+A.adv+'</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid var(--border-soft);color:'+C.gold+';">vs '+B.adv+'</th></tr>'
+    +'<thead><tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;letter-spacing:.04em;"><th rowspan="2" style="padding:6px 5px;text-align:left;border-bottom:1px solid var(--border);">Atleta</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid var(--border-soft);color:'+C.navy+';"><span class="cmp-sw a"></span>Jogo A · vs '+A.adv+'</th><th colspan="5" style="padding:6px 5px;text-align:center;border-bottom:1px solid var(--border-soft);color:'+C.navy+';"><span class="cmp-sw b"></span>Jogo B · vs '+B.adv+'</th></tr>'
     +'<tr style="color:'+C.mut+';font-size:10px;text-transform:uppercase;">'+'<th style="padding:5px;text-align:right;border-bottom:1px solid var(--border);">PTS</th><th style="padding:5px;text-align:right;border-bottom:1px solid var(--border);">REB</th><th style="padding:5px;text-align:right;border-bottom:1px solid var(--border);">AST</th><th style="padding:5px;text-align:right;border-bottom:1px solid var(--border);">TO</th><th style="padding:5px;text-align:right;border-bottom:1px solid var(--border);">+/-</th>'.repeat(2)+'</tr></thead><tbody>'
     +names.map(function(n){return '<tr style="border-bottom:1px solid var(--border-soft);"><td style="padding:7px 5px;font-weight:600;color:'+C.navy+';">'+n+'</td>'+cell(M.a[n])+cell(M.b[n])+'</tr>';}).join('')
     +'</tbody></table></div>';
