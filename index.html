@@ -16,21 +16,23 @@
    + âmbar (destaque) + vermelho (somente negativo/atenção).
    Regra de desempenho:  positivo = --pos  ·  intermediário/alerta = --warn  ·  negativo = --neg  ·  neutro = --neu  */
 :root{
-  /* verdes */
-  --green-950:#071F16;--green-900:#0B2F22;--green-800:#0F4A34;--green-700:#17604A;--green-600:#1F7A58;--green-100:#DDEBE3;--green-50:#EEF5F0;
-  /* azul-marinho */
-  --navy-950:#09132B;--navy-900:#0E1F44;--navy-800:#162F61;--navy-700:#21427F;--navy-600:#2D58A5;--navy-100:#E1E8F4;
-  /* âmbar / laranja (destaque) */
-  --amber-500:#F5A524;--amber-600:#DB8A0D;--amber-700:#9A5A06;--amber-100:#FCEFD3;
+  /* IDENTIDADE WINFAST (preto/laranja/dourado, amostrada do logotipo oficial).
+     Os nomes "green"/"navy"/"amber" foram mantidos para nao mexer no CSS/JS que os usa:
+     green-* = escala de pretos (institucional) · navy-* = quadra e cinzas · amber-* = laranja/dourado */
+  --green-950:#000000;--green-900:#0A0A0A;--green-800:#000000;--green-700:#1F1F1F;--green-600:#3A3A3A;--green-100:#EBEBE9;--green-50:#F4F4F2;
+  --navy-950:#000000;--navy-900:#111111;--navy-800:#1F1F1F;--navy-700:#6B6B6B;--navy-600:#404040;--navy-100:#EBEBE9;
+  --amber-500:#F5A000;--amber-600:#C77700;--amber-700:#9A5B00;--amber-100:#FDF0D5;--gold-400:#FFB52E;
+  /* Heat Map: escala sequencial laranja; mais claro = maior aproveitamento */
+  --seq-1:#4A3510;--seq-2:#8A5A00;--seq-3:#C77700;--seq-4:#F5A000;--seq-5:#FFD27A;
   /* vermelho (negativo) */
   --red-600:#C8372D;--red-700:#A82A21;--red-100:#FBE4E1;
   /* positivo */
   --good-600:#1E9B5C;--good-700:#147A47;--good-100:#DFF1E6;
-  /* off-white e neutros esverdeados */
-  --paper:#F3F2EA;--surface:#FBFAF5;--surface-2:#F1F0E7;--card:#FFFFFF;
-  --border:#D8D6C9;--border-soft:#E6E4D9;--border-strong:#BDBAA9;
-  --ink:#0D2218;--text:#1A2E24;--muted:#58675E;--muted-2:#66746B;
-  --on-dark:#F4F3EA;--on-dark-muted:#A8B7AE;--line-dark:rgba(244,243,234,.16);
+  /* branco e cinza-claro (neutros) */
+  --paper:#F4F4F2;--surface:#FAFAF9;--surface-2:#EFEFED;--card:#FFFFFF;
+  --border:#DCDCD9;--border-soft:#E8E8E5;--border-strong:#BDBDB9;
+  --ink:#111111;--text:#1A1A1A;--muted:#595959;--muted-2:#666666;
+  --on-dark:#FFFFFF;--on-dark-muted:#B8B8B8;--line-dark:rgba(255,255,255,.16);
 
   /* papéis semânticos (usar estes no CSS e no JS, nunca o hex) */
   --brand:var(--green-800);--brand-hover:var(--green-700);--accent:var(--amber-500);--accent-ink:var(--amber-700);
@@ -38,12 +40,12 @@
   --warn:var(--amber-700);--warn-fill:var(--amber-500);--warn-bg:var(--amber-100);
   --neg:var(--red-700);--neg-fill:var(--red-600);--neg-bg:var(--red-100);
   --neu:var(--muted);--neu-fill:var(--muted-2);--neu-bg:var(--surface-2);
-  --team:var(--green-700);--opp:var(--navy-700);   /* séries: Med Usp × adversário */
+  --team:var(--amber-600);--opp:var(--navy-700);   /* séries: Med Usp (laranja) × adversário (cinza) */
   --court:var(--navy-900);--court-deep:var(--navy-950);
   --pos-on-dark:#3FCB82;--neg-on-dark:#F2685C;--orange-500:#E5762B;--good-400:#58B882;
   --stage:var(--green-950);
-  --shadow-sm:0 1px 3px rgba(7,31,22,.08);--shadow-md:0 6px 20px rgba(7,31,22,.14);--shadow-lg:0 14px 40px rgba(7,31,22,.28);
-  --focus:0 0 0 3px rgba(245,165,36,.45);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow-md:0 6px 20px rgba(0,0,0,.14);--shadow-lg:0 14px 40px rgba(0,0,0,.28);
+  --focus:0 0 0 3px rgba(245,160,0,.45);
 
   /* nomes legados (login, seletor de jogos) apontando para os tokens */
   --bg:var(--paper);--sf:var(--surface);--sf2:var(--surface-2);--bd:var(--border);--usp:var(--brand);
@@ -557,7 +559,7 @@ var _gsCompColorMap={};
 var GS_MONTHS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 var GS_MONTHS_FULL=['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 var GS_DOW=['D','S','T','Q','Q','S','S'];
-var GS_PALETTE=['#7FA8F2','#F5A524','#5FCB97','#B9A2E6','#F2905A','#62C4DE','#C2D162','#A9B8C2'];
+var GS_PALETTE=['var(--amber-500)','var(--gold-400)','var(--amber-600)','var(--navy-700)'];   /* cores das competicoes: so tons da marca (legiveis no fundo preto e nos pontos do calendario claro) */
 
 function gsCompColor(name){
   if(!_gsCompColorMap[name]){var idx=Object.keys(_gsCompColorMap).length%GS_PALETTE.length;_gsCompColorMap[name]=GS_PALETTE[idx];}
@@ -2383,7 +2385,7 @@ function initWFDashboard(){
   if(teamSub&&window._myTeamName)teamSub.textContent='Painel de Jogo · '+window._myTeamName;
 
   var recEl=document.getElementById('wf-record');
-  if(recEl)recEl.innerHTML=SEASON.n+' JOGOS &middot; <span style="color:#4CBF6C;">'+SEASON.w+'V</span> <span style="color:#A5171C;">'+SEASON.l+'D</span>';
+  if(recEl)recEl.innerHTML=SEASON.n+' JOGOS &middot; <span style="color:var(--pos-on-dark);">'+SEASON.w+'V</span> <span style="color:var(--neg-on-dark);">'+SEASON.l+'D</span>';
 
   // Inicializar renderização
   if(typeof renderAside==='function')renderAside();
@@ -2809,6 +2811,10 @@ function pctColor(pct){
   return'var(--neg-fill)';
 }
 
+// Heat Map: 5 faixas de aproveitamento (0–7, 8–22, 23–37, 38–52, 53%+)
+var HEX_FAIXAS=[[7.5,'var(--seq-1)','0–7%'],[22.5,'var(--seq-2)','8–22%'],[37.5,'var(--seq-3)','23–37%'],[52.5,'var(--seq-4)','38–52%'],[1e9,'var(--seq-5)','53%+']];
+function hexColor(pct){ for(var i=0;i<HEX_FAIXAS.length;i++){ if(pct<HEX_FAIXAS[i][0]) return HEX_FAIXAS[i][1]; } return HEX_FAIXAS[4][1]; }
+
 function hexPts(cx,cy,r){
   var pts=[];
   for(var i=0;i<6;i++){var a=Math.PI/3*i;pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));}
@@ -2851,14 +2857,14 @@ function paintHexbin(shots,hexId,zoneRef){
   var maxT=0;
   keys.forEach(function(k){if(hexes[k].total>maxT)maxT=hexes[k].total;});
   if(!maxT){g.innerHTML='';return;}
+  window._wfHexMax=maxT;
   var parts=[];
   keys.forEach(function(k){
     var h=hexes[k];
     var pct=h.total>0?h.made/h.total*100:0;
     var ratio=h.total/maxT;
-    var sz=R*(0.4+0.6*ratio);
-    var op=Math.min(0.92,0.45+0.47*ratio).toFixed(2);
-    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+pctColor(pct)+'" opacity="'+op+'" stroke="rgba(0,0,0,.18)" stroke-width="0.6"/>');
+    var sz=R*(0.35+0.65*Math.sqrt(ratio));   // area proporcional ao n de arremessos
+    parts.push('<polygon points="'+hexPts(h.cx,h.cy,sz)+'" fill="'+hexColor(pct)+'" stroke="var(--court)" stroke-width="1"><title>'+h.made+'/'+h.total+' convertidos ('+Math.round(pct)+'%)</title></polygon>');
   });
   g.innerHTML=parts.join('');
 }
@@ -2901,18 +2907,20 @@ function zoneRefFor(){
 }
 
 function hexLegend(zoneRef){
-  var refLabel=SEL.scP!=='all'?'média da equipe':'baseline universitário';
-  var szDemo='<svg viewBox="0 0 90 24" style="width:90px;height:24px;vertical-align:middle;">'
-    +[5,8,12,16].map(function(r,i){return'<polygon points="'+hexPts(10+i*23,12,r)+'" fill="rgba(200,200,200,.6)" stroke="var(--muted-2)" stroke-width="0.5"/>';}).join('')+'</svg>';
-  var colDemo='<div style="display:flex;align-items:center;gap:2px;margin-top:4px;">'
-    +'<span style="font-size:9px;color:var(--muted);">0%</span>'
-    +['var(--neg-fill)','var(--orange-500)','var(--amber-500)','var(--good-400)','var(--good-600)'].map(function(c){return'<div style="width:18px;height:9px;background:'+c+';border-radius:2px;opacity:.85;"></div>';}).join('')
-    +'<span style="font-size:9px;color:var(--muted);">100%</span></div>';
-  return'<div style="display:flex;gap:20px;margin-top:10px;flex-wrap:wrap;padding:0 2px;">'
-    +'<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Frequência</div>'
-    +szDemo+'<div style="font-size:9px;color:var(--muted-2);margin-top:3px;">baixa → alta</div></div>'
-    +'<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;">Aproveitamento</div>'
-    +colDemo+'<div style="font-size:9px;color:var(--muted-2);margin-top:3px;">% de acerto por cluster</div></div></div>';
+  var mx=window._wfHexMax||1;
+  var cor=HEX_FAIXAS.map(function(f){
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:50px;"><span style="display:block;width:50px;height:14px;border-radius:2px;background:'+f[1]+';"></span><span style="font-size:12px;color:var(--muted);">'+f[2]+'</span></div>';
+  }).join('');
+  var tams=[0,0.15,0.5,1].map(function(r){return Math.max(1,Math.round(mx*r));});
+  tams=tams.filter(function(v,i){return tams.indexOf(v)===i;});
+  var tam=tams.map(function(v){
+    var sz=14*(0.35+0.65*Math.sqrt(v/mx));
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:34px;"><svg viewBox="0 0 30 30" width="30" height="30" aria-hidden="true"><polygon points="'+hexPts(15,15,sz)+'" fill="var(--muted-2)"/></svg><span style="font-size:12px;color:var(--muted);">'+v+'</span></div>';
+  }).join('');
+  return '<div style="display:flex;gap:16px 36px;margin-top:10px;flex-wrap:wrap;padding:0 2px;align-items:flex-start;">'
+    +'<div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Cor = aproveitamento</div><div style="display:flex;gap:4px;align-items:flex-end;">'+cor+'</div></div>'
+    +'<div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Tamanho = nº de arremessos</div><div style="display:flex;gap:8px;align-items:flex-end;">'+tam+'</div></div>'
+    +'</div>';
 }
 
 function courtSVGHex(hexId,ztId){
