@@ -4282,7 +4282,7 @@ function lineupTable(title, color, stints, key){
     +stints.map(function(s){
       var isBest=s.score_diff===maxD&&maxD>0, isWorst=s.score_diff===minD&&minD<0;
       var faint=(s.tempo_total_segundos||0)<30;
-      var rowBg=isBest?'var(--surface-2)':isWorst?'var(--neg-bg)':'transparent';
+      var rowBg=isBest?'var(--pos-bg)':isWorst?'var(--neg-bg)':'transparent';   /* melhor = verde-claro, pior = vermelho-claro (mesma estrutura) */
       var lb=isBest?'3px solid '+C.good:isWorst?'3px solid '+C.bad:'3px solid transparent';
       var op=faint?'opacity:.45;':'';
       return '<tr style="border-bottom:1px solid var(--border-soft);background:'+rowBg+';'+op+'">'
