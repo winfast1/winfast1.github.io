@@ -1,6 +1,6 @@
 /* WinFast · configuração da integração de vídeos dos arremessos
  *
- * Os vídeos são lidos da pasta do OneDrive sincronizada no computador (Chrome/Edge): na aba Jogador,
+ * Os vídeos são lidos da pasta do OneDrive sincronizada no computador (Chrome/Edge): na aba Shot Chart,
  * clique em "Selecionar pasta de vídeos" e escolha a pasta raiz (ex.: BASQUETE). Nada é configurado
  * aqui sobre o caminho e nenhum dado sai do computador. Veja VIDEO_SETUP.md. */
 window.WF_VIDEO_CONFIG = {
